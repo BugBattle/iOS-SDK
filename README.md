@@ -1,6 +1,6 @@
 # BugBattle iOS SDK
 
-![BugBattle iOS SDK Intro](https://github.com/BugBattle/BugBattle-iOS-SDK.git/master/BugBattleInfo.png)
+![BugBattle iOS SDK Intro](https://github.com/BugBattle/BugBattle-iOS-SDK/blob/master/BugBattleInfo.png)
 
 The BugBattle SDK for iOS is the easiest way to integrate BugBattle into your apps!
 
