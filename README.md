@@ -1,6 +1,6 @@
 # BugBattle iOS SDK
 
-![BugBattle iOS SDK Intro](https://github.com/BugBattle/BugBattle-iOS-SDK/blob/master/BugBattleInfo.png)
+![BugBattle iOS SDK Intro](https://github.com/BugBattle/BugBattle-iOS-SDK/blob/master/imgs/BugBattleInfo.png)
 
 The BugBattle SDK for iOS is the easiest way to integrate BugBattle into your apps!
 
@@ -56,3 +56,16 @@ BugBattle.initialize(apiKey: "YOUR-API-KEY", activation: .Shake)
 
 ## Installation without CocoaPods
 
+**Download & install the BugBattle.framework**
+
+Download the latest Framework from [here](https://github.com/BugBattle/BugBattle-iOS-SDK/releases).
+
+![BugBattle iOS SDK Add Framework](https://github.com/BugBattle/BugBattle-iOS-SDK/blob/master/imgs/addframework.png)
+
+Now drag BugBattle.framework into your project. Make your to add the framework to your project targets.
+
+![BugBattle iOS SDK Framework Added](https://github.com/BugBattle/BugBattle-iOS-SDK/blob/master/imgs/frameworkadded.png)
+
+Your are almost done! Open up your project's general settings and add the framework to your embedded binaries (see screenshot below)
+
+![BugBattle iOS SDK Embedded Binaries Tutorial](https://github.com/BugBattle/BugBattle-iOS-SDK/blob/master/imgs/embeddedbinaries.png)
