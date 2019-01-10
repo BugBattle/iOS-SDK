@@ -1,0 +1,16 @@
+PODS:
+  - BugBattle (0.0.5)
+
+DEPENDENCIES:
+  - BugBattle
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - BugBattle
+
+SPEC CHECKSUMS:
+  BugBattle: 059fe2bc44c6e37fa400d468d6a0c71b27ccadd6
+
+PODFILE CHECKSUM: 9dd4ce53eee979f2d65a39f1f67175870df817f7
+
+COCOAPODS: 1.6.0.beta.2

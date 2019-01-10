@@ -1,0 +1,11 @@
+framework module BugBattle {
+  umbrella header "BugBattle.h"
+
+  export *
+  module * { export * }
+}
+
+module BugBattle.Swift {
+    header "BugBattle-Swift.h"
+    requires objc
+}
