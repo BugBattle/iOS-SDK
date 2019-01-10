@@ -60,12 +60,12 @@ BugBattle.initialize(apiKey: "YOUR-API-KEY", activation: .Shake)
 
 Download the latest Framework from [here](https://github.com/BugBattle/BugBattle-iOS-SDK/releases).
 
-![BugBattle iOS SDK Add Framework](https://github.com/BugBattle/BugBattle-iOS-SDK/blob/master/addframework)
+![BugBattle iOS SDK Add Framework](https://github.com/BugBattle/BugBattle-iOS-SDK/blob/master/imgs/addframework.png)
 
 Now drag BugBattle.framework into your project. Make your to add the framework to your project targets.
 
-![BugBattle iOS SDK Framework Added](https://github.com/BugBattle/BugBattle-iOS-SDK/blob/master/frameworkadded)
+![BugBattle iOS SDK Framework Added](https://github.com/BugBattle/BugBattle-iOS-SDK/blob/master/imgs/frameworkadded.png)
 
 Your are almost done! Open up your project's general settings and add the framework to your embedded binaries (see screenshot below)
 
-![BugBattle iOS SDK Embedded Binaries Tutorial](https://github.com/BugBattle/BugBattle-iOS-SDK/blob/master/embeddedbinaries)
+![BugBattle iOS SDK Embedded Binaries Tutorial](https://github.com/BugBattle/BugBattle-iOS-SDK/blob/master/imgs/embeddedbinaries.png)
