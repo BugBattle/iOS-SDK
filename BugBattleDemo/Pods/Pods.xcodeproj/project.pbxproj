@@ -35,17 +35,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		13188A6CFC3DF8B905A716A5C671DA91 /* BugBattle.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BugBattle.xcconfig; sourceTree = "<group>"; };
 		1411E4540C0A42E8835876F2DD8FB3C4 /* Pods-BugBattleDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BugBattleDemo.release.xcconfig"; sourceTree = "<group>"; };
-		1A4F316AE8C396BA01BCD3CB7EF360DF /* BugBattle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattle.h; path = BugBattle.framework/Headers/BugBattle.h; sourceTree = "<group>"; };
-		1CAEA305D9D51BB975A9E4F1899A7D9B /* BugBattle-Swift.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "BugBattle-Swift.h"; path = "BugBattle.framework/Headers/BugBattle-Swift.h"; sourceTree = "<group>"; };
 		1F495E38F0DF333B25B6B6B4F9E6970B /* Pods-BugBattleDemo.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-BugBattleDemo.modulemap"; sourceTree = "<group>"; };
+		1FA0C835E0E097B1F101E2B9B4B31890 /* BugBattle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BugBattle.framework; sourceTree = "<group>"; };
 		4FD6A33931C5F22A1A273D44BE21AE53 /* Pods-BugBattleDemo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BugBattleDemo-frameworks.sh"; sourceTree = "<group>"; };
 		531D0CD979C2B3A4A8366BA12E8BE718 /* Pods-BugBattleDemo-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BugBattleDemo-umbrella.h"; sourceTree = "<group>"; };
 		620587D4B9E2AFCF7FA531276F4DCBA7 /* Pods-BugBattleDemo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BugBattleDemo-dummy.m"; sourceTree = "<group>"; };
+		84F2E17D47251BA0A03B32104554C71E /* BugBattle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattle.h; path = BugBattle.framework/Headers/BugBattle.h; sourceTree = "<group>"; };
 		9A3C80AD2D2154B158CAE6199915BA24 /* Pods-BugBattleDemo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BugBattleDemo-acknowledgements.plist"; sourceTree = "<group>"; };
+		9AC6D99146627F47FEA7CAFA92B1F10E /* BugBattle.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BugBattle.xcconfig; sourceTree = "<group>"; };
 		B36AB396275697EEE1A5B13BA8A38FE3 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		BA4A2CD823B6700D5F8A21FC56847A1B /* BugBattle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BugBattle.framework; sourceTree = "<group>"; };
 		D6DFF15000AFE2A371BF499E7AFDA808 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		F15720DC6843CC7EB1DC81FD511F1486 /* Pods-BugBattleDemo-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BugBattleDemo-Info.plist"; sourceTree = "<group>"; };
 		F5CC72715094BC667119885E57498AAF /* Pods_BugBattleDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_BugBattleDemo.framework; path = "Pods-BugBattleDemo.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,10 +64,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0BEB14BF05383C82FC863173C3A8868A /* Frameworks */ = {
+		3607DC35DB10D57F1852BE948A9766E5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BA4A2CD823B6700D5F8A21FC56847A1B /* BugBattle.framework */,
+				1FA0C835E0E097B1F101E2B9B4B31890 /* BugBattle.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -98,23 +97,43 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
+		4B0A8DFBCD4BFB7AEDB17C5F78CCC81E /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				9AC6D99146627F47FEA7CAFA92B1F10E /* BugBattle.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/BugBattle";
+			sourceTree = "<group>";
+		};
+		51A334D6B060625F08DD3BBF4283A6CE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9B84A87FC2A13AA70C724B934C5E42C6 /* BugBattle */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				B36AB396275697EEE1A5B13BA8A38FE3 /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				90802B8465CD10BE612A72042BCEDB3B /* Pods */,
+				51A334D6B060625F08DD3BBF4283A6CE /* Pods */,
 				E3FA7277ACCAC1514B08845151DC77DE /* Products */,
 				FAD89423FB45A651F719D92BB7761137 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		90802B8465CD10BE612A72042BCEDB3B /* Pods */ = {
+		9B84A87FC2A13AA70C724B934C5E42C6 /* BugBattle */ = {
 			isa = PBXGroup;
 			children = (
-				CD4D4D92086A3D73EAB69E34466EA33F /* BugBattle */,
+				84F2E17D47251BA0A03B32104554C71E /* BugBattle.h */,
+				3607DC35DB10D57F1852BE948A9766E5 /* Frameworks */,
+				4B0A8DFBCD4BFB7AEDB17C5F78CCC81E /* Support Files */,
 			);
-			name = Pods;
+			name = BugBattle;
+			path = BugBattle;
 			sourceTree = "<group>";
 		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
@@ -125,33 +144,12 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		CD4D4D92086A3D73EAB69E34466EA33F /* BugBattle */ = {
-			isa = PBXGroup;
-			children = (
-				1A4F316AE8C396BA01BCD3CB7EF360DF /* BugBattle.h */,
-				1CAEA305D9D51BB975A9E4F1899A7D9B /* BugBattle-Swift.h */,
-				0BEB14BF05383C82FC863173C3A8868A /* Frameworks */,
-				F83F03E558FA830557249C654B563005 /* Support Files */,
-			);
-			name = BugBattle;
-			path = BugBattle;
-			sourceTree = "<group>";
-		};
 		E3FA7277ACCAC1514B08845151DC77DE /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				F5CC72715094BC667119885E57498AAF /* Pods_BugBattleDemo.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		F83F03E558FA830557249C654B563005 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				13188A6CFC3DF8B905A716A5C671DA91 /* BugBattle.xcconfig */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/BugBattle";
 			sourceTree = "<group>";
 		};
 		FAD89423FB45A651F719D92BB7761137 /* Targets Support Files */ = {
@@ -319,7 +317,7 @@
 		};
 		2AAE1D0008467DB613F5959F2A02C7B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 13188A6CFC3DF8B905A716A5C671DA91 /* BugBattle.xcconfig */;
+			baseConfigurationReference = 9AC6D99146627F47FEA7CAFA92B1F10E /* BugBattle.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -396,7 +394,7 @@
 		};
 		58C786E92FE500C6309EF04D570D7F20 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 13188A6CFC3DF8B905A716A5C671DA91 /* BugBattle.xcconfig */;
+			baseConfigurationReference = 9AC6D99146627F47FEA7CAFA92B1F10E /* BugBattle.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
