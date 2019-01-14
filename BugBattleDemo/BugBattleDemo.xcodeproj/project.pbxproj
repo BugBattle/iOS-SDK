@@ -13,8 +13,6 @@
 		801466C921E77CF8005B1A81 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 801466C721E77CF8005B1A81 /* Main.storyboard */; };
 		801466CB21E77CF8005B1A81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 801466CA21E77CF8005B1A81 /* Assets.xcassets */; };
 		801466CE21E77CF8005B1A81 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 801466CC21E77CF8005B1A81 /* LaunchScreen.storyboard */; };
-		80B0CF2721ECCD7500AA97F5 /* BugBattle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80B0CF2521ECCD6D00AA97F5 /* BugBattle.framework */; };
-		80B0CF2821ECCD7500AA97F5 /* BugBattle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 80B0CF2521ECCD6D00AA97F5 /* BugBattle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +22,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				80B0CF2821ECCD7500AA97F5 /* BugBattle.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -40,7 +37,6 @@
 		801466CA21E77CF8005B1A81 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		801466CD21E77CF8005B1A81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		801466CF21E77CF8005B1A81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		80B0CF2521ECCD6D00AA97F5 /* BugBattle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BugBattle.framework; path = "../../../bugbattle/bugbattle-ios-sdk/BugBattle/BugBattle.framework"; sourceTree = "<group>"; };
 		9FCD358E94424B99B6D11A16 /* Pods_BugBattleDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BugBattleDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE17CFF3CED98B99B650DC6B /* Pods-BugBattleDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BugBattleDemo.release.xcconfig"; path = "Target Support Files/Pods-BugBattleDemo/Pods-BugBattleDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -51,7 +47,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1631349AB9D3F4B0E9FF5B2C /* Pods_BugBattleDemo.framework in Frameworks */,
-				80B0CF2721ECCD7500AA97F5 /* BugBattle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,7 +80,6 @@
 				801466CA21E77CF8005B1A81 /* Assets.xcassets */,
 				801466CC21E77CF8005B1A81 /* LaunchScreen.storyboard */,
 				801466CF21E77CF8005B1A81 /* Info.plist */,
-				80B0CF2521ECCD6D00AA97F5 /* BugBattle.framework */,
 			);
 			path = BugBattleDemo;
 			sourceTree = "<group>";
@@ -119,6 +113,7 @@
 				801466BD21E77CF8005B1A81 /* Frameworks */,
 				801466BE21E77CF8005B1A81 /* Resources */,
 				80B0CF2021ECCB8100AA97F5 /* Embed Frameworks */,
+				11663F21B5FFA315B8FE41FE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -176,6 +171,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		11663F21B5FFA315B8FE41FE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BugBattleDemo/Pods-BugBattleDemo-frameworks.sh",
+				"${PODS_ROOT}/BugBattle/BugBattle.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BugBattle.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BugBattleDemo/Pods-BugBattleDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		E86FE92333DEB727CD8405B6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

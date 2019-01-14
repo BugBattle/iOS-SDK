@@ -1,0 +1,6 @@
+framework module BugBattle {
+  umbrella header "BugBattle.h"
+
+  export *
+  module * { export * }
+}
