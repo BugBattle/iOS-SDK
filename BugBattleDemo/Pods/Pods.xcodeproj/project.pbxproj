@@ -37,14 +37,17 @@
 /* Begin PBXFileReference section */
 		1411E4540C0A42E8835876F2DD8FB3C4 /* Pods-BugBattleDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BugBattleDemo.release.xcconfig"; sourceTree = "<group>"; };
 		1F495E38F0DF333B25B6B6B4F9E6970B /* Pods-BugBattleDemo.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-BugBattleDemo.modulemap"; sourceTree = "<group>"; };
-		1FA0C835E0E097B1F101E2B9B4B31890 /* BugBattle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BugBattle.framework; sourceTree = "<group>"; };
+		1F6530AC7344DD048CFA40FC14E2FD8B /* BugBattleCore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattleCore.h; path = BugBattle.framework/Headers/BugBattleCore.h; sourceTree = "<group>"; };
 		4FD6A33931C5F22A1A273D44BE21AE53 /* Pods-BugBattleDemo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BugBattleDemo-frameworks.sh"; sourceTree = "<group>"; };
 		531D0CD979C2B3A4A8366BA12E8BE718 /* Pods-BugBattleDemo-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BugBattleDemo-umbrella.h"; sourceTree = "<group>"; };
 		620587D4B9E2AFCF7FA531276F4DCBA7 /* Pods-BugBattleDemo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BugBattleDemo-dummy.m"; sourceTree = "<group>"; };
-		84F2E17D47251BA0A03B32104554C71E /* BugBattle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattle.h; path = BugBattle.framework/Headers/BugBattle.h; sourceTree = "<group>"; };
+		76372F15D2C97787D827E877D05FA78E /* BugBattleStep.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattleStep.h; path = BugBattle.framework/Headers/BugBattleStep.h; sourceTree = "<group>"; };
+		7B54DE904DFA7F7F2D1EB984E26D2876 /* BugBattle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattle.h; path = BugBattle.framework/Headers/BugBattle.h; sourceTree = "<group>"; };
+		993369E55FCF36B0467F25E8AD4DD65E /* BugBattle.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BugBattle.xcconfig; sourceTree = "<group>"; };
 		9A3C80AD2D2154B158CAE6199915BA24 /* Pods-BugBattleDemo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BugBattleDemo-acknowledgements.plist"; sourceTree = "<group>"; };
-		9AC6D99146627F47FEA7CAFA92B1F10E /* BugBattle.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BugBattle.xcconfig; sourceTree = "<group>"; };
+		9CF844ED670480696C8E480D55F094AB /* UIWindow+BugBattleShakeRecognizer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIWindow+BugBattleShakeRecognizer.h"; path = "BugBattle.framework/Headers/UIWindow+BugBattleShakeRecognizer.h"; sourceTree = "<group>"; };
 		B36AB396275697EEE1A5B13BA8A38FE3 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		CFEEC38367A6F173727849F59B42F600 /* BugBattle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BugBattle.framework; sourceTree = "<group>"; };
 		D6DFF15000AFE2A371BF499E7AFDA808 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		F15720DC6843CC7EB1DC81FD511F1486 /* Pods-BugBattleDemo-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BugBattleDemo-Info.plist"; sourceTree = "<group>"; };
 		F5CC72715094BC667119885E57498AAF /* Pods_BugBattleDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_BugBattleDemo.framework; path = "Pods-BugBattleDemo.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,14 +67,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3607DC35DB10D57F1852BE948A9766E5 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1FA0C835E0E097B1F101E2B9B4B31890 /* BugBattle.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		438AFE7CAEE75735AB9E301F3DBAFBBB /* Pods-BugBattleDemo */ = {
 			isa = PBXGroup;
 			children = (
@@ -97,21 +92,27 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		4B0A8DFBCD4BFB7AEDB17C5F78CCC81E /* Support Files */ = {
+		55A26FA4CDB606842C69AAE8AD06C113 /* BugBattle */ = {
 			isa = PBXGroup;
 			children = (
-				9AC6D99146627F47FEA7CAFA92B1F10E /* BugBattle.xcconfig */,
+				7B54DE904DFA7F7F2D1EB984E26D2876 /* BugBattle.h */,
+				1F6530AC7344DD048CFA40FC14E2FD8B /* BugBattleCore.h */,
+				76372F15D2C97787D827E877D05FA78E /* BugBattleStep.h */,
+				9CF844ED670480696C8E480D55F094AB /* UIWindow+BugBattleShakeRecognizer.h */,
+				A24CE14132E2EB6E9CE0A87D52841C63 /* Frameworks */,
+				70E3FD116FAE9D2EC9149A9C359745E8 /* Support Files */,
+			);
+			name = BugBattle;
+			path = BugBattle;
+			sourceTree = "<group>";
+		};
+		70E3FD116FAE9D2EC9149A9C359745E8 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				993369E55FCF36B0467F25E8AD4DD65E /* BugBattle.xcconfig */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/BugBattle";
-			sourceTree = "<group>";
-		};
-		51A334D6B060625F08DD3BBF4283A6CE /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				9B84A87FC2A13AA70C724B934C5E42C6 /* BugBattle */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
@@ -119,21 +120,26 @@
 			children = (
 				B36AB396275697EEE1A5B13BA8A38FE3 /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				51A334D6B060625F08DD3BBF4283A6CE /* Pods */,
+				AE1990EC1497EBC926A1F45ECE5F0327 /* Pods */,
 				E3FA7277ACCAC1514B08845151DC77DE /* Products */,
 				FAD89423FB45A651F719D92BB7761137 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		9B84A87FC2A13AA70C724B934C5E42C6 /* BugBattle */ = {
+		A24CE14132E2EB6E9CE0A87D52841C63 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				84F2E17D47251BA0A03B32104554C71E /* BugBattle.h */,
-				3607DC35DB10D57F1852BE948A9766E5 /* Frameworks */,
-				4B0A8DFBCD4BFB7AEDB17C5F78CCC81E /* Support Files */,
+				CFEEC38367A6F173727849F59B42F600 /* BugBattle.framework */,
 			);
-			name = BugBattle;
-			path = BugBattle;
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AE1990EC1497EBC926A1F45ECE5F0327 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				55A26FA4CDB606842C69AAE8AD06C113 /* BugBattle */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
@@ -317,7 +323,7 @@
 		};
 		2AAE1D0008467DB613F5959F2A02C7B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9AC6D99146627F47FEA7CAFA92B1F10E /* BugBattle.xcconfig */;
+			baseConfigurationReference = 993369E55FCF36B0467F25E8AD4DD65E /* BugBattle.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -394,7 +400,7 @@
 		};
 		58C786E92FE500C6309EF04D570D7F20 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9AC6D99146627F47FEA7CAFA92B1F10E /* BugBattle.xcconfig */;
+			baseConfigurationReference = 993369E55FCF36B0467F25E8AD4DD65E /* BugBattle.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
