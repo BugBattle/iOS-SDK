@@ -6,6 +6,6 @@ target 'BugBattleDemo' do
   use_frameworks!
 
   # Pods for BugBattleDemo
-  pod 'BugBattle'
+  # pod 'BugBattle'
 
 end
