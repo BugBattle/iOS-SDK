@@ -49,7 +49,7 @@ import BugBattle
 The last step is to initialize the BugBattle SDK by adding the following Code to the end of the applicationDidFinishLaunchingWithOptions delegate:
 
 ```
-BugBattle.initialize(apiKey: "YOUR-API-KEY", activation: .Shake)
+BugBattle.initWithToken("YOUR-API-KEY", andActivationMethod: SHAKE)
 ```
 
 (Your API key can be found in the project settings within BugBattle)
