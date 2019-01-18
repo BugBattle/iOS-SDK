@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        BugBattle.initWithToken("YOUR-API-KEY", andActivationMethod: SHAKE)
+        BugBattle.initWithToken("5c3dc2c9d8eb897d61081778", andActivationMethod: SHAKE)
         
         return true
     }
