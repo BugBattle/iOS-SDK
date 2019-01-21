@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import BugBattle
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        BugBattle.attachCustomData(["test": "data"])
     }
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
