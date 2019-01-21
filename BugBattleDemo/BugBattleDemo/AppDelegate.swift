@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        BugBattle.initWithToken("5c45c593ff207f1b99be72db", andActivationMethod: SHAKE)
+        BugBattle.initWithToken("5c41fcd794aaf5331dd4d513", andActivationMethod: SHAKE)
         
         return true
     }

@@ -22,9 +22,11 @@ typedef enum myTypes { NONE, SHAKE } BugBattleActivationMethod;
 + (void)attachScreenshot: (UIImage *)screenshot;
 + (void)attachData: (NSDictionary *)data;
 + (void)attachCustomData: (NSDictionary *)customData;
++ (void)addStepWithType: (NSString *)type andDescription: (NSString *)description;
 + (NSBundle *)frameworkBundle;
     
 - (void)sendReport: (void (^)(bool success))completion;
+- (void)addStepWithType: (NSString *)type andDescription: (NSString *)description;
 
 @property (nonatomic, retain) NSString* token;
 @property (nonatomic, assign) BugBattleActivationMethod activationMethod;
