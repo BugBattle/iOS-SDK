@@ -1,0 +1,1 @@
+../../../../BugBattle/BugBattle.framework/Headers/BugBattleCore.h
