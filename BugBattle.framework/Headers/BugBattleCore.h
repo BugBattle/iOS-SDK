@@ -21,12 +21,13 @@ typedef enum myTypes { NONE, SHAKE } BugBattleActivationMethod;
 + (void)shakeInvocation;
 + (void)attachScreenshot: (UIImage *)screenshot;
 + (void)attachData: (NSDictionary *)data;
++ (void)setNavigationBarTint: (UIColor *)color;
 + (void)attachCustomData: (NSDictionary *)customData;
-+ (void)addStepWithType: (NSString *)type andDescription: (NSString *)description;
++ (void)enableStepsToReproduce:(BOOL)enable;
++ (void)addStepWithType: (NSString *)type andData: (NSDictionary *)data;
 + (NSBundle *)frameworkBundle;
-    
+
 - (void)sendReport: (void (^)(bool success))completion;
-- (void)addStepWithType: (NSString *)type andDescription: (NSString *)description;
 
 @property (nonatomic, retain) NSString* token;
 @property (nonatomic, assign) BugBattleActivationMethod activationMethod;
