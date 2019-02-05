@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import <BugBattle/BugBattle.h>
 
 @interface ViewController ()
 
@@ -17,6 +18,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    [BugBattle trackStepWithType: BugBattleStepTypeView andData: @"DemoView"];
+    
+    [BugBattle attachCustomData: @{
+                                   @"test": @"Penis"
+                                   }];
 }
 
 
