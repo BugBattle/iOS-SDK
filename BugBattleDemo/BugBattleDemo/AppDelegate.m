@@ -20,6 +20,7 @@
     // Override point for customization after application launch.
     
     [BugBattle initWithToken: @"5c41fcd794aaf5331dd4d513" andActivationMethod: SHAKE];
+    [BugBattle setNavigationBarTint: [UIColor colorWithRed: 0.207 green: 0.454 blue: 1 alpha: 1.0]];
     
     return YES;
 }
