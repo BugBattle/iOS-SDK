@@ -15,5 +15,4 @@ FOUNDATION_EXPORT double BugBattleVersionNumber;
 FOUNDATION_EXPORT const unsigned char BugBattleVersionString[];
 
 #import <BugBattle/BugBattleCore.h>
-#import <BugBattle/BugBattleStep.h>
 #import <BugBattle/UIWindow+BugBattleShakeRecognizer.h>
