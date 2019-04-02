@@ -1,5 +1,5 @@
 PODS:
-  - BugBattle (1.5.5)
+  - BugBattle (1.6.0)
 
 DEPENDENCIES:
   - BugBattle
@@ -9,7 +9,7 @@ SPEC REPOS:
     - BugBattle
 
 SPEC CHECKSUMS:
-  BugBattle: 00e39a57647f1cd4d775be1a4086cc0bfa22c110
+  BugBattle: 8b3884fb564e7b82d2e5650cb37a63cbffdb5ad9
 
 PODFILE CHECKSUM: 6c1d880025f5262b2f64f9476f87020870331bbd
 
