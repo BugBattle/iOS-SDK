@@ -12,17 +12,16 @@
 
 /* Begin PBXFileReference section */
 		2D2C9A1C2D1FFAE638911E0F865841EB /* Pods-BugBattleDemo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BugBattleDemo-acknowledgements.markdown"; sourceTree = "<group>"; };
-		2E1333DD2EC153F2285BBAA98AB7ABF7 /* UIWindow+BugBattleShakeRecognizer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIWindow+BugBattleShakeRecognizer.h"; path = "BugBattle.framework/Headers/UIWindow+BugBattleShakeRecognizer.h"; sourceTree = "<group>"; };
 		31C564A6DC11C0E8868922DFDB2E5986 /* Pods-BugBattleDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BugBattleDemo.release.xcconfig"; sourceTree = "<group>"; };
-		3C1060AD995BCD76792E8CB490412298 /* BugBattle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BugBattle.framework; sourceTree = "<group>"; };
 		3FF26B5275E2225EB41907F013B9943B /* Pods-BugBattleDemo-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BugBattleDemo-resources.sh"; sourceTree = "<group>"; };
-		474310AAC7001BBE8E5C0D2142DA236F /* BugBattleStep.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattleStep.h; path = BugBattle.framework/Headers/BugBattleStep.h; sourceTree = "<group>"; };
+		57BBB336CDACD3136721E82461622FFB /* UIWindow+BugBattleShakeRecognizer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIWindow+BugBattleShakeRecognizer.h"; path = "BugBattle.framework/Headers/UIWindow+BugBattleShakeRecognizer.h"; sourceTree = "<group>"; };
 		67846C79CCACEDC78D7561D4684DE6C9 /* Pods-BugBattleDemo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BugBattleDemo-frameworks.sh"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9AA1153D732CFA89F95AAC50A3D2786C /* Pods-BugBattleDemo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BugBattleDemo-acknowledgements.plist"; sourceTree = "<group>"; };
-		CEE54FFF49B015BF49F445DCC070DE11 /* BugBattle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattle.h; path = BugBattle.framework/Headers/BugBattle.h; sourceTree = "<group>"; };
-		E108E571F2B460CC0EEFD20E087CC6AD /* BugBattleCore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattleCore.h; path = BugBattle.framework/Headers/BugBattleCore.h; sourceTree = "<group>"; };
+		A1ACAD6F660D8DE54489E01591F3AF5F /* BugBattle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattle.h; path = BugBattle.framework/Headers/BugBattle.h; sourceTree = "<group>"; };
+		E067414F5CB0AA745288FC8FB2B824F4 /* BugBattle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BugBattle.framework; sourceTree = "<group>"; };
 		E78264E45EC86625ED96A14B32CB15CC /* Pods-BugBattleDemo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BugBattleDemo-dummy.m"; sourceTree = "<group>"; };
+		E8A68624324A1DD7BD62B40E4377D5DE /* BugBattleCore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattleCore.h; path = BugBattle.framework/Headers/BugBattleCore.h; sourceTree = "<group>"; };
 		F987179D3AB9EF6153E18831A6E9B84E /* libPods-BugBattleDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-BugBattleDemo.a"; path = "libPods-BugBattleDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9C9FE4D6F33200447384AFEBF128AC8 /* Pods-BugBattleDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BugBattleDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -38,14 +37,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0C643907B822BF02D6CACF064D5FEB3C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				3C1060AD995BCD76792E8CB490412298 /* BugBattle.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		0F8D2E47FE03D3B91B51069F7C273AF4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -61,17 +52,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		555CED0CA571697DB2F2A7EB8AFBA517 /* BugBattle */ = {
+		4AD3EFB5819ABCC27C509D43CE870851 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CEE54FFF49B015BF49F445DCC070DE11 /* BugBattle.h */,
-				E108E571F2B460CC0EEFD20E087CC6AD /* BugBattleCore.h */,
-				474310AAC7001BBE8E5C0D2142DA236F /* BugBattleStep.h */,
-				2E1333DD2EC153F2285BBAA98AB7ABF7 /* UIWindow+BugBattleShakeRecognizer.h */,
-				0C643907B822BF02D6CACF064D5FEB3C /* Frameworks */,
+				E067414F5CB0AA745288FC8FB2B824F4 /* BugBattle.framework */,
 			);
-			name = BugBattle;
-			path = BugBattle;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		6D2D9AF79B14A73DD6881EC5FB203630 /* Targets Support Files */ = {
@@ -97,23 +83,35 @@
 			path = "Target Support Files/Pods-BugBattleDemo";
 			sourceTree = "<group>";
 		};
-		76B207060DA78FCD79A28E15177CFEC8 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				555CED0CA571697DB2F2A7EB8AFBA517 /* BugBattle */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				0F8D2E47FE03D3B91B51069F7C273AF4 /* Frameworks */,
-				76B207060DA78FCD79A28E15177CFEC8 /* Pods */,
+				90802B8465CD10BE612A72042BCEDB3B /* Pods */,
 				2ACA5D18E5BBAB2B52E66AE7ECAFFEAB /* Products */,
 				6D2D9AF79B14A73DD6881EC5FB203630 /* Targets Support Files */,
 			);
+			sourceTree = "<group>";
+		};
+		90802B8465CD10BE612A72042BCEDB3B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FB716787FBBC1641F7C914B76284B63D /* BugBattle */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		FB716787FBBC1641F7C914B76284B63D /* BugBattle */ = {
+			isa = PBXGroup;
+			children = (
+				A1ACAD6F660D8DE54489E01591F3AF5F /* BugBattle.h */,
+				E8A68624324A1DD7BD62B40E4377D5DE /* BugBattleCore.h */,
+				57BBB336CDACD3136721E82461622FFB /* UIWindow+BugBattleShakeRecognizer.h */,
+				4AD3EFB5819ABCC27C509D43CE870851 /* Frameworks */,
+			);
+			name = BugBattle;
+			path = BugBattle;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
