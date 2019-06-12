@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '9.0'
+
+target 'BugBattle_Example' do
+  pod 'BugBattle', :path => '../'
+
+  target 'BugBattle_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

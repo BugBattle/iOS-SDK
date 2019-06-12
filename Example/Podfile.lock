@@ -1,0 +1,16 @@
+PODS:
+  - BugBattle (2.0.0)
+
+DEPENDENCIES:
+  - BugBattle (from `../`)
+
+EXTERNAL SOURCES:
+  BugBattle:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  BugBattle: 31c49a627bfb65169e1fa33c14b91851f38fbe22
+
+PODFILE CHECKSUM: 8f2ff902acee4f3236acf0948dfcb9bfbc5ea3bd
+
+COCOAPODS: 1.5.3
