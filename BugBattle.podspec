@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/BugBattle/BugBattle-iOS-SDK.git", :tag => s.version.to_s }
   
   s.source_files = 'BugBattle/Classes/**/*'
-  s.public_header_files = 'Pod/Classes/**/*.h'
+  s.public_header_files = 'BugBattle/Classes/**/*.h'
   
   s.resource_bundles = {
       'BugBattle' => ['BugBattle/Assets/*.png']
