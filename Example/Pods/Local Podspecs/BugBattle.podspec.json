@@ -1,6 +1,6 @@
 {
   "name": "BugBattle",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "summary": "In-App Bug Reporting and Testing for Apps. Learn more at https://www.bugbattle.app",
   "homepage": "https://www.bugbattle.app",
   "license": {
@@ -15,15 +15,14 @@
   },
   "source": {
     "git": "https://github.com/BugBattle/BugBattle-iOS-SDK.git",
-    "tag": "2.0.0"
+    "tag": "2.0.2"
   },
   "source_files": "BugBattle/Classes/**/*",
-  "public_header_files": "Pod/Classes/**/*.h",
-  "resource_bundles": {
-    "BugBattle": [
-      "BugBattle/Assets/*.png"
-    ]
-  },
+  "public_header_files": "BugBattle/Classes/**/*.h",
+  "resources": [
+    "BugBattle/Assets/**/*.storyboard",
+    "BugBattle/Assets/**/*.png"
+  ],
   "frameworks": [
     "UIKit",
     "Foundation"

@@ -1,5 +1,5 @@
 PODS:
-  - BugBattle (2.0.0)
+  - BugBattle (2.0.2)
 
 DEPENDENCIES:
   - BugBattle (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  BugBattle: 31c49a627bfb65169e1fa33c14b91851f38fbe22
+  BugBattle: a925dffa0961761cb805bf4e51dc89f50fd78844
 
 PODFILE CHECKSUM: 8f2ff902acee4f3236acf0948dfcb9bfbc5ea3bd
 

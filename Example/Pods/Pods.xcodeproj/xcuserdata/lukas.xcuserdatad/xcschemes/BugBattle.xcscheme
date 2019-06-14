@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "51E00C58BDD629C552AEEEE42E3AA920"
+               BlueprintIdentifier = "4320E3105199DDC73210B6A1A5B6956D"
                BlueprintName = "BugBattle"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "BugBattle.framework">
