@@ -40,6 +40,14 @@ typedef enum activationMethodTypes { NONE, SHAKE } BugBattleActivationMethod;
 + (void)startBugReporting;
 
 /**
+ * Manually start the bug reporting workflow, using a custom screenshot (rather than
+ * automatically capturing one). This is used, when you use the activation method "NONE".
+ * @author BugBattle
+ *
+ */
++ (void)startBugReportingWithScreenshot: (UIImage *)screenshot;
+
+/**
  * Attach custom data, which can be view in the BugBattle dashboard.
  * @author BugBattle
  *
