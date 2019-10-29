@@ -7,7 +7,6 @@ target 'BugBattle_Example' do
 
   target 'BugBattle_Tests' do
     inherit! :search_paths
-
     
   end
 end

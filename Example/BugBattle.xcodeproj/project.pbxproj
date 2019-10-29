@@ -299,21 +299,17 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-BugBattle_Example/Pods-BugBattle_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-BugBattle_Example/Pods-BugBattle_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BugBattle/BugBattle.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BugBattle.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BugBattle_Example/Pods-BugBattle_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BugBattle_Example/Pods-BugBattle_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7629717876944D70A6238CCC /* [CP] Check Pods Manifest.lock */ = {

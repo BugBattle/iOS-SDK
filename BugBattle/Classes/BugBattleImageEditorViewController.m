@@ -40,10 +40,15 @@
     
     self.navigationItem.title = @"Report a bug";
     
+    UIColor *defaultColor = UIColor.blackColor;
+    if (@available(iOS 13, *)) {
+        defaultColor = UIColor.labelColor;
+    }
+    
     _screenshotImageView.clipsToBounds = true;
     _screenshotImageView.layer.masksToBounds = false;
     _screenshotImageView.layer.cornerRadius = 5.0;
-    _screenshotImageView.layer.shadowColor = UIColor.blackColor.CGColor;
+    _screenshotImageView.layer.shadowColor = defaultColor.CGColor;
     _screenshotImageView.layer.shadowOpacity = 0.3;
     _screenshotImageView.layer.shadowOffset = CGSizeZero;
     _screenshotImageView.layer.shadowRadius = 10;

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "BugBattle"
-  s.version      = "2.0.2"
+  s.version      = "2.1.0"
   s.summary      = "In-App Bug Reporting and Testing for Apps. Learn more at https://www.bugbattle.app"
   s.homepage     = "https://www.bugbattle.app"
   s.license      = { :type => 'Commercial', :file => 'LICENSE.md' }

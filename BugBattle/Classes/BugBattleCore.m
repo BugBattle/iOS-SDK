@@ -107,6 +107,13 @@
     instance.activationMethod = activationMethod;
 }
 
+/**
+ Sets the customer's email address.
+ */
++ (void)setCustomerEmail: (NSString *)email {
+    [[NSUserDefaults standardUserDefaults] setValue: email forKey: @"BugBattle_SenderEmail"];
+}
+
 /*
  Sets the navigationbar tint color.
  */
@@ -140,6 +147,8 @@
         [navController.navigationBar setBarTintColor: BugBattle.sharedInstance.navigationBarTint];
         [navController.navigationBar setTintColor: [UIColor whiteColor]];
         navController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
+        
+        navController.modalPresentationStyle = UIModalPresentationFullScreen;
         
         // Show on top of all viewcontrollers.
         [[BugBattle.sharedInstance getTopMostViewController] presentViewController: navController animated: true completion:^{

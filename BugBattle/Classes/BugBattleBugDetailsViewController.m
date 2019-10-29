@@ -29,23 +29,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _sending = NO;
+    UIColor *defaultColor = UIColor.blackColor;
+    if (@available(iOS 13, *)) {
+        defaultColor = UIColor.labelColor;
+    }
     
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStylePlain target: self action: @selector(cancel:)];
-    self.navigationItem.leftBarButtonItem = cancelButton;
+    _sending = NO;
     
     UIBarButtonItem *sendButton = [[UIBarButtonItem alloc] initWithTitle: @"Send" style: UIBarButtonItemStyleDone target: self action: @selector(send:)];
     self.navigationItem.rightBarButtonItem = sendButton;
     
-    [self.navigationItem setHidesBackButton: YES];
     self.navigationItem.title = @"Report a bug";
+    
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCancel target: self action: @selector(cancel:)];
+    self.navigationItem.leftBarButtonItem = cancelButton;
+    [self.navigationItem hidesBackButton];
     
     _severity.selectedSegmentIndex = 1;
     
     _screenshotPreview.clipsToBounds = true;
     _screenshotPreview.layer.masksToBounds = false;
     _screenshotPreview.layer.cornerRadius = 5.0;
-    _screenshotPreview.layer.shadowColor = UIColor.blackColor.CGColor;
+    _screenshotPreview.layer.shadowColor = defaultColor.CGColor;
     _screenshotPreview.layer.shadowOpacity = 0.15;
     _screenshotPreview.layer.shadowOffset = CGSizeZero;
     _screenshotPreview.layer.shadowRadius = 5;
@@ -66,7 +71,8 @@
     [_lbl setText: @"What went wrong?"];
     [_lbl setBackgroundColor: [UIColor clearColor]];
     [_lbl setFont: [UIFont systemFontOfSize: 18.0 weight: UIFontWeightMedium]];
-    [_lbl setTextColor: [UIColor colorWithRed: 0.78 green: 0.78 blue: 0.8  alpha: 1.0]];
+    
+    [_lbl setTextColor: [defaultColor colorWithAlphaComponent: 0.3]];
     
     _descriptionTextView.delegate = self;
     [_descriptionTextView addSubview: _lbl];

@@ -56,6 +56,14 @@ typedef enum activationMethodTypes { NONE, SHAKE } BugBattleActivationMethod;
 + (void)setNavigationBarTint: (UIColor *)color;
 
 /**
+ * Sets the customer's email address.
+ * @author BugBattle
+ *
+ * @param email The customer's email address.
+ */
++ (void)setCustomerEmail: (NSString *)email;
+
+/**
  * Add a 'step to reproduce' step.
  * @author BugBattle
  *
