@@ -132,14 +132,20 @@
  Starts the bug reporting flow, when a SDK key has been assigned.
  */
 + (void)startBugReporting {
+    UIImage * screenshot = [BugBattle.sharedInstance captureScreen];
+    [self startBugReportingWithScreenshot: screenshot];
+}
+
+/*
+ Starts the bug reporting flow, when a SDK key has been assigned.
+ */
++ (void)startBugReportingWithScreenshot:(UIImage *)screenshot {
     if (BugBattle.sharedInstance.token.length > 0) {
         // Stop screen capturung
         [BugBattle.sharedInstance.stepsToReproduceTimer invalidate];
         
         UIStoryboard* storyboard = [UIStoryboard storyboardWithName: @"BugBattleStoryboard" bundle: [BugBattle frameworkBundle]];
         BugBattleImageEditorViewController *bugBattleImageEditor = [storyboard instantiateViewControllerWithIdentifier: @"BugBattleImageEditorViewController"];
-        
-        UIImage * screenshot = [BugBattle.sharedInstance captureScreen];
         
         UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController: bugBattleImageEditor];
         navController.navigationBar.barStyle = UIBarStyleBlack;
