@@ -64,6 +64,14 @@ typedef enum activationMethodTypes { NONE, SHAKE } BugBattleActivationMethod;
 + (void)setNavigationBarTint: (UIColor *)color;
 
 /**
+ * Sets a custom api url.
+ * @author BugBattle
+ *
+ * @param apiUrl The custom api url.
+ */
++ (void)setApiUrl: (NSString *)apiUrl;
+
+/**
  * Sets the customer's email address.
  * @author BugBattle
  *
@@ -89,6 +97,7 @@ typedef enum activationMethodTypes { NONE, SHAKE } BugBattleActivationMethod;
 - (void)sendReport: (void (^)(bool success))completion;
 
 @property (nonatomic, retain) NSString* token;
+@property (nonatomic, retain) NSString* apiUrl;
 @property (nonatomic, assign) BugBattleActivationMethod activationMethod;
 @property (nonatomic, retain) NSMutableDictionary* data;
 

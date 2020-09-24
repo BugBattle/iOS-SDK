@@ -52,6 +52,7 @@
  */
 - (void)initHelper {
     self.token = @"";
+    self.apiUrl = @"http://192.168.0.115:9000/api/bugs";
     self.activationMethod = NONE;
     self.data = [[NSMutableDictionary alloc] init];
     self.sessionStart = [[NSDate alloc] init];
@@ -107,6 +108,10 @@
     instance.activationMethod = activationMethod;
 }
 
++ (void)setApiUrl: (NSString *)apiUrl {
+    BugBattle.sharedInstance.apiUrl = apiUrl;
+}
+
 /**
  Sets the customer's email address.
  */
@@ -140,29 +145,32 @@
  Starts the bug reporting flow, when a SDK key has been assigned.
  */
 + (void)startBugReportingWithScreenshot:(UIImage *)screenshot {
-    if (BugBattle.sharedInstance.token.length > 0) {
-        // Stop screen capturung
-        [BugBattle.sharedInstance.stepsToReproduceTimer invalidate];
-        
-        UIStoryboard* storyboard = [UIStoryboard storyboardWithName: @"BugBattleStoryboard" bundle: [BugBattle frameworkBundle]];
-        BugBattleImageEditorViewController *bugBattleImageEditor = [storyboard instantiateViewControllerWithIdentifier: @"BugBattleImageEditorViewController"];
-        
-        UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController: bugBattleImageEditor];
-        navController.navigationBar.barStyle = UIBarStyleBlack;
-        [navController.navigationBar setTranslucent: NO];
-        [navController.navigationBar setBarTintColor: BugBattle.sharedInstance.navigationBarTint];
-        [navController.navigationBar setTintColor: [UIColor whiteColor]];
-        navController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
-        
-        navController.modalPresentationStyle = UIModalPresentationFullScreen;
-        
-        // Show on top of all viewcontrollers.
-        [[BugBattle.sharedInstance getTopMostViewController] presentViewController: navController animated: true completion:^{
-            [bugBattleImageEditor setScreenshot: screenshot];
-        }];
-    } else {
+    if (BugBattle.sharedInstance.token.length == 0) {
         NSLog(@"WARN: Please provide a valid BugBattle project TOKEN!");
+        return;
     }
+    
+    // Stop screen capturung
+    [BugBattle.sharedInstance.stepsToReproduceTimer invalidate];
+    
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName: @"BugBattleStoryboard" bundle: [BugBattle frameworkBundle]];
+    BugBattleImageEditorViewController *bugBattleImageEditor = [storyboard instantiateViewControllerWithIdentifier: @"BugBattleImageEditorViewController"];
+    
+    UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController: bugBattleImageEditor];
+    navController.navigationBar.barStyle = UIBarStyleBlack;
+    [navController.navigationBar setTranslucent: NO];
+    [navController.navigationBar setBarTintColor: BugBattle.sharedInstance.navigationBarTint];
+    [navController.navigationBar setTintColor: [UIColor whiteColor]];
+    navController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
+    
+    if (@available(iOS 13.0, *)) {
+        [navController setModalInPresentation: true];
+    }
+    
+    // Show on top of all viewcontrollers.
+    [[BugBattle.sharedInstance getTopMostViewController] presentViewController: navController animated: true completion:^{
+        [bugBattleImageEditor setScreenshot: screenshot];
+    }];
 }
 
 /*
@@ -247,7 +255,7 @@
                 [BugBattle attachData: dataToAppend];
                 
                 // Fetch additional metadata.
-                [BugBattle attachData: @{ @"meta": [self getMetaData] }];
+                [BugBattle attachData: @{ @"metaData": [self getMetaData] }];
                 
                 // Attach console log.
                 [BugBattle attachData: @{ @"consoleLog": self->_consoleLog }];
@@ -277,8 +285,6 @@
         return completion(false);
     }
     
-    NSString *urlString = [NSString stringWithFormat: @"https://webhooks.mongodb-stitch.com/api/client/v2.0/app/bugbattle-xfblb/service/reportBug/incoming_webhook/reportBugWebhook?token=%@", _token];
-    
     NSError *error;
     NSData *jsonBodyData = [NSJSONSerialization dataWithJSONObject: _data options:kNilOptions error: &error];
     
@@ -289,7 +295,8 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest new];
     request.HTTPMethod = @"POST";
-    [request setURL: [NSURL URLWithString: urlString]];
+    [request setURL: [NSURL URLWithString: _apiUrl]];
+    [request setValue: _token forHTTPHeaderField: @"Api-Token"];
     [request setValue: @"application/json" forHTTPHeaderField: @"Content-Type"];
     [request setValue: @"application/json" forHTTPHeaderField: @"Accept"];
     [request setHTTPBody: jsonBodyData];
