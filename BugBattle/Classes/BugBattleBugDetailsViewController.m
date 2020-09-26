@@ -74,7 +74,6 @@
     
     [_lbl setTextColor: [defaultColor colorWithAlphaComponent: 0.3]];
     
-    _descriptionTextView.delegate = self;
     [_descriptionTextView addSubview: _lbl];
     [_descriptionTextView setContentInset: UIEdgeInsetsMake(0, 0, 0, 0)];
     
@@ -83,6 +82,11 @@
     }
     
     [_emailTextField addTarget: self action: @selector(emailAddressDidChangeValue:) forControlEvents: UIControlEventEditingChanged];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 - (BOOL)shouldAutorotate {
@@ -101,7 +105,13 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     [[NSUserDefaults standardUserDefaults] setValue: _descriptionTextView.text forKey: @"BugBattle_SavedDescription"];
-    return YES;
+    
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 - (void)isSendEnabled {

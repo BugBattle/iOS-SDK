@@ -13,6 +13,8 @@
 
 @property (weak, nonatomic) UIImage *screenshot;
 @property (retain, nonatomic) UIColor *navigationBarTint;
+@property (retain, nonatomic) UIColor *navigationTint;
+@property (retain, nonatomic) UIColor *navigationBarTitleColor;
 @property (retain, nonatomic) NSDate *sessionStart;
 @property (retain, nonatomic) NSMutableArray *consoleLog;
 @property (retain, nonatomic) NSMutableArray *callstack;
@@ -52,7 +54,7 @@
  */
 - (void)initHelper {
     self.token = @"";
-    self.apiUrl = @"http://192.168.0.115:9000/api/bugs";
+    self.apiUrl = @"http://192.168.0.109:9000/api";
     self.activationMethod = NONE;
     self.data = [[NSMutableDictionary alloc] init];
     self.sessionStart = [[NSDate alloc] init];
@@ -60,7 +62,15 @@
     self.callstack = [[NSMutableArray alloc] init];
     self.stepsToReproduce = [[NSMutableArray alloc] init];
     self.customData = [[NSDictionary alloc] init];
-    self.navigationBarTint = [UIColor colorWithRed: 0.2 green: 0.2 blue: 0.2 alpha: 1.0];
+    self.navigationTint = [UIColor systemBlueColor];
+    self.navigationBarTint = [UIColor whiteColor];
+    self.navigationBarTitleColor = [UIColor blackColor];
+    if (@available(iOS 13.0, *)) {
+        if (UITraitCollection.currentTraitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+            self.navigationBarTint = [UIColor systemBackgroundColor];
+            self.navigationBarTitleColor = [UIColor whiteColor];
+        }
+    }
     
     // Open console log.
     [self openConsoleLog];
@@ -127,6 +137,20 @@
 }
 
 /*
+ Sets the navigation tint color.
+ */
++ (void)setNavigationTint: (UIColor *)color {
+    BugBattle.sharedInstance.navigationTint = color;
+}
+
+/*
+ Sets the navigationbar title color.
+ */
++ (void)setNavigationBarTitleColor: (UIColor *)color {
+    BugBattle.sharedInstance.navigationBarTitleColor = color;
+}
+
+/*
  Get's the framework's NSBundle.
  */
 + (NSBundle *)frameworkBundle {
@@ -160,12 +184,8 @@
     navController.navigationBar.barStyle = UIBarStyleBlack;
     [navController.navigationBar setTranslucent: NO];
     [navController.navigationBar setBarTintColor: BugBattle.sharedInstance.navigationBarTint];
-    [navController.navigationBar setTintColor: [UIColor whiteColor]];
-    navController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
-    
-    if (@available(iOS 13.0, *)) {
-        [navController setModalInPresentation: true];
-    }
+    [navController.navigationBar setTintColor: BugBattle.sharedInstance.navigationTint];
+    navController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: BugBattle.sharedInstance.navigationBarTitleColor};
     
     // Show on top of all viewcontrollers.
     [[BugBattle.sharedInstance getTopMostViewController] presentViewController: navController animated: true completion:^{
@@ -215,10 +235,10 @@
  */
 + (void)trackStepWithType: (NSString *)type andData: (NSString *)data {
     [BugBattle.sharedInstance.stepsToReproduce addObject: @{
-                                    @"type": type,
-                                    @"data": data,
-                                    @"date": [BugBattle.sharedInstance getJSStringForNSDate: [[NSDate alloc] init]]
-                                    }];
+        @"type": type,
+        @"data": data,
+        @"date": [BugBattle.sharedInstance getJSStringForNSDate: [[NSDate alloc] init]]
+    }];
 }
 
 /*
@@ -239,41 +259,32 @@
  Sends a bugreport to our backend.
  */
 - (void)sendReport: (void (^)(bool success))completion {
-    [self getPresignedURL:^(NSDictionary *data) {
-        if (data != nil) {
-            // Upload screenshot.
-            NSString *url = [data objectForKey: @"url"];
-            NSString *finalUrl = [data objectForKey: @"path"];
-            [self uploadImage: self.screenshot toAWSWithUrl: url andCompletion:^(bool success) {
-                if (!success) {
-                    return completion(false);
-                }
-                
-                // Set screenshot url.
-                NSMutableDictionary *dataToAppend = [[NSMutableDictionary alloc] init];
-                [dataToAppend setValue: finalUrl forKey: @"screenshot"];
-                [BugBattle attachData: dataToAppend];
-                
-                // Fetch additional metadata.
-                [BugBattle attachData: @{ @"metaData": [self getMetaData] }];
-                
-                // Attach console log.
-                [BugBattle attachData: @{ @"consoleLog": self->_consoleLog }];
-                
-                // Attach steps to reproduce.
-                [BugBattle attachData: @{ @"actionLog": self->_stepsToReproduce }];
-                
-                // Attach custom data.
-                [BugBattle attachData: @{ @"customData": [self customData] }];
-                
-                // Sending report to server.
-                [self sendReportToServer:^(bool success) {
-                    completion(success);
-                }];
-            }];
-        } else {
-            completion(false);
+    [self uploadImage: self.screenshot andCompletion:^(bool success, NSString *fileUrl) {
+        if (!success) {
+            return completion(false);
         }
+        
+        // Set screenshot url.
+        NSMutableDictionary *dataToAppend = [[NSMutableDictionary alloc] init];
+        [dataToAppend setValue: fileUrl forKey: @"screenshotUrl"];
+        [BugBattle attachData: dataToAppend];
+        
+        // Fetch additional metadata.
+        [BugBattle attachData: @{ @"metaData": [self getMetaData] }];
+        
+        // Attach console log.
+        [BugBattle attachData: @{ @"consoleLog": self->_consoleLog }];
+        
+        // Attach steps to reproduce.
+        [BugBattle attachData: @{ @"actionLog": self->_stepsToReproduce }];
+        
+        // Attach custom data.
+        [BugBattle attachData: @{ @"customData": [self customData] }];
+        
+        // Sending report to server.
+        [self sendReportToServer:^(bool success) {
+            completion(success);
+        }];
     }];
 }
 
@@ -295,7 +306,7 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest new];
     request.HTTPMethod = @"POST";
-    [request setURL: [NSURL URLWithString: _apiUrl]];
+    [request setURL: [NSURL URLWithString: [NSString stringWithFormat: @"%@/bugs", _apiUrl]]];
     [request setValue: _token forHTTPHeaderField: @"Api-Token"];
     [request setValue: @"application/json" forHTTPHeaderField: @"Content-Type"];
     [request setValue: @"application/json" forHTTPHeaderField: @"Accept"];
@@ -318,59 +329,70 @@
 }
 
 /*
- Prepares a signed URL for uploading images to S3.
+ Upload file
  */
-- (void)getPresignedURL: (void (^)(NSDictionary* response))completion {
-    NSString *urlString = @"https://ii5xbrdd27.execute-api.eu-central-1.amazonaws.com/default/getSignedBugBattleUploadUrl";
+- (void)uploadFile: (NSData *)fileData andFileName: (NSString*)filename andContentType: (NSString*)contentType andCompletion: (void (^)(bool success, NSString *fileUrl))completion {
+    NSMutableURLRequest *request = [NSMutableURLRequest new];
+    [request setURL: [NSURL URLWithString: [NSString stringWithFormat: @"%@/uploads/sdk", _apiUrl]]];
+    [request setValue: _token forHTTPHeaderField: @"Api-Token"];
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    [request setHTTPShouldHandleCookies:NO];
+    [request setTimeoutInterval:60];
+    [request setHTTPMethod:@"POST"];
     
-    NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
-    [dict setObject: BugBattle.sharedInstance.token forKey: @"apiKey"];
+    // Build multipart/form-data
+    NSString *boundary = @"BBBOUNDARY";
+    NSString *headerContentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+    [request setValue: headerContentType forHTTPHeaderField: @"Content-Type"];
+    NSMutableData *body = [NSMutableData data];
+    [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=%@\r\n\r\n", @"imageCaption"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"%@\r\n", @"Some Caption"] dataUsingEncoding:NSUTF8StringEncoding]];
     
-    NSError *error;
-    NSData *jsonBodyData = [NSJSONSerialization dataWithJSONObject: dict options:kNilOptions error: &error];
-    if (error) {
-        return completion(nil);
+    // Add file data
+    if (fileData) {
+        [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=%@; filename=%@\r\n", @"file", filename] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat: @"Content-Type: %@\r\n\r\n", contentType] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData: fileData];
+        [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
     }
     
-    NSMutableURLRequest *request = [NSMutableURLRequest new];
-    request.HTTPMethod = @"POST";
-    [request setURL: [NSURL URLWithString: urlString]];
-    [request setValue: @"application/json" forHTTPHeaderField: @"Content-Type"];
-    [request setValue: @"application/json" forHTTPHeaderField: @"Accept"];
-    [request setHTTPBody: jsonBodyData];
+    [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    // Setting the body of the post to the reqeust
+    [request setHTTPBody:body];
+    
+    // Set the content-length
+    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[body length]];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error != NULL) {
-            return completion(nil);
+            return completion(false, nil);
         }
-        NSDictionary *responseData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-        return completion(responseData);
+        
+        NSError *parseError = nil;
+        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData: data options: 0 error:&parseError];
+        if (!parseError) {
+            NSString* fileUrl = [responseDict objectForKey: @"fileUrl"];
+            return completion(true, fileUrl);
+        } else {
+            return completion(false, nil);
+        }
     }];
     [task resume];
 }
 
 /*
- Uploads an image to S3.
+ Upload image
  */
-- (void)uploadImage: (UIImage *)image toAWSWithUrl: (NSString *)presignedURL andCompletion: (void (^)(bool success))completion {
-    NSMutableURLRequest *request = [NSMutableURLRequest new];
-    request.HTTPMethod = @"PUT";
-    [request setURL: [NSURL URLWithString: presignedURL]];
-    
-    NSData *data = UIImageJPEGRepresentation(image, 1.0);
-    [request setHTTPBody: data];
-    
-    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error != NULL) {
-            return completion(false);
-        }
-        return completion(true);
-    }];
-    [task resume];
+- (void)uploadImage: (UIImage *)image andCompletion: (void (^)(bool success, NSString *fileUrl))completion {
+    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+    NSString *contentType = @"image/jpeg";
+    [self uploadFile: imageData andFileName: @"screenshot.jpeg" andContentType: contentType andCompletion: completion];
 }
 
 /*

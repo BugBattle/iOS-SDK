@@ -64,6 +64,22 @@ typedef enum activationMethodTypes { NONE, SHAKE } BugBattleActivationMethod;
 + (void)setNavigationBarTint: (UIColor *)color;
 
 /**
+ * Set a custom navigation tint color.
+ * @author BugBattle
+ *
+ * @param color The  color of the navigation action items.
+ */
++ (void)setNavigationTint:(UIColor *)color;
+
+/**
+ * Set a custom navigationbar title color.
+ * @author BugBattle
+ *
+ * @param color The  color of the navigationbar title.
+ */
++ (void)setNavigationBarTitleColor:(UIColor *)color;
+
+/**
  * Sets a custom api url.
  * @author BugBattle
  *

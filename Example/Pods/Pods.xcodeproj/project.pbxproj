@@ -7,43 +7,47 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0AEA2B304C42BD8A9FD71DB62A9B931C /* editIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D0D7188385A4CE6815997C9490003070 /* editIcon.png */; };
-		107828B7D5EAB36F66BF6ED63B7A759C /* BugBattleImageEditorViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D1231885A604BECCD09B95612DEC6E /* BugBattleImageEditorViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		261492834429498F06F96B426C0C4406 /* BugBattle-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 17DAD1FB436960A4B01495B504570073 /* BugBattle-dummy.m */; };
-		2711EC3DF901C142A73DA4EA5757BBB0 /* BugBattleBugDetailsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = CA51BF9B5B5CDF9156F8EDC67A01F588 /* BugBattleBugDetailsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0145C8DE865E9100FA9C75193E8CFC81 /* backIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = F08800C77E359B1BFC962C9F6A0048A9 /* backIcon.png */; };
+		0FBE9098166BB9C94198D0D32833CEC1 /* blurIconActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A987D45929CEC6098AF76676878254 /* blurIconActive.png */; };
+		152E440131D7C97591703D4CA7A2645E /* BugBattleBugDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CEF2C66543D70C7F5536165ADC4EEE /* BugBattleBugDetailsViewController.m */; };
+		238ED62A7B876F1CFC22857A76569E12 /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F0D495B21502062C02A9153E8BDDF30 /* next.png */; };
+		285851190BEDF41FB220BF811FEA7B27 /* colorsCloseIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 587A62911DC1716129C407B76071F68E /* colorsCloseIcon.png */; };
+		30E94E25E9319D2550B57F0D73CAC0B0 /* sent.png in Resources */ = {isa = PBXBuildFile; fileRef = F953E042B8022123B61EDC9CF4A310A6 /* sent.png */; };
 		3FA51991B7377B1300311BB968BD873C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436BAA54A31999B53B3CC7115C55FE50 /* Foundation.framework */; };
 		4B0733E4D1399ACFD1F8F919E3EDFF29 /* Pods-BugBattle_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 591F15D5AD3ADF5065E94893407F13F5 /* Pods-BugBattle_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		50055CADCA7A5079C02F576F5430A857 /* BugBattleImageEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2E68E3C7A356F3247F391010EF703F /* BugBattleImageEditorViewController.m */; };
+		4E0E76CF13211068976DDB58DFFC2945 /* BugBattleTouchDrawImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6BF8BA42FACF1EC9B1DCB59E2AEDFB /* BugBattleTouchDrawImageView.m */; };
+		573F9892003A608FCE443FC81DD7FAFE /* BugBattleCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F15A30D4C06903B237CD91AC820E17A /* BugBattleCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BB92EDA7D5F4F00853A85AC8EE9F39B /* Pods-BugBattle_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F464AA4858080BA0484ED0A2E7E859B2 /* Pods-BugBattle_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		73EDBACEA96B81B1E3B14B08890B78A0 /* UIWindow+BugBattleShakeRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9522EAB08944F06155DEA59B5D0394C1 /* UIWindow+BugBattleShakeRecognizer.m */; };
-		7A0A658BB6C6387E76396AE33C926564 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436BAA54A31999B53B3CC7115C55FE50 /* Foundation.framework */; };
-		82DF20FC1AE36FF4828675B179C01B92 /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CAF8A3A5A7829660DB7B7C3CE9CD33C /* next.png */; };
-		886E9D889278E54F78DCE8EBD092AAFF /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = FD2301B7DFC78F9B88A56AFE69625381 /* close.png */; };
-		8CEDF78CF170D35D369FC01E8D0DCA56 /* BugBattleCore.m in Sources */ = {isa = PBXBuildFile; fileRef = D0633AF40A2B366382716FCB4063D613 /* BugBattleCore.m */; };
-		8F02CA5828A8611883D8F61511056567 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 312B988EF117AE4DE76A268D970131FE /* UIKit.framework */; };
+		60E3FE484A73E58100A2453539524E61 /* BugBattleImageEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA4A514BBB68510FD72E1980CC78739 /* BugBattleImageEditorViewController.m */; };
+		6ABE5EDEF3536BA845E8EDA9630284FB /* BugBattleStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27ED0FA4517C9D9D150D76BDD7179C52 /* BugBattleStoryboard.storyboard */; };
+		84E791F8402A23886D790FB2B9C88FE3 /* UIWindow+BugBattleShakeRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = A05ACD77377FA6A6C2BFFD9D4E57D6BF /* UIWindow+BugBattleShakeRecognizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90C7C4F2830B764BE5A53F3EBBE81D7C /* Pods-BugBattle_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 90690F35DB1444C5384E85D3C28B2279 /* Pods-BugBattle_Tests-dummy.m */; };
-		932A7DB705E8A625DD58F9688D504234 /* BugBattleCore.h in Headers */ = {isa = PBXBuildFile; fileRef = DAE9AC069B4F9B7337B570C6E830BFD0 /* BugBattleCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		937099DFB5B734CE9D0084F23D26BEE5 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E14B7D901254D7F0FDF52B6211932F2 /* close.png */; };
 		9CEFF5F66C8C431B2EEE94D7016EB9D9 /* Pods-BugBattle_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 67F6B076274F683DA46DF151D37AAFBB /* Pods-BugBattle_Example-dummy.m */; };
-		9CF819301C1CEFF2082CADAAA3CEB402 /* BugBattleStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 196842957419B02028A210EA5B32192F /* BugBattleStoryboard.storyboard */; };
-		9F1AFFA0AB80A89AF4133FBBA93055D6 /* BugBattleTouchDrawImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05ED949C29CC608649202C6D072F03D0 /* BugBattleTouchDrawImageView.m */; };
-		A47E8C505760A4346789B05CDE70E89E /* UIWindow+BugBattleShakeRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 947C4EF2EC806BFE4D1B5ADCE8519F19 /* UIWindow+BugBattleShakeRecognizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A91FE30B0387746868D884BE4BA0A525 /* reportSent.png in Resources */ = {isa = PBXBuildFile; fileRef = D65061BA19803B310B7ABA987D9C593A /* reportSent.png */; };
-		B48F4DF69463EB19EB5063C0E84B916A /* BugBattleTouchDrawImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4550FCAF66087F0C2CFCFA884C9ABAF5 /* BugBattleTouchDrawImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CABD99BDBC4C31A5ADE89E918B6799F9 /* BugBattleBugDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B43905F1729C45F7D3855170FA507B /* BugBattleBugDetailsViewController.m */; };
+		9E11A23F7C0A35A23DB0F4F4D4244C54 /* BugBattle-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 518FA1F9D46E57FDCF75C88050AC580C /* BugBattle-dummy.m */; };
+		A88C9E442D8236056D7E40D34FC496B1 /* editIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = EB783430798E6C78A6DBC1BDF0FED931 /* editIcon.png */; };
+		AB0B2E99ECEF3057FE5438FD2D67D458 /* blurIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A778F72FB0389B20AF6DB1E29C4F8C5 /* blurIcon.png */; };
+		B00397278DC1FE30C34AB77480B4F329 /* BugBattleBugDetailsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B05DB136495C6DB3A243637F66602F8 /* BugBattleBugDetailsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CF7CE00FDE325554844049DB79D88C96 /* BugBattleCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE941ABDE10B20D052BDA82ACB8F2F6 /* BugBattleCore.m */; };
+		D1FCE15C3F1F3CBA2EE93DF43D10634E /* UIWindow+BugBattleShakeRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DDD578509866EAA1028A4494E24CD32 /* UIWindow+BugBattleShakeRecognizer.m */; };
+		D736B509B1263C8FD8D1B49833205F24 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 312B988EF117AE4DE76A268D970131FE /* UIKit.framework */; };
+		E59D51800851C6CDAE300BC2EB563B66 /* BugBattleTouchDrawImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = FE4AD060CBA486EB49630EFD8AA583F0 /* BugBattleTouchDrawImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E98B5B4A288056DA1ED39259ACA261A7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436BAA54A31999B53B3CC7115C55FE50 /* Foundation.framework */; };
-		F1F0B85D4FE093D19B95FD68375C7D4B /* BugBattle.h in Headers */ = {isa = PBXBuildFile; fileRef = C2A5C481973CE87A8DE4B0F37F3076D3 /* BugBattle.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F5B44C6A754A02B247E73D1AAE260241 /* BugBattle-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AFD12EFFC8BDB4833D5B9F0C01900927 /* BugBattle-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F0A06078D941AB598B360FB672299AF7 /* BugBattle.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CCA8BF26044191C38A31D70705F3436 /* BugBattle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F17AF5ED728684FB4D51A151BACA7D50 /* BugBattle-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 117E4BDC72A3C56997C27B2F2DCF5482 /* BugBattle-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F44BC7ECF2E1E49C9658AEC92E8285AC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436BAA54A31999B53B3CC7115C55FE50 /* Foundation.framework */; };
+		F934978FCFAA4E6078D2BCC537D48FB4 /* BugBattleImageEditorViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 55DE83B2C2B5144F85B2837379E79C01 /* BugBattleImageEditorViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		AB598CBABA2E82EF58E3BE74FB555067 /* PBXContainerItemProxy */ = {
+		47F443E6B993BDC2884BCA709FFFFCCE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 80BCC9C5F348D6D6A837F993647BBF9A;
 			remoteInfo = BugBattle;
 		};
-		FE85BC0CDFEF61ECDBE6F0AF3F88DECF /* PBXContainerItemProxy */ = {
+		96EF2A5F9F493C3BCE2B6AF8A4BF6E17 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -53,55 +57,59 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		04D1231885A604BECCD09B95612DEC6E /* BugBattleImageEditorViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattleImageEditorViewController.h; path = BugBattle/Classes/BugBattleImageEditorViewController.h; sourceTree = "<group>"; };
+		017A448201647B7EEA2F1751B9A838D4 /* BugBattle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BugBattle.debug.xcconfig; sourceTree = "<group>"; };
 		0502B2D9F0307929E9BA8F3D9EAAC60F /* Pods_BugBattle_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_BugBattle_Tests.framework; path = "Pods-BugBattle_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		05ED949C29CC608649202C6D072F03D0 /* BugBattleTouchDrawImageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BugBattleTouchDrawImageView.m; path = BugBattle/Classes/BugBattleTouchDrawImageView.m; sourceTree = "<group>"; };
+		0DDD578509866EAA1028A4494E24CD32 /* UIWindow+BugBattleShakeRecognizer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIWindow+BugBattleShakeRecognizer.m"; path = "BugBattle/Classes/UIWindow+BugBattleShakeRecognizer.m"; sourceTree = "<group>"; };
+		117E4BDC72A3C56997C27B2F2DCF5482 /* BugBattle-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BugBattle-umbrella.h"; sourceTree = "<group>"; };
 		123B5DE34E4401848CF6F05999A9BB76 /* Pods-BugBattle_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BugBattle_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		17DAD1FB436960A4B01495B504570073 /* BugBattle-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "BugBattle-dummy.m"; sourceTree = "<group>"; };
-		196842957419B02028A210EA5B32192F /* BugBattleStoryboard.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; name = BugBattleStoryboard.storyboard; path = BugBattle/Assets/BugBattleStoryboard.storyboard; sourceTree = "<group>"; };
+		1A778F72FB0389B20AF6DB1E29C4F8C5 /* blurIcon.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = blurIcon.png; path = BugBattle/Assets/blurIcon.png; sourceTree = "<group>"; };
 		1B00307719F87B5F97B61591E7E63E24 /* Pods-BugBattle_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BugBattle_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		1CAF8A3A5A7829660DB7B7C3CE9CD33C /* next.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = next.png; path = BugBattle/Assets/next.png; sourceTree = "<group>"; };
+		1E94E264A454EADC31137C0989A045D9 /* BugBattle.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = BugBattle.modulemap; sourceTree = "<group>"; };
 		203587D71A3D66277717A7551EE55ED9 /* Pods-BugBattle_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BugBattle_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		27ED0FA4517C9D9D150D76BDD7179C52 /* BugBattleStoryboard.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; name = BugBattleStoryboard.storyboard; path = BugBattle/Assets/BugBattleStoryboard.storyboard; sourceTree = "<group>"; };
 		2CAEB53EBB8155846180A2DE55E10E3E /* Pods-BugBattle_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BugBattle_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		312B988EF117AE4DE76A268D970131FE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		37B1F5B41085D612242BFD3F298C2175 /* Pods-BugBattle_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-BugBattle_Example.modulemap"; sourceTree = "<group>"; };
-		3E52CD3B6D34CEDA34B220F91B684863 /* BugBattle.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = BugBattle.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		3B05DB136495C6DB3A243637F66602F8 /* BugBattleBugDetailsViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattleBugDetailsViewController.h; path = BugBattle/Classes/BugBattleBugDetailsViewController.h; sourceTree = "<group>"; };
+		3CE941ABDE10B20D052BDA82ACB8F2F6 /* BugBattleCore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BugBattleCore.m; path = BugBattle/Classes/BugBattleCore.m; sourceTree = "<group>"; };
+		3F15A30D4C06903B237CD91AC820E17A /* BugBattleCore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattleCore.h; path = BugBattle/Classes/BugBattleCore.h; sourceTree = "<group>"; };
 		3F994C176BD3C93EE1E36DB965C35AC6 /* Pods-BugBattle_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-BugBattle_Tests.modulemap"; sourceTree = "<group>"; };
 		430B8713A4DCF7BD97AA21AD85DD10D2 /* Pods-BugBattle_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BugBattle_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		436BAA54A31999B53B3CC7115C55FE50 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		4550FCAF66087F0C2CFCFA884C9ABAF5 /* BugBattleTouchDrawImageView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattleTouchDrawImageView.h; path = BugBattle/Classes/BugBattleTouchDrawImageView.h; sourceTree = "<group>"; };
-		478516FC12D42556D8668BDCD191DF62 /* BugBattle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BugBattle.release.xcconfig; sourceTree = "<group>"; };
+		4B346BCAFCAB8DC5D67FD6E8B527C54D /* BugBattle-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BugBattle-prefix.pch"; sourceTree = "<group>"; };
 		4C416E7CD601BE3FE99588D46BA3B6DC /* Pods-BugBattle_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BugBattle_Example-Info.plist"; sourceTree = "<group>"; };
+		4E14B7D901254D7F0FDF52B6211932F2 /* close.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = close.png; path = BugBattle/Assets/close.png; sourceTree = "<group>"; };
+		518FA1F9D46E57FDCF75C88050AC580C /* BugBattle-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "BugBattle-dummy.m"; sourceTree = "<group>"; };
+		55DE83B2C2B5144F85B2837379E79C01 /* BugBattleImageEditorViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattleImageEditorViewController.h; path = BugBattle/Classes/BugBattleImageEditorViewController.h; sourceTree = "<group>"; };
+		587A62911DC1716129C407B76071F68E /* colorsCloseIcon.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = colorsCloseIcon.png; path = BugBattle/Assets/colorsCloseIcon.png; sourceTree = "<group>"; };
 		591F15D5AD3ADF5065E94893407F13F5 /* Pods-BugBattle_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BugBattle_Example-umbrella.h"; sourceTree = "<group>"; };
 		5C63C172A1F1C7D11790271BBA58634A /* Pods-BugBattle_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BugBattle_Tests-Info.plist"; sourceTree = "<group>"; };
 		5D949CE3EF00A58F1C45D80857CCF3A6 /* BugBattle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BugBattle.framework; path = BugBattle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5FDE70656BB9957F79CF1A72697D686D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		65CEF2C66543D70C7F5536165ADC4EEE /* BugBattleBugDetailsViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BugBattleBugDetailsViewController.m; path = BugBattle/Classes/BugBattleBugDetailsViewController.m; sourceTree = "<group>"; };
 		67F6B076274F683DA46DF151D37AAFBB /* Pods-BugBattle_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BugBattle_Example-dummy.m"; sourceTree = "<group>"; };
+		681017EA1126680DF4A28E12D518FA70 /* BugBattle.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = BugBattle.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		70CC2CAFD68EE4BA5BC43280D9FC158D /* LICENSE.md */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE.md; sourceTree = "<group>"; };
 		72DED28823C4879459934171075FD90A /* Pods-BugBattle_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BugBattle_Example-frameworks.sh"; sourceTree = "<group>"; };
+		7FA4A514BBB68510FD72E1980CC78739 /* BugBattleImageEditorViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BugBattleImageEditorViewController.m; path = BugBattle/Classes/BugBattleImageEditorViewController.m; sourceTree = "<group>"; };
 		8BF84FD41FD79DE7BF6A09DD970D8C57 /* Pods-BugBattle_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BugBattle_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		8CCA8BF26044191C38A31D70705F3436 /* BugBattle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattle.h; path = BugBattle/Classes/BugBattle.h; sourceTree = "<group>"; };
+		8F6BF8BA42FACF1EC9B1DCB59E2AEDFB /* BugBattleTouchDrawImageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BugBattleTouchDrawImageView.m; path = BugBattle/Classes/BugBattleTouchDrawImageView.m; sourceTree = "<group>"; };
 		90690F35DB1444C5384E85D3C28B2279 /* Pods-BugBattle_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BugBattle_Tests-dummy.m"; sourceTree = "<group>"; };
-		947C4EF2EC806BFE4D1B5ADCE8519F19 /* UIWindow+BugBattleShakeRecognizer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIWindow+BugBattleShakeRecognizer.h"; path = "BugBattle/Classes/UIWindow+BugBattleShakeRecognizer.h"; sourceTree = "<group>"; };
-		9522EAB08944F06155DEA59B5D0394C1 /* UIWindow+BugBattleShakeRecognizer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIWindow+BugBattleShakeRecognizer.m"; path = "BugBattle/Classes/UIWindow+BugBattleShakeRecognizer.m"; sourceTree = "<group>"; };
-		9B6FB09CA470E5E012E1E8F66291A660 /* BugBattle-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "BugBattle-Info.plist"; sourceTree = "<group>"; };
+		94A987D45929CEC6098AF76676878254 /* blurIconActive.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = blurIconActive.png; path = BugBattle/Assets/blurIconActive.png; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		AA2E68E3C7A356F3247F391010EF703F /* BugBattleImageEditorViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BugBattleImageEditorViewController.m; path = BugBattle/Classes/BugBattleImageEditorViewController.m; sourceTree = "<group>"; };
-		AD791C01144A8AA391299FF20FA3F665 /* LICENSE.md */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE.md; sourceTree = "<group>"; };
-		AED3BCBCEA5D54D22FA2B84FB7239506 /* BugBattle-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BugBattle-prefix.pch"; sourceTree = "<group>"; };
-		AFD12EFFC8BDB4833D5B9F0C01900927 /* BugBattle-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BugBattle-umbrella.h"; sourceTree = "<group>"; };
+		9EE397FF2716B43DBAF195C125A8BD24 /* BugBattle-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "BugBattle-Info.plist"; sourceTree = "<group>"; };
+		9F0D495B21502062C02A9153E8BDDF30 /* next.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = next.png; path = BugBattle/Assets/next.png; sourceTree = "<group>"; };
+		A05ACD77377FA6A6C2BFFD9D4E57D6BF /* UIWindow+BugBattleShakeRecognizer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIWindow+BugBattleShakeRecognizer.h"; path = "BugBattle/Classes/UIWindow+BugBattleShakeRecognizer.h"; sourceTree = "<group>"; };
 		B70973D329239C54C496B3FCEE25443D /* Pods_BugBattle_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_BugBattle_Example.framework; path = "Pods-BugBattle_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7AA0AF06F13ED9712530BC6B37DC0B9 /* Pods-BugBattle_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BugBattle_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		C2A5C481973CE87A8DE4B0F37F3076D3 /* BugBattle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattle.h; path = BugBattle/Classes/BugBattle.h; sourceTree = "<group>"; };
-		C8B43905F1729C45F7D3855170FA507B /* BugBattleBugDetailsViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BugBattleBugDetailsViewController.m; path = BugBattle/Classes/BugBattleBugDetailsViewController.m; sourceTree = "<group>"; };
-		CA51BF9B5B5CDF9156F8EDC67A01F588 /* BugBattleBugDetailsViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattleBugDetailsViewController.h; path = BugBattle/Classes/BugBattleBugDetailsViewController.h; sourceTree = "<group>"; };
-		D0633AF40A2B366382716FCB4063D613 /* BugBattleCore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BugBattleCore.m; path = BugBattle/Classes/BugBattleCore.m; sourceTree = "<group>"; };
-		D0D7188385A4CE6815997C9490003070 /* editIcon.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = editIcon.png; path = BugBattle/Assets/editIcon.png; sourceTree = "<group>"; };
 		D2B40914B31FA2FE6DBE3E923AFA3ABD /* Pods-BugBattle_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BugBattle_Example.release.xcconfig"; sourceTree = "<group>"; };
-		D65061BA19803B310B7ABA987D9C593A /* reportSent.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = reportSent.png; path = BugBattle/Assets/reportSent.png; sourceTree = "<group>"; };
-		DAE9AC069B4F9B7337B570C6E830BFD0 /* BugBattleCore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattleCore.h; path = BugBattle/Classes/BugBattleCore.h; sourceTree = "<group>"; };
-		E780845090D23E3AFDAFA5CF17EB273E /* BugBattle.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = BugBattle.modulemap; sourceTree = "<group>"; };
+		EB783430798E6C78A6DBC1BDF0FED931 /* editIcon.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = editIcon.png; path = BugBattle/Assets/editIcon.png; sourceTree = "<group>"; };
+		EE64217A5DE37FED2831E6324F2E35CD /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		F08800C77E359B1BFC962C9F6A0048A9 /* backIcon.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = backIcon.png; path = BugBattle/Assets/backIcon.png; sourceTree = "<group>"; };
 		F464AA4858080BA0484ED0A2E7E859B2 /* Pods-BugBattle_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BugBattle_Tests-umbrella.h"; sourceTree = "<group>"; };
-		FD2301B7DFC78F9B88A56AFE69625381 /* close.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = close.png; path = BugBattle/Assets/close.png; sourceTree = "<group>"; };
-		FDB08E450F9BE8011FD05C9ECEF16F99 /* BugBattle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BugBattle.debug.xcconfig; sourceTree = "<group>"; };
+		F91F5F606F78118A4D149C188C2C6062 /* BugBattle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BugBattle.release.xcconfig; sourceTree = "<group>"; };
+		F953E042B8022123B61EDC9CF4A310A6 /* sent.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = sent.png; path = BugBattle/Assets/sent.png; sourceTree = "<group>"; };
+		FE4AD060CBA486EB49630EFD8AA583F0 /* BugBattleTouchDrawImageView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattleTouchDrawImageView.h; path = BugBattle/Classes/BugBattleTouchDrawImageView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,15 +121,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3301A9A9C889AF9BF5149B6269129118 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7A0A658BB6C6387E76396AE33C926564 /* Foundation.framework in Frameworks */,
-				8F02CA5828A8611883D8F61511056567 /* UIKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		44BBB1E32A5E6E2A450DC7DD3EA8D2A9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -130,21 +129,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8D4A2AB0EC8F46398013F608FBF11BAE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F44BC7ECF2E1E49C9658AEC92E8285AC /* Foundation.framework in Frameworks */,
+				D736B509B1263C8FD8D1B49833205F24 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		144A1B574A95D8A66B625BFE826FD310 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				196842957419B02028A210EA5B32192F /* BugBattleStoryboard.storyboard */,
-				FD2301B7DFC78F9B88A56AFE69625381 /* close.png */,
-				D0D7188385A4CE6815997C9490003070 /* editIcon.png */,
-				1CAF8A3A5A7829660DB7B7C3CE9CD33C /* next.png */,
-				D65061BA19803B310B7ABA987D9C593A /* reportSent.png */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
 		1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,31 +162,25 @@
 		25AF21F2F37F9B1428357FB39B739AFD /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				2B0983F20473F3810ABE4A82957A8793 /* BugBattle */,
+				385B52589AC38CE1F0BC1FCDAC60EE18 /* BugBattle */,
 			);
 			name = "Development Pods";
 			sourceTree = "<group>";
 		};
-		2B0983F20473F3810ABE4A82957A8793 /* BugBattle */ = {
+		2BBFA3488EEB58004B4E10D3A6C685DA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C2A5C481973CE87A8DE4B0F37F3076D3 /* BugBattle.h */,
-				CA51BF9B5B5CDF9156F8EDC67A01F588 /* BugBattleBugDetailsViewController.h */,
-				C8B43905F1729C45F7D3855170FA507B /* BugBattleBugDetailsViewController.m */,
-				DAE9AC069B4F9B7337B570C6E830BFD0 /* BugBattleCore.h */,
-				D0633AF40A2B366382716FCB4063D613 /* BugBattleCore.m */,
-				04D1231885A604BECCD09B95612DEC6E /* BugBattleImageEditorViewController.h */,
-				AA2E68E3C7A356F3247F391010EF703F /* BugBattleImageEditorViewController.m */,
-				4550FCAF66087F0C2CFCFA884C9ABAF5 /* BugBattleTouchDrawImageView.h */,
-				05ED949C29CC608649202C6D072F03D0 /* BugBattleTouchDrawImageView.m */,
-				947C4EF2EC806BFE4D1B5ADCE8519F19 /* UIWindow+BugBattleShakeRecognizer.h */,
-				9522EAB08944F06155DEA59B5D0394C1 /* UIWindow+BugBattleShakeRecognizer.m */,
-				6DA1F451A21CDE5E74DE394678891D1F /* Pod */,
-				144A1B574A95D8A66B625BFE826FD310 /* Resources */,
-				7F987E1BB41A33C2D932F50943A07AA1 /* Support Files */,
+				F08800C77E359B1BFC962C9F6A0048A9 /* backIcon.png */,
+				1A778F72FB0389B20AF6DB1E29C4F8C5 /* blurIcon.png */,
+				94A987D45929CEC6098AF76676878254 /* blurIconActive.png */,
+				27ED0FA4517C9D9D150D76BDD7179C52 /* BugBattleStoryboard.storyboard */,
+				4E14B7D901254D7F0FDF52B6211932F2 /* close.png */,
+				587A62911DC1716129C407B76071F68E /* colorsCloseIcon.png */,
+				EB783430798E6C78A6DBC1BDF0FED931 /* editIcon.png */,
+				9F0D495B21502062C02A9153E8BDDF30 /* next.png */,
+				F953E042B8022123B61EDC9CF4A310A6 /* sent.png */,
 			);
-			name = BugBattle;
-			path = ../..;
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		3776B5DA120EBC012E37F753FE0C9DBD /* Pods-BugBattle_Example */ = {
@@ -210,6 +200,28 @@
 			path = "Target Support Files/Pods-BugBattle_Example";
 			sourceTree = "<group>";
 		};
+		385B52589AC38CE1F0BC1FCDAC60EE18 /* BugBattle */ = {
+			isa = PBXGroup;
+			children = (
+				8CCA8BF26044191C38A31D70705F3436 /* BugBattle.h */,
+				3B05DB136495C6DB3A243637F66602F8 /* BugBattleBugDetailsViewController.h */,
+				65CEF2C66543D70C7F5536165ADC4EEE /* BugBattleBugDetailsViewController.m */,
+				3F15A30D4C06903B237CD91AC820E17A /* BugBattleCore.h */,
+				3CE941ABDE10B20D052BDA82ACB8F2F6 /* BugBattleCore.m */,
+				55DE83B2C2B5144F85B2837379E79C01 /* BugBattleImageEditorViewController.h */,
+				7FA4A514BBB68510FD72E1980CC78739 /* BugBattleImageEditorViewController.m */,
+				FE4AD060CBA486EB49630EFD8AA583F0 /* BugBattleTouchDrawImageView.h */,
+				8F6BF8BA42FACF1EC9B1DCB59E2AEDFB /* BugBattleTouchDrawImageView.m */,
+				A05ACD77377FA6A6C2BFFD9D4E57D6BF /* UIWindow+BugBattleShakeRecognizer.h */,
+				0DDD578509866EAA1028A4494E24CD32 /* UIWindow+BugBattleShakeRecognizer.m */,
+				831E481CF8662DED1FE8A2C1F4B931F0 /* Pod */,
+				2BBFA3488EEB58004B4E10D3A6C685DA /* Resources */,
+				7D09530159238A8A67295B73A06D7AFF /* Support Files */,
+			);
+			name = BugBattle;
+			path = ../..;
+			sourceTree = "<group>";
+		};
 		64B07DD61D1B25F033C40F1E807F0796 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,29 +231,29 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		6DA1F451A21CDE5E74DE394678891D1F /* Pod */ = {
+		7D09530159238A8A67295B73A06D7AFF /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				3E52CD3B6D34CEDA34B220F91B684863 /* BugBattle.podspec */,
-				AD791C01144A8AA391299FF20FA3F665 /* LICENSE.md */,
-				5FDE70656BB9957F79CF1A72697D686D /* README.md */,
-			);
-			name = Pod;
-			sourceTree = "<group>";
-		};
-		7F987E1BB41A33C2D932F50943A07AA1 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				E780845090D23E3AFDAFA5CF17EB273E /* BugBattle.modulemap */,
-				17DAD1FB436960A4B01495B504570073 /* BugBattle-dummy.m */,
-				9B6FB09CA470E5E012E1E8F66291A660 /* BugBattle-Info.plist */,
-				AED3BCBCEA5D54D22FA2B84FB7239506 /* BugBattle-prefix.pch */,
-				AFD12EFFC8BDB4833D5B9F0C01900927 /* BugBattle-umbrella.h */,
-				FDB08E450F9BE8011FD05C9ECEF16F99 /* BugBattle.debug.xcconfig */,
-				478516FC12D42556D8668BDCD191DF62 /* BugBattle.release.xcconfig */,
+				1E94E264A454EADC31137C0989A045D9 /* BugBattle.modulemap */,
+				518FA1F9D46E57FDCF75C88050AC580C /* BugBattle-dummy.m */,
+				9EE397FF2716B43DBAF195C125A8BD24 /* BugBattle-Info.plist */,
+				4B346BCAFCAB8DC5D67FD6E8B527C54D /* BugBattle-prefix.pch */,
+				117E4BDC72A3C56997C27B2F2DCF5482 /* BugBattle-umbrella.h */,
+				017A448201647B7EEA2F1751B9A838D4 /* BugBattle.debug.xcconfig */,
+				F91F5F606F78118A4D149C188C2C6062 /* BugBattle.release.xcconfig */,
 			);
 			name = "Support Files";
 			path = "Example/Pods/Target Support Files/BugBattle";
+			sourceTree = "<group>";
+		};
+		831E481CF8662DED1FE8A2C1F4B931F0 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				681017EA1126680DF4A28E12D518FA70 /* BugBattle.podspec */,
+				70CC2CAFD68EE4BA5BC43280D9FC158D /* LICENSE.md */,
+				EE64217A5DE37FED2831E6324F2E35CD /* README.md */,
+			);
+			name = Pod;
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
@@ -283,25 +295,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		1593CB704F3C8DD43E1496763C3E704B /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F5B44C6A754A02B247E73D1AAE260241 /* BugBattle-umbrella.h in Headers */,
-				F1F0B85D4FE093D19B95FD68375C7D4B /* BugBattle.h in Headers */,
-				2711EC3DF901C142A73DA4EA5757BBB0 /* BugBattleBugDetailsViewController.h in Headers */,
-				932A7DB705E8A625DD58F9688D504234 /* BugBattleCore.h in Headers */,
-				107828B7D5EAB36F66BF6ED63B7A759C /* BugBattleImageEditorViewController.h in Headers */,
-				B48F4DF69463EB19EB5063C0E84B916A /* BugBattleTouchDrawImageView.h in Headers */,
-				A47E8C505760A4346789B05CDE70E89E /* UIWindow+BugBattleShakeRecognizer.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		63F8B06EF7AEAC1CE168F399B1E86817 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				5BB92EDA7D5F4F00853A85AC8EE9F39B /* Pods-BugBattle_Tests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6DDFC6602B5787C6A633B9A53A04EDA9 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F17AF5ED728684FB4D51A151BACA7D50 /* BugBattle-umbrella.h in Headers */,
+				F0A06078D941AB598B360FB672299AF7 /* BugBattle.h in Headers */,
+				B00397278DC1FE30C34AB77480B4F329 /* BugBattleBugDetailsViewController.h in Headers */,
+				573F9892003A608FCE443FC81DD7FAFE /* BugBattleCore.h in Headers */,
+				F934978FCFAA4E6078D2BCC537D48FB4 /* BugBattleImageEditorViewController.h in Headers */,
+				E59D51800851C6CDAE300BC2EB563B66 /* BugBattleTouchDrawImageView.h in Headers */,
+				84E791F8402A23886D790FB2B9C88FE3 /* UIWindow+BugBattleShakeRecognizer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,12 +330,12 @@
 /* Begin PBXNativeTarget section */
 		80BCC9C5F348D6D6A837F993647BBF9A /* BugBattle */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9A81ED83C66BD299941C83A7065BAA41 /* Build configuration list for PBXNativeTarget "BugBattle" */;
+			buildConfigurationList = 176DF23900C64AE2E719DCC40999A251 /* Build configuration list for PBXNativeTarget "BugBattle" */;
 			buildPhases = (
-				1593CB704F3C8DD43E1496763C3E704B /* Headers */,
-				91297B044D938E89AB5F8BD9D154CA81 /* Sources */,
-				3301A9A9C889AF9BF5149B6269129118 /* Frameworks */,
-				D252EB85FE7F3CC15775C73292F0B60C /* Resources */,
+				6DDFC6602B5787C6A633B9A53A04EDA9 /* Headers */,
+				AA432A97F733853ACE722F98EE760675 /* Sources */,
+				8D4A2AB0EC8F46398013F608FBF11BAE /* Frameworks */,
+				423495E5C9B5778A250C71B800415B94 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -346,7 +358,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				736478121AA15127422A65A86AF0479F /* PBXTargetDependency */,
+				6243CE76D31AB5A812657CCBB72CE696 /* PBXTargetDependency */,
 			);
 			name = "Pods-BugBattle_Tests";
 			productName = "Pods-BugBattle_Tests";
@@ -365,7 +377,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				775BDC5F9D6959FF4F37B3ED5DA5C3D5 /* PBXTargetDependency */,
+				DEC0B6E4CA089B4A20EA9318BEF624B1 /* PBXTargetDependency */,
 			);
 			name = "Pods-BugBattle_Example";
 			productName = "Pods-BugBattle_Example";
@@ -402,22 +414,26 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		423495E5C9B5778A250C71B800415B94 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0145C8DE865E9100FA9C75193E8CFC81 /* backIcon.png in Resources */,
+				AB0B2E99ECEF3057FE5438FD2D67D458 /* blurIcon.png in Resources */,
+				0FBE9098166BB9C94198D0D32833CEC1 /* blurIconActive.png in Resources */,
+				6ABE5EDEF3536BA845E8EDA9630284FB /* BugBattleStoryboard.storyboard in Resources */,
+				937099DFB5B734CE9D0084F23D26BEE5 /* close.png in Resources */,
+				285851190BEDF41FB220BF811FEA7B27 /* colorsCloseIcon.png in Resources */,
+				A88C9E442D8236056D7E40D34FC496B1 /* editIcon.png in Resources */,
+				238ED62A7B876F1CFC22857A76569E12 /* next.png in Resources */,
+				30E94E25E9319D2550B57F0D73CAC0B0 /* sent.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A5F89B5516D58C3F5932B2D75B441A5B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D252EB85FE7F3CC15775C73292F0B60C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9CF819301C1CEFF2082CADAAA3CEB402 /* BugBattleStoryboard.storyboard in Resources */,
-				886E9D889278E54F78DCE8EBD092AAFF /* close.png in Resources */,
-				0AEA2B304C42BD8A9FD71DB62A9B931C /* editIcon.png in Resources */,
-				82DF20FC1AE36FF4828675B179C01B92 /* next.png in Resources */,
-				A91FE30B0387746868D884BE4BA0A525 /* reportSent.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,16 +455,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		91297B044D938E89AB5F8BD9D154CA81 /* Sources */ = {
+		AA432A97F733853ACE722F98EE760675 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				261492834429498F06F96B426C0C4406 /* BugBattle-dummy.m in Sources */,
-				CABD99BDBC4C31A5ADE89E918B6799F9 /* BugBattleBugDetailsViewController.m in Sources */,
-				8CEDF78CF170D35D369FC01E8D0DCA56 /* BugBattleCore.m in Sources */,
-				50055CADCA7A5079C02F576F5430A857 /* BugBattleImageEditorViewController.m in Sources */,
-				9F1AFFA0AB80A89AF4133FBBA93055D6 /* BugBattleTouchDrawImageView.m in Sources */,
-				73EDBACEA96B81B1E3B14B08890B78A0 /* UIWindow+BugBattleShakeRecognizer.m in Sources */,
+				9E11A23F7C0A35A23DB0F4F4D4244C54 /* BugBattle-dummy.m in Sources */,
+				152E440131D7C97591703D4CA7A2645E /* BugBattleBugDetailsViewController.m in Sources */,
+				CF7CE00FDE325554844049DB79D88C96 /* BugBattleCore.m in Sources */,
+				60E3FE484A73E58100A2453539524E61 /* BugBattleImageEditorViewController.m in Sources */,
+				4E0E76CF13211068976DDB58DFFC2945 /* BugBattleTouchDrawImageView.m in Sources */,
+				D1FCE15C3F1F3CBA2EE93DF43D10634E /* UIWindow+BugBattleShakeRecognizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,21 +479,52 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		736478121AA15127422A65A86AF0479F /* PBXTargetDependency */ = {
+		6243CE76D31AB5A812657CCBB72CE696 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-BugBattle_Example";
 			target = A1FC03F844E95B43A69F27D5E6071079 /* Pods-BugBattle_Example */;
-			targetProxy = FE85BC0CDFEF61ECDBE6F0AF3F88DECF /* PBXContainerItemProxy */;
+			targetProxy = 96EF2A5F9F493C3BCE2B6AF8A4BF6E17 /* PBXContainerItemProxy */;
 		};
-		775BDC5F9D6959FF4F37B3ED5DA5C3D5 /* PBXTargetDependency */ = {
+		DEC0B6E4CA089B4A20EA9318BEF624B1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = BugBattle;
 			target = 80BCC9C5F348D6D6A837F993647BBF9A /* BugBattle */;
-			targetProxy = AB598CBABA2E82EF58E3BE74FB555067 /* PBXContainerItemProxy */;
+			targetProxy = 47F443E6B993BDC2884BCA709FFFFCCE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		00C4FCFFB61F102CE8C6A64F69BB9245 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F91F5F606F78118A4D149C188C2C6062 /* BugBattle.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/BugBattle/BugBattle-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/BugBattle/BugBattle-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/BugBattle/BugBattle.modulemap";
+				PRODUCT_MODULE_NAME = BugBattle;
+				PRODUCT_NAME = BugBattle;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		43FA3777CE7E545390A88B5AFCA3CB26 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D2B40914B31FA2FE6DBE3E923AFA3ABD /* Pods-BugBattle_Example.release.xcconfig */;
@@ -669,6 +716,36 @@
 			};
 			name = Debug;
 		};
+		B8BB13504E25814A1192EB3BFF53FC5C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 017A448201647B7EEA2F1751B9A838D4 /* BugBattle.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/BugBattle/BugBattle-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/BugBattle/BugBattle-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/BugBattle/BugBattle.modulemap";
+				PRODUCT_MODULE_NAME = BugBattle;
+				PRODUCT_NAME = BugBattle;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		C2E19B48E74BF4238CBFD5436F246A62 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1B00307719F87B5F97B61591E7E63E24 /* Pods-BugBattle_Example.debug.xcconfig */;
@@ -701,37 +778,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
-		};
-		C7EA469BD73B4B66A3D884ADBB37C35C /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 478516FC12D42556D8668BDCD191DF62 /* BugBattle.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/BugBattle/BugBattle-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/BugBattle/BugBattle-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/BugBattle/BugBattle.modulemap";
-				PRODUCT_MODULE_NAME = BugBattle;
-				PRODUCT_NAME = BugBattle;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 		E8A631B676B42396D37CCBC172682171 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -767,53 +813,23 @@
 			};
 			name = Release;
 		};
-		EED41744E038FD05A5DD8C317FD72A91 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = FDB08E450F9BE8011FD05C9ECEF16F99 /* BugBattle.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/BugBattle/BugBattle-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/BugBattle/BugBattle-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/BugBattle/BugBattle.modulemap";
-				PRODUCT_MODULE_NAME = BugBattle;
-				PRODUCT_NAME = BugBattle;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		176DF23900C64AE2E719DCC40999A251 /* Build configuration list for PBXNativeTarget "BugBattle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8BB13504E25814A1192EB3BFF53FC5C /* Debug */,
+				00C4FCFFB61F102CE8C6A64F69BB9245 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				916E0404255105F480DC4950B7625F7A /* Debug */,
 				8F17DC3A99F99FBAD606CE6963886315 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9A81ED83C66BD299941C83A7065BAA41 /* Build configuration list for PBXNativeTarget "BugBattle" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				EED41744E038FD05A5DD8C317FD72A91 /* Debug */,
-				C7EA469BD73B4B66A3D884ADBB37C35C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
