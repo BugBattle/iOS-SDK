@@ -359,6 +359,7 @@
                         <outlet property="emailTextField" destination="zTX-mc-hOh" id="wGb-Hi-xWR"/>
                         <outlet property="keyboardHeightContraint" destination="hOg-Pm-8vK" id="LBA-85-hsG"/>
                         <outlet property="loadingView" destination="QPD-TS-mfH" id="G6H-Wh-csx"/>
+                        <outlet property="messageSentIcon" destination="bPb-VF-zsS" id="60r-pu-y7s"/>
                         <outlet property="reportSent" destination="hSg-ot-l9F" id="egD-NL-YdT"/>
                         <outlet property="screenshotPreview" destination="DvI-tl-9TH" id="ipE-Jd-Iar"/>
                         <outlet property="severity" destination="Prq-Q8-QYF" id="NQ9-uj-Meh"/>

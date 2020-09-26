@@ -9,13 +9,13 @@
       "scale" : "2x"
     },
     {
+      "filename" : "bugbattleLogo.png",
       "idiom" : "universal",
-      "filename" : "LogoBB.png",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

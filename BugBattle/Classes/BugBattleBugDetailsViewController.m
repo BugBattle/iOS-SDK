@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIView *loadingView;
 @property (weak, nonatomic) IBOutlet UIView *reportSent;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
+@property (weak, nonatomic) IBOutlet UIImageView *messageSentIcon;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *keyboardHeightContraint;
 @property (weak, nonatomic) IBOutlet UIImageView *screenshotPreview;
@@ -28,6 +29,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _messageSentIcon.tintColor = self.navigationController.navigationBar.tintColor;
     
     UIColor *defaultColor = UIColor.blackColor;
     if (@available(iOS 13, *)) {
