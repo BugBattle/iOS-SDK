@@ -57,9 +57,9 @@
     _screenshotImageView.layer.masksToBounds = NO;
     _screenshotImageView.layer.cornerRadius = 5.0;
     _screenshotImageView.layer.shadowColor = defaultColor.CGColor;
-    _screenshotImageView.layer.shadowOpacity = 0.3;
+    _screenshotImageView.layer.shadowOpacity = 0.2;
     _screenshotImageView.layer.shadowOffset = CGSizeZero;
-    _screenshotImageView.layer.shadowRadius = 10;
+    _screenshotImageView.layer.shadowRadius = 6;
     
     // Setup color selection
     for (int i = 0; i < _colorViews.count; i++) {
