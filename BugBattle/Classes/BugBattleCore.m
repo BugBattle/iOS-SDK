@@ -54,7 +54,7 @@
  */
 - (void)initHelper {
     self.token = @"";
-    self.apiUrl = @"http://192.168.0.109:9000/api";
+    self.apiUrl = @"https://api.bugbattle.io/api";
     self.activationMethod = NONE;
     self.data = [[NSMutableDictionary alloc] init];
     self.sessionStart = [[NSDate alloc] init];
