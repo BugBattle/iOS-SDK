@@ -152,11 +152,11 @@
 - (NSString *)getCurrentSeverity {
     switch(_severity.selectedSegmentIndex) {
         case 0:
-            return @"low";
+            return @"LOW";
         case 2:
-            return @"high";
+            return @"HIGH";
         default:
-            return @"medium";
+            return @"MEDIUM";
     }
 }
 
@@ -182,7 +182,7 @@
     [[NSUserDefaults standardUserDefaults] setValue: _emailTextField.text forKey: @"BugBattle_SenderEmail"];
     [dataToAppend setValue: _emailTextField.text forKey: @"reportedBy"];
     [dataToAppend setValue: _descriptionTextView.text forKey: @"description"];
-    [dataToAppend setValue: [self getCurrentSeverity] forKey: @"severity"];
+    [dataToAppend setValue: [self getCurrentSeverity] forKey: @"priority"];
     [BugBattle attachData: dataToAppend];
     
     [_loadingView setHidden: false];
