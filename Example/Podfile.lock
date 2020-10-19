@@ -1,15 +1,22 @@
 PODS:
-  - BugBattle (2.1.0)
+  - BugBattle (2.1.0):
+    - PLCrashReporter (~> 1.7.2)
+  - PLCrashReporter (1.7.2)
 
 DEPENDENCIES:
   - BugBattle (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - PLCrashReporter
 
 EXTERNAL SOURCES:
   BugBattle:
     :path: "../"
 
 SPEC CHECKSUMS:
-  BugBattle: df1d7af50c4db639dd9c540023095d6fe3fc3007
+  BugBattle: 8f973553b6fe30607e4d1beb25caa66ccc75dd6d
+  PLCrashReporter: aab2bb5301bdc461a2006d657004fbcd748813b8
 
 PODFILE CHECKSUM: 7bf6fbf1fbed9f3841edb2497f06fff0fdddf29b
 

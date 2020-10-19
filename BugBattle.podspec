@@ -22,4 +22,7 @@ Pod::Spec.new do |s|
   s.resources = ['BugBattle/Assets/**/*.storyboard', 'BugBattle/Assets/**/*.png']
   
   s.frameworks   = 'UIKit', 'Foundation'
+  
+  s.static_framework = true
+  s.dependency "PLCrashReporter", "~> 1.7.2"
 end

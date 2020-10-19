@@ -8,6 +8,7 @@
 
 #import "BugBattleCore.h"
 #import "BugBattleImageEditorViewController.h"
+#import <CrashReporter/CrashReporter.h>
 
 @interface BugBattle ()
 
@@ -23,6 +24,7 @@
 @property (retain, nonatomic) NSPipe *inputPipe;
 @property (retain, nonatomic) NSPipe *outputPipe;
 @property (retain, nonatomic) NSTimer *stepsToReproduceTimer;
+@property (retain, nonatomic) PLCrashReporter *crashReporter;
 
 @end
 
@@ -72,8 +74,66 @@
         }
     }
     
-    // Open console log.
     [self openConsoleLog];
+}
+
+/*
+ Enable crash reporting.
+ */
++ (void) enableCrashReporter {
+    BugBattle* instance = [BugBattle sharedInstance];
+    
+    if (instance.crashReporter) {
+        NSLog(@"Bugbattle: Crash Reporter already enabled.");
+        return;
+    }
+    instance.crashReporter = [[PLCrashReporter alloc] init];
+    
+    // Check if we previously crashed
+    if ([instance.crashReporter hasPendingCrashReport]) {
+        [instance handleCrashReport];
+    }
+    
+    // Enable the crash reporter.
+    NSError *error;
+    if (![instance.crashReporter enableCrashReporterAndReturnError: &error]) {
+        NSLog(@"Bugbattle: Could not enable crash reporter: %@", error);
+    }
+}
+
+/*
+ Handle a crash report.
+ */
+- (void) handleCrashReport {
+    if (self.crashReporter == nil) {
+        return;
+    }
+    
+    // Try loading the crash report
+    NSError *error;
+    NSData *crashData = [self.crashReporter loadPendingCrashReportDataAndReturnError: &error];
+    if (crashData == nil) {
+        return;
+    }
+    
+    // We could send the report from here, but we'll just print out
+    // some debugging info instead
+    PLCrashReport *report = [[PLCrashReport alloc] initWithData: crashData error: &error];
+    if (report == nil) {
+        return;
+    }
+    
+    NSString *crashReportToSend = [PLCrashReportTextFormatter stringValueForCrashReport:report withTextFormat:PLCrashReportTextFormatiOS];
+    
+    // Fetch additional metadata.
+    [BugBattle attachData: @{ @"crashLog": crashReportToSend }];
+    
+    // Sending crash log to server.
+    [self sendReportToServer:^(bool success) {
+        [self.crashReporter purgePendingCrashReport];
+    }];
+    
+    return;
 }
 
 /*
@@ -320,11 +380,12 @@
                                             completionHandler:^(NSData * _Nullable data,
                                                                 NSURLResponse * _Nullable response,
                                                                 NSError * _Nullable error) {
-                                                if (error != nil) {
-                                                    return completion(false);
-                                                }
-                                                return completion(true);
-                                            }];
+        if (error != nil) {
+            self.data = [[NSMutableDictionary alloc] init];
+            return completion(false);
+        }
+        return completion(true);
+    }];
     [task resume];
 }
 

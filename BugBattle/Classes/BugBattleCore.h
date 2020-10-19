@@ -33,6 +33,12 @@ typedef enum activationMethodTypes { NONE, SHAKE } BugBattleActivationMethod;
 + (void)initWithToken: (NSString *)token andActivationMethod: (BugBattleActivationMethod)activationMethod;
 
 /**
+ * Enables crash reporting for your app.
+ * @author BugBattle
+ */
++ (void)enableCrashReporter;
+
+/**
  * Manually start the bug reporting workflow. This is used, when you use the activation method "NONE".
  * @author BugBattle
  *

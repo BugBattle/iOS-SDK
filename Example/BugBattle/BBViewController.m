@@ -24,6 +24,10 @@
     [[BugBattle sharedInstance] setData: dict];
 }
 
+- (IBAction)test:(id)sender {
+    [self performSelector:@selector(die_die)];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

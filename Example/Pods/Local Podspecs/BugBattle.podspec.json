@@ -26,5 +26,11 @@
   "frameworks": [
     "UIKit",
     "Foundation"
-  ]
+  ],
+  "static_framework": true,
+  "dependencies": {
+    "PLCrashReporter": [
+      "~> 1.7.2"
+    ]
+  }
 }

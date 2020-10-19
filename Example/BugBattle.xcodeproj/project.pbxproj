@@ -209,7 +209,7 @@
 				6003F586195388D20070C39A /* Sources */,
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
-				03BB681A768839DCA38D3FDC /* [CP] Embed Pods Frameworks */,
+				41E3727010AD6A7A9FCEBFF6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -300,22 +300,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		03BB681A768839DCA38D3FDC /* [CP] Embed Pods Frameworks */ = {
+		41E3727010AD6A7A9FCEBFF6 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BugBattle_Example/Pods-BugBattle_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/BugBattle/BugBattle.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-BugBattle_Example/Pods-BugBattle_Example-resources.sh",
+				"${PODS_ROOT}/../../BugBattle/Assets/BugBattleStoryboard.storyboard",
+				"${PODS_ROOT}/../../BugBattle/Assets/backIcon.png",
+				"${PODS_ROOT}/../../BugBattle/Assets/blurIcon.png",
+				"${PODS_ROOT}/../../BugBattle/Assets/blurIconActive.png",
+				"${PODS_ROOT}/../../BugBattle/Assets/colorsCloseIcon.png",
+				"${PODS_ROOT}/../../BugBattle/Assets/editIcon.png",
+				"${PODS_ROOT}/../../BugBattle/Assets/sentIcon.png",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BugBattle.framework",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BugBattleStoryboard.storyboardc",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/backIcon.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/blurIcon.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/blurIconActive.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/colorsCloseIcon.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/editIcon.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/sentIcon.png",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BugBattle_Example/Pods-BugBattle_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BugBattle_Example/Pods-BugBattle_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7629717876944D70A6238CCC /* [CP] Check Pods Manifest.lock */ = {
