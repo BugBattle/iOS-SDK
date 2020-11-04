@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.name         = "Bugbattle"
   s.version      = "3.0.0"
   s.summary      = "In-App Bug Reporting and Testing for Apps. Learn more at https://www.bugbattle.io"
-  s.homepage     = "https://www.bugbattle.app"
+  s.homepage     = "https://www.bugbattle.io"
   s.license      = { :type => 'Commercial', :file => 'LICENSE.md' }
   s.author       = { "BugBattle" => "hello@bugbattle.io" }
 
