@@ -7,10 +7,12 @@
 //
 
 #import "BugBattleTouchDrawImageView.h"
+#define MAX_STEPS_BACK 10
 
 @interface BugBattleTouchDrawImageView ()
 
 @property (nonatomic, assign) CGPoint lastPoint;
+@property (nonatomic, strong) NSMutableArray* lastImages;
 
 @end
 
@@ -18,13 +20,63 @@
 
 @synthesize red, green, blue;
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
+- (void)setup {
+    self.lastImages = [[NSMutableArray alloc] init];
+    _paintWidth = 4.0;
+}
+
+- (void)stepBack {
+    if ([_lastImages count] == 0) {
+        return;
+    }
+    
+    self.image = [_lastImages lastObject];
+    [_lastImages removeLastObject];
+}
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [_lastImages addObject: self.image];
+    if ([_lastImages count] > MAX_STEPS_BACK) {
+        [_lastImages removeObjectAtIndex: 0];
+    }
+    
     UITouch* touch = touches.allObjects.firstObject;
     if (touch == NULL) {
         return;
     }
     
     _lastPoint = [touch previousLocationInView: self];
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    return NO;
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -59,7 +111,7 @@
     
     CGFloat colorComponents[4] = { red, green, blue, 1.0f };
     CGContextSetLineCap(context, kCGLineCapRound);
-    CGContextSetLineWidth(context, 4.0);
+    CGContextSetLineWidth(context, _paintWidth);
     CGContextSetStrokeColor(context, colorComponents);
     CGContextStrokePath(context);
     

@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIView *loadingView;
 @property (weak, nonatomic) IBOutlet UIView *reportSent;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
+@property (weak, nonatomic) IBOutlet UIImageView *messageSentIcon;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *keyboardHeightContraint;
 @property (weak, nonatomic) IBOutlet UIImageView *screenshotPreview;
@@ -28,6 +29,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _messageSentIcon.tintColor = self.navigationController.navigationBar.tintColor;
     
     UIColor *defaultColor = UIColor.blackColor;
     if (@available(iOS 13, *)) {
@@ -74,7 +77,6 @@
     
     [_lbl setTextColor: [defaultColor colorWithAlphaComponent: 0.3]];
     
-    _descriptionTextView.delegate = self;
     [_descriptionTextView addSubview: _lbl];
     [_descriptionTextView setContentInset: UIEdgeInsetsMake(0, 0, 0, 0)];
     
@@ -83,6 +85,11 @@
     }
     
     [_emailTextField addTarget: self action: @selector(emailAddressDidChangeValue:) forControlEvents: UIControlEventEditingChanged];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 - (BOOL)shouldAutorotate {
@@ -101,7 +108,13 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     [[NSUserDefaults standardUserDefaults] setValue: _descriptionTextView.text forKey: @"BugBattle_SavedDescription"];
-    return YES;
+    
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 - (void)isSendEnabled {
@@ -139,11 +152,11 @@
 - (NSString *)getCurrentSeverity {
     switch(_severity.selectedSegmentIndex) {
         case 0:
-            return @"low";
+            return @"LOW";
         case 2:
-            return @"high";
+            return @"HIGH";
         default:
-            return @"medium";
+            return @"MEDIUM";
     }
 }
 
@@ -169,7 +182,7 @@
     [[NSUserDefaults standardUserDefaults] setValue: _emailTextField.text forKey: @"BugBattle_SenderEmail"];
     [dataToAppend setValue: _emailTextField.text forKey: @"reportedBy"];
     [dataToAppend setValue: _descriptionTextView.text forKey: @"description"];
-    [dataToAppend setValue: [self getCurrentSeverity] forKey: @"severity"];
+    [dataToAppend setValue: [self getCurrentSeverity] forKey: @"priority"];
     [BugBattle attachData: dataToAppend];
     
     [_loadingView setHidden: false];

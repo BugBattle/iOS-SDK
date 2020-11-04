@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat red;
 @property (nonatomic, assign) CGFloat green;
 @property (nonatomic, assign) CGFloat blue;
+@property (nonatomic, assign) CGFloat paintWidth;
+
+- (void)stepBack;
 
 @end
 

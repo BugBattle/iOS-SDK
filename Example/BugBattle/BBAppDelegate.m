@@ -15,9 +15,8 @@
 {
     // Override point for customization after application launch.
     
-    // Replace YOUR_TOKEN with your project API token.
-    [BugBattle initWithToken: @"5d73b44d2d3b7444b5dee21c" andActivationMethod: SHAKE];
-    [BugBattle setCustomerEmail: @"test@bb.com"];
+    // Replace YOUR_API_KEY with your project API token.
+    [BugBattle initWithToken: @"YOUR_API_KEY" andActivationMethod: SHAKE];
     
     return YES;
 }
