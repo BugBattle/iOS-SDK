@@ -1,10 +1,14 @@
-# BugBattle iOS SDK
+# Bugbattle iOS SDK
 
-![BugBattle iOS SDK Intro](https://github.com/BugBattle/BugBattle-iOS-SDK/blob/master/imgs/BugBattleInfo.png)
+![Bugbattle iOS SDK Intro](https://github.com/BugBattle/iOS-SDK/blob/master/imgs/bugbattle-intro.png)
 
-The BugBattle SDK for iOS is the easiest way to integrate BugBattle into your apps!
+The Bugbattle SDK for iOS is the easiest way to integrate Bugbattle into your apps!
 
-You have two ways to set up the BugBattle SDK for iOS. The easiest way ist to install and link the SDK with CocoaPods. If you haven't heard about [CocoaPods](https://cocoapods.org) yet, we strongly encourage you to check out their getting started here (it's super easy to get started & worth using 😍) 
+You have two ways to set up the Bugbattle SDK for iOS. The easiest way ist to install and link the SDK with CocoaPods. If you haven't heard about [CocoaPods](https://cocoapods.org) yet, we strongly encourage you to check out their getting started here (it's super easy to get started & worth using 😍)
+
+## Docs
+
+Checkout our [documentation](https://docs.bugbattle.io/docs/ios-sdk) for full reference.
 
 ## Installation with CocoaPods
 
@@ -36,9 +40,9 @@ Let's carry on with the initialization 🎉
 Open your XCode project (.xcworkspace) and open your App Delegate (AppDelegate.swift)
 
 
-**Import the BugBattle SDK**
+**Import the Bugbattle SDK**
 
-Import the BugBattle SDK by adding the following import below your other imports.
+Import the Bugbattle SDK by adding the following import below your other imports.
 
 ```
 import BugBattle
@@ -46,13 +50,13 @@ import BugBattle
 
 **Initialize the SDK**
 
-The last step is to initialize the BugBattle SDK by adding the following Code to the end of the applicationDidFinishLaunchingWithOptions delegate:
+The last step is to initialize the Bugbattle SDK by adding the following Code to the end of the ```applicationDidFinishLaunchingWithOptions``` delegate:
 
 ```
 BugBattle.initWithToken("YOUR-API-KEY", andActivationMethod: SHAKE)
 ```
 
-(Your API key can be found in the project settings within BugBattle)
+(Your API key can be found in the project settings within Bugbattle)
 
 ## Installation without CocoaPods
 
