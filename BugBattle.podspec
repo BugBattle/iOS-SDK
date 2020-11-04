@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.author       = { "BugBattle" => "hello@bugbattle.io" }
 
   s.platform     = :ios, '9.0'
-  s.source       = { :git => "https://github.com/BugBattle/BugBattle-iOS-SDK.git", :tag => s.version.to_s }
+  s.source       = { :git => "https://github.com/BugBattle/iOS-SDK.git", :tag => s.version.to_s }
   
   s.source_files = 'BugBattle/Classes/**/*'
   s.public_header_files = 'BugBattle/Classes/**/*.h'
