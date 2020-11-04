@@ -54,7 +54,7 @@
  */
 - (void)initHelper {
     self.token = @"";
-    self.apiUrl = @"https://api.bugbattle.io/api";
+    self.apiUrl = @"https://api.bugbattle.io/";
     self.activationMethod = NONE;
     self.data = [[NSMutableDictionary alloc] init];
     self.sessionStart = [[NSDate alloc] init];
