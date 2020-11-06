@@ -345,9 +345,6 @@
     NSString *headerContentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
     [request setValue: headerContentType forHTTPHeaderField: @"Content-Type"];
     NSMutableData *body = [NSMutableData data];
-    [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=%@\r\n\r\n", @"imageCaption"] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"%@\r\n", @"Some Caption"] dataUsingEncoding:NSUTF8StringEncoding]];
     
     // Add file data
     if (fileData) {
