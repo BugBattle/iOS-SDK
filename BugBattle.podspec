@@ -7,7 +7,7 @@
 #
 
 Pod::Spec.new do |s|
-  s.name         = "Bugbattle"
+  s.name         = "BugBattle"
   s.version      = "3.0.0"
   s.summary      = "In-App Bug Reporting and Testing for Apps. Learn more at https://www.bugbattle.io"
   s.homepage     = "https://www.bugbattle.io"
