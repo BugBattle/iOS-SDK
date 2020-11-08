@@ -3,4 +3,54 @@
    uuid = "CDBD784A-F082-40FD-A8A1-D0F5DBD08EBE"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F332CD35-C9FF-49E3-9C12-5710627E669C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../BugBattle/Classes/BugBattleCore.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "295"
+            endingLineNumber = "295"
+            landmarkName = "-sendReport:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F332CD35-C9FF-49E3-9C12-5710627E669C - eb5508cea2aa6847"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__24-[BugBattle sendReport:]_block_invoke"
+                  moduleName = "BugBattle"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lukasboehler/Documents/GitHub/BugBattle-iOS-SDK/BugBattle/Classes/BugBattleCore.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "295"
+                  endingLineNumber = "295"
+                  offsetFromSymbolStart = "945">
+               </Location>
+               <Location
+                  uuid = "F332CD35-C9FF-49E3-9C12-5710627E669C - 9b1b46bd0532bed2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__24-[BugBattle sendReport:]_block_invoke_2"
+                  moduleName = "BugBattle"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lukasboehler/Documents/GitHub/BugBattle-iOS-SDK/BugBattle/Classes/BugBattleCore.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "295"
+                  endingLineNumber = "295"
+                  offsetFromSymbolStart = "12">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

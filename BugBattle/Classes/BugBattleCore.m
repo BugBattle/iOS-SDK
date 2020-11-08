@@ -55,6 +55,8 @@
 - (void)initHelper {
     self.token = @"";
     self.apiUrl = @"https://api.bugbattle.io/";
+    self.privacyPolicyEnabled = false;
+    self.privacyPolicyUrl = @"https://www.bugbattle.io/privacy-policy/";
     self.activationMethod = NONE;
     self.data = [[NSMutableDictionary alloc] init];
     self.sessionStart = [[NSDate alloc] init];
@@ -120,6 +122,14 @@
 
 + (void)setApiUrl: (NSString *)apiUrl {
     BugBattle.sharedInstance.apiUrl = apiUrl;
+}
+
++ (void)setPrivacyPolicyUrl: (NSString *)privacyPolicyUrl {
+    BugBattle.sharedInstance.privacyPolicyUrl = privacyPolicyUrl;
+}
+
++ (void)enablePrivacyPolicy:(BOOL)enable {
+    BugBattle.sharedInstance.privacyPolicyEnabled = enable;
 }
 
 /**

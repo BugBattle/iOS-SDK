@@ -21,7 +21,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary: @{ @"key" : @"value", @"key2" : @"value2"}];
-    [[BugBattle sharedInstance] setData: dict];
+    [BugBattle attachCustomData: dict];
 }
 
 - (void)didReceiveMemoryWarning

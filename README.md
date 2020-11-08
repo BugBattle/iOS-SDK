@@ -6,7 +6,7 @@ The Bugbattle SDK for iOS is the easiest way to integrate Bugbattle into your ap
 
 You have two ways to set up the Bugbattle SDK for iOS. The easiest way ist to install and link the SDK with CocoaPods. If you haven't heard about [CocoaPods](https://cocoapods.org) yet, we strongly encourage you to check out their getting started here (it's super easy to get started & worth using 😍)
 
-## Docs
+## Docs & Examples
 
 Checkout our [documentation](https://docs.bugbattle.io/docs/ios-sdk) for full reference.
 

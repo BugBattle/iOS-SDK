@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "BugBattle"
-  s.version      = "3.0.1"
+  s.version      = "3.0.2"
   s.summary      = "In-App Bug Reporting and Testing for Apps. Learn more at https://www.bugbattle.io"
   s.homepage     = "https://www.bugbattle.io"
   s.license      = { :type => 'Commercial', :file => 'LICENSE.md' }
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   
   s.source_files = 'BugBattle/Classes/**/*'
   s.public_header_files = 'BugBattle/Classes/**/*.h'
-  s.resources = ['BugBattle/Assets/**/*.sftoryboard', 'BugBattle/Assets/**/*.png']
+  s.resources = ['BugBattle/Assets/**/*.storyboard', 'BugBattle/Assets/**/*.png']
   
   s.frameworks   = 'UIKit', 'Foundation'
 end

@@ -16,10 +16,13 @@
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UIImageView *messageSentIcon;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *keyboardHeightContraint;
 @property (weak, nonatomic) IBOutlet UIImageView *screenshotPreview;
 @property (weak, nonatomic) IBOutlet UIView *editIconView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *severity;
+@property (weak, nonatomic) IBOutlet UITextView *privacyPolicyTextView;
+@property (weak, nonatomic) IBOutlet UISwitch *privacyPolicyToggle;
+@property (weak, nonatomic) IBOutlet UIView *privacyPolicyContainerView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *privacyPolicyHeightConstraint;
 @property (nonatomic) UILabel *lbl;
 @property (nonatomic) Boolean sending;
 
@@ -64,6 +67,8 @@
     [_loadingView setHidden: true];
     [_reportSent setHidden: true];
     
+    [self setupPrivacyPolicy];
+    
     NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey: @"BugBattle_SenderEmail"];
     _emailTextField.text = email;
     NSString *savedDescription = [[NSUserDefaults standardUserDefaults] stringForKey: @"BugBattle_SavedDescription"];
@@ -85,6 +90,24 @@
     }
     
     [_emailTextField addTarget: self action: @selector(emailAddressDidChangeValue:) forControlEvents: UIControlEventEditingChanged];
+}
+
+- (void)setupPrivacyPolicy {
+    if (!BugBattle.sharedInstance.privacyPolicyEnabled) {
+        self.privacyPolicyHeightConstraint.constant = 0;
+    }
+    
+    NSMutableAttributedString *privacyPolicyText = [[NSMutableAttributedString alloc] initWithString: @"I have read and agree to the "];
+    NSMutableAttributedString *privacyPolicyAppendix = [[NSMutableAttributedString alloc] initWithString: @"."];
+    NSMutableAttributedString *privacyPolicyLink = [[NSMutableAttributedString alloc] initWithString:@"privacy policy"
+                                                                           attributes:@{ NSLinkAttributeName: [NSURL URLWithString: BugBattle.sharedInstance.privacyPolicyUrl] }];
+    [privacyPolicyText appendAttributedString: privacyPolicyLink];
+    [privacyPolicyText appendAttributedString: privacyPolicyAppendix];
+    [_privacyPolicyTextView setAttributedText: privacyPolicyText];
+    
+    [_privacyPolicyTextView setFont:[UIFont systemFontOfSize: 15]];
+    [_privacyPolicyTextView setTextContainerInset:UIEdgeInsetsZero];
+    _privacyPolicyTextView.textContainer.lineFragmentPadding = 0;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -161,6 +184,14 @@
 }
 
 - (IBAction)send:(id)sender {
+    if (BugBattle.sharedInstance.privacyPolicyEnabled && !_privacyPolicyToggle.on) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Privacy policy" message:@"Please read and accept the privacy policy." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        [alert addAction:ok];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    
     if (_sending) {
         return;
     }

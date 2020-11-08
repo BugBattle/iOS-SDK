@@ -88,6 +88,22 @@ typedef enum activationMethodTypes { NONE, SHAKE } BugBattleActivationMethod;
 + (void)setApiUrl: (NSString *)apiUrl;
 
 /**
+ * Enables the privacy policy check.
+ * @author BugBattle
+ *
+ * @param enable Enable the privacy policy.
+ */
++ (void)enablePrivacyPolicy: (BOOL)enable;
+
+/**
+ * Sets a custom privacy policy url.
+ * @author BugBattle
+ *
+ * @param privacyPolicyUrl The URL pointing to your privacy policy.
+ */
++ (void)setPrivacyPolicyUrl: (NSString *)privacyPolicyUrl;
+
+/**
  * Sets the customer's email address.
  * @author BugBattle
  *
@@ -114,6 +130,8 @@ typedef enum activationMethodTypes { NONE, SHAKE } BugBattleActivationMethod;
 
 @property (nonatomic, retain) NSString* token;
 @property (nonatomic, retain) NSString* apiUrl;
+@property (nonatomic, retain) NSString* privacyPolicyUrl;
+@property (nonatomic, assign) bool privacyPolicyEnabled;
 @property (nonatomic, assign) BugBattleActivationMethod activationMethod;
 @property (nonatomic, retain) NSMutableDictionary* data;
 
