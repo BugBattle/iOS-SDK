@@ -23,6 +23,7 @@
 @property (retain, nonatomic) NSPipe *inputPipe;
 @property (retain, nonatomic) NSPipe *outputPipe;
 @property (retain, nonatomic) NSTimer *stepsToReproduceTimer;
+@property (nonatomic, retain) UITapGestureRecognizer *tapGestureRecognizer;
 
 @end
 
@@ -118,6 +119,27 @@
     BugBattle* instance = [BugBattle sharedInstance];
     instance.token = token;
     instance.activationMethod = activationMethod;
+    
+    if (activationMethod == THREE_FINGER_DOUBLE_TAB) {
+        [instance initializeGestureRecognizer];
+    }
+}
+
+- (void)initializeGestureRecognizer {
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector(handleTapGestureActivation:)];
+    tapGestureRecognizer.numberOfTapsRequired = 2;
+    tapGestureRecognizer.numberOfTouchesRequired = 3;
+    tapGestureRecognizer.cancelsTouchesInView = false;
+    
+    NSArray *windows = [[UIApplication sharedApplication] windows];
+    for (int i = 0; i < [windows count]; i++) {
+        [windows[i] addGestureRecognizer: tapGestureRecognizer];
+    }
+}
+
+- (void)handleTapGestureActivation: (UITapGestureRecognizer *)recognizer
+{
+    [BugBattle startBugReporting];
 }
 
 + (void)setApiUrl: (NSString *)apiUrl {
