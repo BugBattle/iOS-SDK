@@ -55,7 +55,7 @@
  */
 - (void)initHelper {
     self.token = @"";
-    self.apiUrl = @"https://api.bugbattle.io/";
+    self.apiUrl = @"https://api.bugbattle.io";
     self.privacyPolicyEnabled = false;
     self.privacyPolicyUrl = @"https://www.bugbattle.io/privacy-policy/";
     self.activationMethod = NONE;
