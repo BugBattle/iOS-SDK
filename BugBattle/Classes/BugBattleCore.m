@@ -131,10 +131,7 @@
     tapGestureRecognizer.numberOfTouchesRequired = 3;
     tapGestureRecognizer.cancelsTouchesInView = false;
     
-    NSArray *windows = [[UIApplication sharedApplication] windows];
-    for (int i = 0; i < [windows count]; i++) {
-        [windows[i] addGestureRecognizer: tapGestureRecognizer];
-    }
+    [[[[UIApplication sharedApplication] delegate] window] addGestureRecognizer: tapGestureRecognizer];
 }
 
 - (void)handleTapGestureActivation: (UITapGestureRecognizer *)recognizer
