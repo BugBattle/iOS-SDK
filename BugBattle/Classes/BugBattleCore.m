@@ -496,6 +496,9 @@
             if (line != NULL && ![line isEqualToString: @""]) {
                 NSString *dateString = [self getJSStringForNSDate: [[NSDate alloc] init]];
                 NSDictionary *log = @{ @"date": dateString, @"log": line };
+                if (_consoleLog.count > 1000) {
+                    [_consoleLog removeObjectAtIndex: 0];
+                }
                 [_consoleLog addObject: log];
             }
         }
