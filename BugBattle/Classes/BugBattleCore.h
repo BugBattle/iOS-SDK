@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef enum activationMethodTypes { NONE, SHAKE, THREE_FINGER_DOUBLE_TAB } BugBattleActivationMethod;
+typedef enum activationMethodTypes { NONE, SHAKE, THREE_FINGER_DOUBLE_TAB, SCREENSHOT } BugBattleActivationMethod;
 
 @interface BugBattle : NSObject
 

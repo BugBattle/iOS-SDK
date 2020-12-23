@@ -123,6 +123,20 @@
     if (activationMethod == THREE_FINGER_DOUBLE_TAB) {
         [instance initializeGestureRecognizer];
     }
+    
+    if (activationMethod == SCREENSHOT) {
+        [instance initializeScreenshotRecognizer];
+    }
+}
+
+- (void)initializeScreenshotRecognizer {
+    NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationUserDidTakeScreenshotNotification
+                                                      object:nil
+                                                       queue:mainQueue
+                                                  usingBlock:^(NSNotification *note) {
+                                                    [BugBattle startBugReporting];
+                                                  }];
 }
 
 - (void)initializeGestureRecognizer {
@@ -276,9 +290,9 @@
 - (UIImage *) captureScreen {
     UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
     CGRect rect = [keyWindow bounds];
-    UIGraphicsBeginImageContext(rect.size);
+    UIGraphicsBeginImageContextWithOptions(rect.size, false, [UIScreen mainScreen].scale);
     CGContextRef context = UIGraphicsGetCurrentContext();
-    [keyWindow.layer renderInContext:context];
+    [keyWindow.layer renderInContext: context];
     UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return img;

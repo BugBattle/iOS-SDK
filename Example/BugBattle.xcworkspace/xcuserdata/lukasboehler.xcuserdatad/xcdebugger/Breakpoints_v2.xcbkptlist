@@ -14,8 +14,8 @@
             filePath = "../BugBattle/Classes/BugBattleCore.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "314"
-            endingLineNumber = "314"
+            startingLineNumber = "328"
+            endingLineNumber = "328"
             landmarkName = "-sendReport:"
             landmarkType = "7">
             <Locations>
