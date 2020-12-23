@@ -286,7 +286,7 @@
 }
 
 /**
- Sets the customer's email address.
+ Sets the application type.
  */
 + (void)setApplicationType: (BugBattleApplicationType)applicationType {
     BugBattle.sharedInstance.applicationType = applicationType;

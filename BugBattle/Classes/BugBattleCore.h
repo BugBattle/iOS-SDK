@@ -121,6 +121,7 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
  */
 + (void)trackStepWithType: (NSString *)type andData: (NSString *)data;
 
++ (void)setApplicationType: (BugBattleApplicationType)applicationType;
 + (void)attachData: (NSDictionary *)data;
 + (NSBundle *)frameworkBundle;
 + (void)shakeInvocation;
