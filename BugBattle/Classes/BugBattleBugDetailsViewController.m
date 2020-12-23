@@ -105,6 +105,9 @@
     [privacyPolicyText appendAttributedString: privacyPolicyAppendix];
     [_privacyPolicyTextView setAttributedText: privacyPolicyText];
     
+    if (@available(iOS 13.0, *)) {
+        [_privacyPolicyTextView setTextColor: UIColor.labelColor];
+    }
     [_privacyPolicyTextView setFont:[UIFont systemFontOfSize: 15]];
     [_privacyPolicyTextView setTextContainerInset:UIEdgeInsetsZero];
     _privacyPolicyTextView.textContainer.lineFragmentPadding = 0;
