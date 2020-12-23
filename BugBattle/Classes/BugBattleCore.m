@@ -59,6 +59,7 @@
     self.privacyPolicyEnabled = false;
     self.privacyPolicyUrl = @"https://www.bugbattle.io/privacy-policy/";
     self.activationMethod = NONE;
+    self.applicationType = NATIVE;
     self.data = [[NSMutableDictionary alloc] init];
     self.sessionStart = [[NSDate alloc] init];
     self.consoleLog = [[NSMutableArray alloc] init];
@@ -284,15 +285,29 @@
     }];
 }
 
+/**
+ Sets the customer's email address.
+ */
++ (void)setApplicationType: (BugBattleApplicationType)applicationType {
+    BugBattle.sharedInstance.applicationType = applicationType;
+}
+
 /*
  Captures the current screen as UIImage.
  */
 - (UIImage *) captureScreen {
     UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
-    CGRect rect = [keyWindow bounds];
-    UIGraphicsBeginImageContextWithOptions(rect.size, false, [UIScreen mainScreen].scale);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    [keyWindow.layer renderInContext: context];
+    
+    if (self.applicationType == FLUTTER) {
+        UIView *topView = [[keyWindow subviews] lastObject];
+        UIGraphicsBeginImageContextWithOptions(topView.bounds.size, false, [UIScreen mainScreen].scale);
+        [topView drawViewHierarchyInRect: topView.bounds afterScreenUpdates: true];
+    } else {
+        UIGraphicsBeginImageContextWithOptions([keyWindow bounds].size, false, [UIScreen mainScreen].scale);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        [keyWindow.layer renderInContext: context];
+    }
+    
     UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return img;
@@ -457,6 +472,13 @@
     NSString *buildVersionNumber = [NSBundle.mainBundle.infoDictionary objectForKey: @"CFBundleVersion"];
     NSNumber *sessionDuration = [NSNumber numberWithDouble: [self sessionDuration]];
     
+    NSString *applicationType = @"Native";
+    if (self.applicationType == FLUTTER) {
+        applicationType = @"Flutter";
+    } else if (self.applicationType == REACTNATIVE) {
+        applicationType = @"ReactNative";
+    }
+    
     return @{
         @"deviceName": deviceName,
         @"deviceModel": deviceModel,
@@ -466,7 +488,8 @@
         @"systemVersion": systemVersion,
         @"buildVersionNumber": buildVersionNumber,
         @"releaseVersionNumber": releaseVersionNumber,
-        @"sessionDuration": sessionDuration
+        @"sessionDuration": sessionDuration,
+        @"applicationType": applicationType
     };
 }
 

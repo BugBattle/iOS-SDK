@@ -12,6 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef enum activationMethodTypes { NONE, SHAKE, THREE_FINGER_DOUBLE_TAB, SCREENSHOT } BugBattleActivationMethod;
+typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicationType;
 
 @interface BugBattle : NSObject
 
@@ -133,6 +134,7 @@ typedef enum activationMethodTypes { NONE, SHAKE, THREE_FINGER_DOUBLE_TAB, SCREE
 @property (nonatomic, retain) NSString* privacyPolicyUrl;
 @property (nonatomic, assign) bool privacyPolicyEnabled;
 @property (nonatomic, assign) BugBattleActivationMethod activationMethod;
+@property (nonatomic, assign) BugBattleApplicationType applicationType;
 @property (nonatomic, retain) NSMutableDictionary* data;
 
 extern NSString *const BugBattleStepTypeView;
