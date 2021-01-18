@@ -16,7 +16,8 @@
     // Override point for customization after application launch.
     
     // Replace YOUR_API_KEY with your project API token.
-    [BugBattle initWithToken: @"YOUR_API_KEY" andActivationMethod: SCREENSHOT];
+    [BugBattle initWithToken: @"ErxQSCDS2AJ2QU7Gddqh8oUjJfB18VFX" andActivationMethod: SCREENSHOT];
+    [BugBattle setApiUrl: @"http://192.168.1.2:9000"];
     
     return YES;
 }

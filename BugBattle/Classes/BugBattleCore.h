@@ -129,6 +129,8 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 + (UIImage *)getAttachedScreenshot;
 
 - (void)sendReport: (void (^)(bool success))completion;
+- (UIImage *) captureLowResScreen;
+- (void)uploadStepImages: (NSArray *)steps andCompletion: (void (^)(bool success, NSArray *fileUrls))completion;
 
 @property (nonatomic, retain) NSString* token;
 @property (nonatomic, retain) NSString* apiUrl;

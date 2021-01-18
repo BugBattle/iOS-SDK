@@ -8,6 +8,7 @@
 
 #import "BugBattleCore.h"
 #import "BugBattleImageEditorViewController.h"
+#import "BugBattleReplayHelper.h"
 
 @interface BugBattle ()
 
@@ -78,6 +79,8 @@
     
     // Open console log.
     [self openConsoleLog];
+    
+    [[BugBattleReplayHelper sharedInstance] start];
 }
 
 /*
@@ -313,35 +316,49 @@
     return img;
 }
 
+- (UIImage *) captureLowResScreen {
+    return [self captureScreen];
+}
+
 /*
  Sends a bugreport to our backend.
  */
 - (void)sendReport: (void (^)(bool success))completion {
-    [self uploadImage: self.screenshot andCompletion:^(bool success, NSString *fileUrl) {
-        if (!success) {
-            return completion(false);
+    [[BugBattle sharedInstance] uploadStepImages: [BugBattleReplayHelper sharedInstance].replayImages andCompletion:^(bool success, NSArray * _Nonnull fileUrls) {
+        if (success) {
+            // Attach replay
+            [BugBattle attachData: @{ @"replay": @{
+                @"frames": fileUrls
+            } }];
         }
         
-        // Set screenshot url.
-        NSMutableDictionary *dataToAppend = [[NSMutableDictionary alloc] init];
-        [dataToAppend setValue: fileUrl forKey: @"screenshotUrl"];
-        [BugBattle attachData: dataToAppend];
-        
-        // Fetch additional metadata.
-        [BugBattle attachData: @{ @"metaData": [self getMetaData] }];
-        
-        // Attach console log.
-        [BugBattle attachData: @{ @"consoleLog": self->_consoleLog }];
-        
-        // Attach steps to reproduce.
-        [BugBattle attachData: @{ @"actionLog": self->_stepsToReproduce }];
-        
-        // Attach custom data.
-        [BugBattle attachData: @{ @"customData": [self customData] }];
-        
-        // Sending report to server.
-        [self sendReportToServer:^(bool success) {
-            completion(success);
+        // Process with image upload
+        [self uploadImage: self.screenshot andCompletion:^(bool success, NSString *fileUrl) {
+            if (!success) {
+                return completion(false);
+            }
+            
+            // Set screenshot url.
+            NSMutableDictionary *dataToAppend = [[NSMutableDictionary alloc] init];
+            [dataToAppend setValue: fileUrl forKey: @"screenshotUrl"];
+            [BugBattle attachData: dataToAppend];
+            
+            // Fetch additional metadata.
+            [BugBattle attachData: @{ @"metaData": [self getMetaData] }];
+            
+            // Attach console log.
+            [BugBattle attachData: @{ @"consoleLog": self->_consoleLog }];
+            
+            // Attach steps to reproduce.
+            [BugBattle attachData: @{ @"actionLog": self->_stepsToReproduce }];
+            
+            // Attach custom data.
+            [BugBattle attachData: @{ @"customData": [self customData] }];
+            
+            // Sending report to server.
+            [self sendReportToServer:^(bool success) {
+                completion(success);
+            }];
         }];
     }];
 }
@@ -445,9 +462,69 @@
  Upload image
  */
 - (void)uploadImage: (UIImage *)image andCompletion: (void (^)(bool success, NSString *fileUrl))completion {
-    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
     NSString *contentType = @"image/jpeg";
     [self uploadFile: imageData andFileName: @"screenshot.jpeg" andContentType: contentType andCompletion: completion];
+}
+
+/*
+ Upload files
+ */
+- (void)uploadStepImages: (NSArray *)steps andCompletion: (void (^)(bool success, NSArray *fileUrls))completion {
+    NSMutableURLRequest *request = [NSMutableURLRequest new];
+    [request setURL: [NSURL URLWithString: [NSString stringWithFormat: @"%@/uploads/sdksteps", _apiUrl]]];
+    [request setValue: _token forHTTPHeaderField: @"Api-Token"];
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    [request setHTTPShouldHandleCookies:NO];
+    [request setTimeoutInterval:60];
+    [request setHTTPMethod:@"POST"];
+    
+    // Build multipart/form-data
+    NSString *boundary = @"BBBOUNDARY";
+    NSString *headerContentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+    [request setValue: headerContentType forHTTPHeaderField: @"Content-Type"];
+    NSMutableData *body = [NSMutableData data];
+    
+    // Add files
+    for (int i = 0; i < steps.count; i++) {
+        NSData *imageData = UIImageJPEGRepresentation([steps objectAtIndex: i], 0.5);
+        NSString *filename = [NSString stringWithFormat: @"step_%i", i];
+        if (imageData) {
+            NSString *contentType = @"image/jpeg";
+            [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+            [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=%@; filename=%@\r\n", @"file", filename] dataUsingEncoding:NSUTF8StringEncoding]];
+            [body appendData:[[NSString stringWithFormat: @"Content-Type: %@\r\n\r\n", contentType] dataUsingEncoding:NSUTF8StringEncoding]];
+            [body appendData: imageData];
+            [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+        }
+    }
+    
+    [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    // Setting the body of the post to the reqeust
+    [request setHTTPBody:body];
+    
+    // Set the content-length
+    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[body length]];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error != NULL) {
+            return completion(false, nil);
+        }
+        
+        NSError *parseError = nil;
+        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData: data options: 0 error:&parseError];
+        if (!parseError) {
+            NSArray* fileUrls = [responseDict objectForKey: @"fileUrls"];
+            return completion(true, fileUrls);
+        } else {
+            return completion(false, nil);
+        }
+    }];
+    [task resume];
 }
 
 /*
