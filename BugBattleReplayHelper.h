@@ -24,9 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stop;
 - (void)clear;
 
-@property (nonatomic, retain) NSMutableArray* replayImages;
 @property (nonatomic, retain) NSMutableArray* replaySteps;
 @property (nonatomic, retain) NSTimer* replayTimer;
+@property (nonatomic, assign) bool running;
 
 @end
 

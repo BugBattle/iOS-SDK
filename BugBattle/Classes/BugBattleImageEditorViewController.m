@@ -10,6 +10,7 @@
 #import "BugBattleTouchDrawImageView.h"
 #import "BugBattleBugDetailsViewController.h"
 #import "BugBattleCore.h"
+#import "BugBattleReplayHelper.h"
 
 @interface BugBattleImageEditorViewController ()
 @property (weak, nonatomic) IBOutlet BugBattleTouchDrawImageView *screenshotImageView;
@@ -173,9 +174,17 @@
     }
 }
 
+- (void)onDismissCleanup {
+    // Starts the replay helper.
+    if ([BugBattle sharedInstance].replaysEnabled) {
+        [[BugBattleReplayHelper sharedInstance] start];
+    }
+}
+
+
 - (IBAction)closeReporting:(id)sender {
     [self dismissViewControllerAnimated: YES completion:^{
-        
+        [self onDismissCleanup];
     }];
 }
 

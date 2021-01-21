@@ -41,6 +41,13 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 + (void)startBugReporting;
 
 /**
+ * Enables replays
+ * @author BugBattle
+ *
+ */
++ (void)enableReplays: (BOOL)enable;
+
+/**
  * Manually start the bug reporting workflow, using a custom screenshot (rather than
  * automatically capturing one). This is used, when you use the activation method "NONE".
  * @author BugBattle
@@ -131,11 +138,14 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 - (void)sendReport: (void (^)(bool success))completion;
 - (UIImage *) captureLowResScreen;
 - (void)uploadStepImages: (NSArray *)steps andCompletion: (void (^)(bool success, NSArray *fileUrls))completion;
+- (UIViewController *)getTopMostViewController;
+- (NSString *)getJSStringForNSDate:(NSDate *)date;
 
 @property (nonatomic, retain) NSString* token;
 @property (nonatomic, retain) NSString* apiUrl;
 @property (nonatomic, retain) NSString* privacyPolicyUrl;
 @property (nonatomic, assign) bool privacyPolicyEnabled;
+@property (nonatomic, assign) bool replaysEnabled;
 @property (nonatomic, assign) BugBattleActivationMethod activationMethod;
 @property (nonatomic, assign) BugBattleApplicationType applicationType;
 @property (nonatomic, retain) NSMutableDictionary* data;

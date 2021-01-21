@@ -32,12 +32,16 @@
 }
 
 - (void)initHelper {
-    self.replayImages = [[NSMutableArray alloc] init];
     self.replaySteps = [[NSMutableArray alloc] init];
+    self.running = false;
 }
 
 - (void)start {
-    self.replayTimer = [NSTimer scheduledTimerWithTimeInterval: 0.5
+    if (self.running) {
+        return;
+    }
+    self.running = true;
+    self.replayTimer = [NSTimer scheduledTimerWithTimeInterval: 1
                                          target: self
                                        selector: @selector(addReplayStep)
                                        userInfo: nil
@@ -48,19 +52,31 @@
     if (self.replayTimer) {
         [self.replayTimer invalidate];
     }
+    self.running = false;
 }
 
 - (void)clear {
-    self.replayImages = [[NSMutableArray alloc] init];
     self.replaySteps = [[NSMutableArray alloc] init];
 }
 
 - (void)addReplayStep {
-    if (self.replayImages.count >= 60) {
-        [self.replayImages removeObjectAtIndex: 0];
+    if (self.replaySteps.count >= 60) {
+        [self.replaySteps removeObjectAtIndex: 0];
     }
+    
     UIImage *screenshot = [[BugBattle sharedInstance] captureLowResScreen];
-    [self.replayImages addObject: screenshot];
+    NSString *currentViewControllerName = @"NotSet";
+    UIViewController *topViewController = [[BugBattle sharedInstance] getTopMostViewController];
+    if (topViewController != nil) {
+        currentViewControllerName = NSStringFromClass([topViewController class]);
+    }
+    
+    [self.replaySteps addObject: @{
+        @"screenname": currentViewControllerName,
+        @"image": screenshot,
+        @"interactions": @[],
+        @"date": [[BugBattle sharedInstance] getJSStringForNSDate: [[NSDate alloc] init]]
+    }];
 }
 
 @end

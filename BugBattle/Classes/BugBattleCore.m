@@ -9,6 +9,7 @@
 #import "BugBattleCore.h"
 #import "BugBattleImageEditorViewController.h"
 #import "BugBattleReplayHelper.h"
+#import <sys/utsname.h>
 
 @interface BugBattle ()
 
@@ -23,7 +24,6 @@
 @property (retain, nonatomic) NSDictionary *customData;
 @property (retain, nonatomic) NSPipe *inputPipe;
 @property (retain, nonatomic) NSPipe *outputPipe;
-@property (retain, nonatomic) NSTimer *stepsToReproduceTimer;
 @property (nonatomic, retain) UITapGestureRecognizer *tapGestureRecognizer;
 
 @end
@@ -79,8 +79,17 @@
     
     // Open console log.
     [self openConsoleLog];
+}
+
++ (void)enableReplays: (BOOL)enable {
+    [BugBattle sharedInstance].replaysEnabled = enable;
     
-    [[BugBattleReplayHelper sharedInstance] start];
+    if ([BugBattle sharedInstance].replaysEnabled) {
+        // Starts the replay helper.
+        [[BugBattleReplayHelper sharedInstance] start];
+    } else {
+        [[BugBattleReplayHelper sharedInstance] stop];
+    }
 }
 
 /*
@@ -221,8 +230,8 @@
         return;
     }
     
-    // Stop screen capturung
-    [BugBattle.sharedInstance.stepsToReproduceTimer invalidate];
+    // Stop replays
+    [[BugBattleReplayHelper sharedInstance] stop];
     
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName: @"BugBattleStoryboard" bundle: [BugBattle frameworkBundle]];
     BugBattleImageEditorViewController *bugBattleImageEditor = [storyboard instantiateViewControllerWithIdentifier: @"BugBattleImageEditorViewController"];
@@ -324,11 +333,12 @@
  Sends a bugreport to our backend.
  */
 - (void)sendReport: (void (^)(bool success))completion {
-    [[BugBattle sharedInstance] uploadStepImages: [BugBattleReplayHelper sharedInstance].replayImages andCompletion:^(bool success, NSArray * _Nonnull fileUrls) {
+    [[BugBattle sharedInstance] uploadStepImages: [BugBattleReplayHelper sharedInstance].replaySteps andCompletion:^(bool success, NSArray * _Nonnull fileUrls) {
         if (success) {
             // Attach replay
             [BugBattle attachData: @{ @"replay": @{
-                @"frames": fileUrls
+                                              @"interval": @1000,
+                                              @"frames": fileUrls
             } }];
         }
         
@@ -487,7 +497,10 @@
     
     // Add files
     for (int i = 0; i < steps.count; i++) {
-        NSData *imageData = UIImageJPEGRepresentation([steps objectAtIndex: i], 0.5);
+        NSDictionary *currentStep = [steps objectAtIndex: i];
+        UIImage *currentImage = [currentStep objectForKey: @"image"];
+        
+        NSData *imageData = UIImageJPEGRepresentation(currentImage, 0.5);
         NSString *filename = [NSString stringWithFormat: @"step_%i", i];
         if (imageData) {
             NSString *contentType = @"image/jpeg";
@@ -519,7 +532,17 @@
         NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData: data options: 0 error:&parseError];
         if (!parseError) {
             NSArray* fileUrls = [responseDict objectForKey: @"fileUrls"];
-            return completion(true, fileUrls);
+            NSMutableArray *replayArray = [[NSMutableArray alloc] init];
+            
+            for (int i = 0; i < steps.count; i++) {
+                NSMutableDictionary *currentStep = [[steps objectAtIndex: i] mutableCopy];
+                NSString *currentImageUrl = [fileUrls objectAtIndex: i];
+                [currentStep setObject: currentImageUrl forKey: @"url"];
+                [currentStep removeObjectForKey: @"image"];
+                [replayArray addObject: currentStep];
+            }
+            
+            return completion(true, replayArray);
         } else {
             return completion(false, nil);
         }
@@ -534,13 +557,24 @@
     return [_sessionStart timeIntervalSinceNow] * -1.0;
 }
 
+/**
+    Returns the device model name;
+ */
+- (NSString*)getDeviceModelName
+{
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    return [NSString stringWithCString: systemInfo.machine
+                              encoding:NSUTF8StringEncoding];
+}
+
 /*
  Returns all meta data as an NSDictionary.
  */
 - (NSDictionary *)getMetaData {
     UIDevice *currentDevice = [UIDevice currentDevice];
     NSString *deviceName = currentDevice.name;
-    NSString *deviceModel = currentDevice.model;
+    NSString *deviceModel = [self getDeviceModelName];
     NSString *systemName = currentDevice.systemName;
     NSString *systemVersion = currentDevice.systemVersion;
     NSString *deviceIdentifier = [[currentDevice identifierForVendor] UUIDString];

@@ -8,6 +8,7 @@
 
 #import "BugBattleBugDetailsViewController.h"
 #import "BugBattleCore.h"
+#import "BugBattleReplayHelper.h"
 
 @interface BugBattleBugDetailsViewController ()
 
@@ -122,9 +123,16 @@
     return NO;
 }
 
+- (void)onDismissCleanup {
+    // Starts the replay helper.
+    if ([BugBattle sharedInstance].replaysEnabled) {
+        [[BugBattleReplayHelper sharedInstance] start];
+    }
+}
+
 - (IBAction)cancel:(id)sender {
     [self dismissViewControllerAnimated: YES completion:^{
-        
+        [self onDismissCleanup];
     }];
 }
 
@@ -229,6 +237,7 @@
                 self->_sending = NO;
                 [self dismissViewControllerAnimated: true completion:^{
                     [[NSUserDefaults standardUserDefaults] setValue: @"" forKey: @"BugBattle_SavedDescription"];
+                    [self onDismissCleanup];
                 }];
             });
         } else {
