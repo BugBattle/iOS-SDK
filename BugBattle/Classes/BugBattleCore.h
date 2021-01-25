@@ -34,6 +34,15 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 + (void)initWithToken: (NSString *)token andActivationMethod: (BugBattleActivationMethod)activationMethod;
 
 /**
+ * Initializes the BugBattle SDK.
+ * @author BugBattle
+ *
+ * @param token The SDK key, which can be found on dashboard.bugbattle.io
+ * @param activationMethods Array of BugBattleActivationMethod. Activation methods, which triggers a new bug report.
+ */
++ (void)initWithToken: (NSString *)token andActivationMethods: (NSArray *)activationMethods;
+
+/**
  * Manually start the bug reporting workflow. This is used, when you use the activation method "NONE".
  * @author BugBattle
  *
@@ -144,11 +153,11 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 @property (nonatomic, retain) NSString* token;
 @property (nonatomic, retain) NSString* apiUrl;
 @property (nonatomic, retain) NSString* privacyPolicyUrl;
+@property (nonatomic, retain) NSArray *activationMethods;
+@property (nonatomic, retain) NSMutableDictionary* data;
 @property (nonatomic, assign) bool privacyPolicyEnabled;
 @property (nonatomic, assign) bool replaysEnabled;
-@property (nonatomic, assign) BugBattleActivationMethod activationMethod;
 @property (nonatomic, assign) BugBattleApplicationType applicationType;
-@property (nonatomic, retain) NSMutableDictionary* data;
 
 extern NSString *const BugBattleStepTypeView;
 extern NSString *const BugBattleStepTypeButton;

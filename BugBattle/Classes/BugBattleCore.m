@@ -59,7 +59,7 @@
     self.apiUrl = @"https://api.bugbattle.io";
     self.privacyPolicyEnabled = false;
     self.privacyPolicyUrl = @"https://www.bugbattle.io/privacy-policy/";
-    self.activationMethod = NONE;
+    self.activationMethods = [[NSArray alloc] init];
     self.applicationType = NATIVE;
     self.data = [[NSMutableDictionary alloc] init];
     self.sessionStart = [[NSDate alloc] init];
@@ -131,14 +131,43 @@
 + (void)initWithToken: (NSString *)token andActivationMethod: (BugBattleActivationMethod)activationMethod {
     BugBattle* instance = [BugBattle sharedInstance];
     instance.token = token;
-    instance.activationMethod = activationMethod;
-    
-    if (activationMethod == THREE_FINGER_DOUBLE_TAB) {
-        [instance initializeGestureRecognizer];
+    instance.activationMethods = @[@(activationMethod)];
+    [instance performActivationMethodInit];
+}
+
+/*
+ Costom initialize method
+ */
++ (void)initWithToken: (NSString *)token andActivationMethods: (NSArray *)activationMethods {
+    BugBattle* instance = [BugBattle sharedInstance];
+    instance.token = token;
+    instance.activationMethods = activationMethods;
+    [instance performActivationMethodInit];
+}
+
+/**
+ Check if activation method exists
+ */
+- (BOOL)isActivationMethodActive: (BugBattleActivationMethod)activationMethod {
+    for (int i = 0; i < self.activationMethods.count; i++) {
+        BugBattleActivationMethod currentActivationMethod = [[self.activationMethods objectAtIndex: i] intValue];
+        if (currentActivationMethod == activationMethod) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+    Performs initial checks for activation methods.
+ */
+- (void)performActivationMethodInit {
+    if ([self isActivationMethodActive: THREE_FINGER_DOUBLE_TAB]) {
+        [self initializeGestureRecognizer];
     }
     
-    if (activationMethod == SCREENSHOT) {
-        [instance initializeScreenshotRecognizer];
+    if ([self isActivationMethodActive: SCREENSHOT]) {
+        [self initializeScreenshotRecognizer];
     }
 }
 
@@ -253,7 +282,7 @@
  Invoked when a shake gesture is beeing performed.
  */
 + (void)shakeInvocation {
-    if ([BugBattle sharedInstance].activationMethod == SHAKE) {
+    if ([[BugBattle sharedInstance] isActivationMethodActive: SHAKE]) {
         [BugBattle startBugReporting];
     }
 }
@@ -333,42 +362,54 @@
  Sends a bugreport to our backend.
  */
 - (void)sendReport: (void (^)(bool success))completion {
-    [[BugBattle sharedInstance] uploadStepImages: [BugBattleReplayHelper sharedInstance].replaySteps andCompletion:^(bool success, NSArray * _Nonnull fileUrls) {
-        if (success) {
-            // Attach replay
-            [BugBattle attachData: @{ @"replay": @{
-                                              @"interval": @1000,
-                                              @"frames": fileUrls
-            } }];
-        }
-        
-        // Process with image upload
-        [self uploadImage: self.screenshot andCompletion:^(bool success, NSString *fileUrl) {
-            if (!success) {
-                return completion(false);
+    if (self.replaysEnabled) {
+        [[BugBattle sharedInstance] uploadStepImages: [BugBattleReplayHelper sharedInstance].replaySteps andCompletion:^(bool success, NSArray * _Nonnull fileUrls) {
+            if (success) {
+                // Attach replay
+                [BugBattle attachData: @{ @"replay": @{
+                                                  @"interval": @1000,
+                                                  @"frames": fileUrls
+                } }];
             }
             
-            // Set screenshot url.
-            NSMutableDictionary *dataToAppend = [[NSMutableDictionary alloc] init];
-            [dataToAppend setValue: fileUrl forKey: @"screenshotUrl"];
-            [BugBattle attachData: dataToAppend];
-            
-            // Fetch additional metadata.
-            [BugBattle attachData: @{ @"metaData": [self getMetaData] }];
-            
-            // Attach console log.
-            [BugBattle attachData: @{ @"consoleLog": self->_consoleLog }];
-            
-            // Attach steps to reproduce.
-            [BugBattle attachData: @{ @"actionLog": self->_stepsToReproduce }];
-            
-            // Attach custom data.
-            [BugBattle attachData: @{ @"customData": [self customData] }];
-            
-            // Sending report to server.
-            [self sendReportToServer:^(bool success) {
+            [self uploadScreenshot:^(bool success) {
                 completion(success);
             }];
+        }];
+    } else {
+        [self uploadScreenshot:^(bool success) {
+            completion(success);
+        }];
+    }
+}
+
+- (void)uploadScreenshot: (void (^)(bool success))completion {
+    // Process with image upload
+    [self uploadImage: self.screenshot andCompletion:^(bool success, NSString *fileUrl) {
+        if (!success) {
+            return completion(false);
+        }
+        
+        // Set screenshot url.
+        NSMutableDictionary *dataToAppend = [[NSMutableDictionary alloc] init];
+        [dataToAppend setValue: fileUrl forKey: @"screenshotUrl"];
+        [BugBattle attachData: dataToAppend];
+        
+        // Fetch additional metadata.
+        [BugBattle attachData: @{ @"metaData": [self getMetaData] }];
+        
+        // Attach console log.
+        [BugBattle attachData: @{ @"consoleLog": self->_consoleLog }];
+        
+        // Attach steps to reproduce.
+        [BugBattle attachData: @{ @"actionLog": self->_stepsToReproduce }];
+        
+        // Attach custom data.
+        [BugBattle attachData: @{ @"customData": [self customData] }];
+        
+        // Sending report to server.
+        [self sendReportToServer:^(bool success) {
+            completion(success);
         }];
     }];
 }
