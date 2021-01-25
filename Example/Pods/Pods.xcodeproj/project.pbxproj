@@ -31,12 +31,12 @@
 		ABD1894E6416DAB331B9961ACE8D466E /* backIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 769CE6E6A289E5636FEF1641DC1485D6 /* backIcon.png */; };
 		B12D915540F10965232C54B256CE11B7 /* colorsCloseIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C40666F4ABEA2FBF18591050F6E16D58 /* colorsCloseIcon.png */; };
 		DE32758A5CDF79039A63C1754D79DD86 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436BAA54A31999B53B3CC7115C55FE50 /* Foundation.framework */; };
+		DF375F5725BF3D1C00300139 /* BugBattleReplayHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = DF375F5525BF3D1C00300139 /* BugBattleReplayHelper.m */; };
+		DF375F5825BF3D1C00300139 /* BugBattleReplayHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = DF375F5625BF3D1C00300139 /* BugBattleReplayHelper.h */; };
 		DF407D4925B1BCA0009B0596 /* BugBattleTouchHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = DF407D4725B1BCA0009B0596 /* BugBattleTouchHelper.h */; };
 		DF407D4A25B1BCA0009B0596 /* BugBattleTouchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = DF407D4825B1BCA0009B0596 /* BugBattleTouchHelper.m */; };
 		DF407D6325B1C1F0009B0596 /* UIWindow+BugBattleTouchRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = DF407D6125B1C1F0009B0596 /* UIWindow+BugBattleTouchRecognizer.h */; };
 		DF407D6425B1C1F0009B0596 /* UIWindow+BugBattleTouchRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = DF407D6225B1C1F0009B0596 /* UIWindow+BugBattleTouchRecognizer.m */; };
-		DF407D6D25B1CF9E009B0596 /* BugBattleReplayHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = DF407D6B25B1CF9E009B0596 /* BugBattleReplayHelper.h */; };
-		DF407D6E25B1CF9E009B0596 /* BugBattleReplayHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = DF407D6C25B1CF9E009B0596 /* BugBattleReplayHelper.m */; };
 		E98B5B4A288056DA1ED39259ACA261A7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436BAA54A31999B53B3CC7115C55FE50 /* Foundation.framework */; };
 		ED50CE1D6B6C5C58EB5D577F1B74108F /* BugBattleTouchDrawImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = BCBFE73DB87F294EA5ECE50E079A4865 /* BugBattleTouchDrawImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9D272BB54D5810531C3AC5CE857DBF1 /* BugBattleStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B05DBFF5BAA2E9B29681A6BBC94C5A3 /* BugBattleStoryboard.storyboard */; };
@@ -108,12 +108,12 @@
 		BFBD0E84F57F45099D59AFAB205CFC50 /* BugBattle.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = BugBattle.modulemap; sourceTree = "<group>"; };
 		C40666F4ABEA2FBF18591050F6E16D58 /* colorsCloseIcon.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = colorsCloseIcon.png; path = BugBattle/Assets/colorsCloseIcon.png; sourceTree = "<group>"; };
 		D2B40914B31FA2FE6DBE3E923AFA3ABD /* Pods-BugBattle_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BugBattle_Example.release.xcconfig"; sourceTree = "<group>"; };
+		DF375F5525BF3D1C00300139 /* BugBattleReplayHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BugBattleReplayHelper.m; path = BugBattle/Classes/BugBattleReplayHelper.m; sourceTree = "<group>"; };
+		DF375F5625BF3D1C00300139 /* BugBattleReplayHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugBattleReplayHelper.h; path = BugBattle/Classes/BugBattleReplayHelper.h; sourceTree = "<group>"; };
 		DF407D4725B1BCA0009B0596 /* BugBattleTouchHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BugBattleTouchHelper.h; path = BugBattle/Classes/BugBattleTouchHelper.h; sourceTree = "<group>"; };
 		DF407D4825B1BCA0009B0596 /* BugBattleTouchHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = BugBattleTouchHelper.m; path = BugBattle/Classes/BugBattleTouchHelper.m; sourceTree = "<group>"; };
 		DF407D6125B1C1F0009B0596 /* UIWindow+BugBattleTouchRecognizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIWindow+BugBattleTouchRecognizer.h"; sourceTree = "<group>"; };
 		DF407D6225B1C1F0009B0596 /* UIWindow+BugBattleTouchRecognizer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+BugBattleTouchRecognizer.m"; sourceTree = "<group>"; };
-		DF407D6B25B1CF9E009B0596 /* BugBattleReplayHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BugBattleReplayHelper.h; sourceTree = "<group>"; };
-		DF407D6C25B1CF9E009B0596 /* BugBattleReplayHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BugBattleReplayHelper.m; sourceTree = "<group>"; };
 		E4ECCA45BDBA0FDC0469C2FD55D2B900 /* sentIcon.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = sentIcon.png; path = BugBattle/Assets/sentIcon.png; sourceTree = "<group>"; };
 		EAA5533A0E04D72DC160EA4578FC4A30 /* BugBattle.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = BugBattle.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		F464AA4858080BA0484ED0A2E7E859B2 /* Pods-BugBattle_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BugBattle_Tests-umbrella.h"; sourceTree = "<group>"; };
@@ -219,8 +219,8 @@
 				A419ED5E4985CFEA0781E8E8D0454681 /* BugBattleBugDetailsViewController.m */,
 				ACDA73CED1918FC4313CC736D8124DCD /* BugBattleCore.h */,
 				39FC01BC723F28ACD7D8F9632919CA34 /* BugBattleCore.m */,
-				DF407D6B25B1CF9E009B0596 /* BugBattleReplayHelper.h */,
-				DF407D6C25B1CF9E009B0596 /* BugBattleReplayHelper.m */,
+				DF375F5625BF3D1C00300139 /* BugBattleReplayHelper.h */,
+				DF375F5525BF3D1C00300139 /* BugBattleReplayHelper.m */,
 				DF407D4725B1BCA0009B0596 /* BugBattleTouchHelper.h */,
 				DF407D4825B1BCA0009B0596 /* BugBattleTouchHelper.m */,
 				B9A93081F0776F40283DF4F98E889AD5 /* BugBattleImageEditorViewController.h */,
@@ -319,7 +319,7 @@
 				941DE573E6AD09B993A61B52DC5B5FCA /* BugBattleCore.h in Headers */,
 				6372F0BC529BF4F940AFDC91EED804E3 /* BugBattleImageEditorViewController.h in Headers */,
 				ED50CE1D6B6C5C58EB5D577F1B74108F /* BugBattleTouchDrawImageView.h in Headers */,
-				DF407D6D25B1CF9E009B0596 /* BugBattleReplayHelper.h in Headers */,
+				DF375F5825BF3D1C00300139 /* BugBattleReplayHelper.h in Headers */,
 				8B2EF6F052998558E8486749FEEB2809 /* UIWindow+BugBattleShakeRecognizer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -475,7 +475,7 @@
 				10AD152D22F9A6520DBF2BC68ED05990 /* BugBattle-dummy.m in Sources */,
 				52FC362E01000B8155E3B42E0A7E02E3 /* BugBattleBugDetailsViewController.m in Sources */,
 				625773996858D3E287C32B8451190301 /* BugBattleCore.m in Sources */,
-				DF407D6E25B1CF9E009B0596 /* BugBattleReplayHelper.m in Sources */,
+				DF375F5725BF3D1C00300139 /* BugBattleReplayHelper.m in Sources */,
 				DF407D4A25B1BCA0009B0596 /* BugBattleTouchHelper.m in Sources */,
 				DF407D6425B1C1F0009B0596 /* UIWindow+BugBattleTouchRecognizer.m in Sources */,
 				749C858657D4D4AA7A6696D32C08F4AC /* BugBattleImageEditorViewController.m in Sources */,

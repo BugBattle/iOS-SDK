@@ -23,7 +23,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Starts the touch helper.
  */
-+ (void)addTouch:(CGPoint)touch;
++ (void)addX:(float)x andY:(float)y andType:(NSString *)type;
+
+/**
+ * Returns all touch events and clears the touch events array.
+ */
++ (NSArray *)getAndClearTouchEvents;
 
 @property (nonatomic, retain) NSMutableArray* touchEvents;
 

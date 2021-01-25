@@ -7,6 +7,7 @@
 
 #import "BugBattleReplayHelper.h"
 #import "BugBattleCore.h"
+#import "BugBattleTouchHelper.h"
 
 @implementation BugBattleReplayHelper
 
@@ -74,7 +75,7 @@
     [self.replaySteps addObject: @{
         @"screenname": currentViewControllerName,
         @"image": screenshot,
-        @"interactions": @[],
+        @"interactions": [BugBattleTouchHelper getAndClearTouchEvents],
         @"date": [[BugBattle sharedInstance] getJSStringForNSDate: [[NSDate alloc] init]]
     }];
 }

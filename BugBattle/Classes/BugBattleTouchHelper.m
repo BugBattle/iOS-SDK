@@ -6,6 +6,9 @@
 //
 
 #import "BugBattleTouchHelper.h"
+#import "BugBattleCore.h"
+
+#define MAX_INTERACTIONS 10
 
 @implementation BugBattleTouchHelper
 
@@ -30,15 +33,26 @@
     return self;
 }
 
-+ (void)addTouch:(CGPoint)touch {
-    [[self sharedInstance] addTouchEvent: touch];
++ (void)addX:(float)x andY:(float)y andType:(NSString *)type {
+    [[self sharedInstance] addX: x andY: y andType: type];
 }
 
-- (void)addTouchEvent:(CGPoint)touch {
++ (NSArray *)getAndClearTouchEvents {
+    NSArray *touchEventsCopy = [[[self sharedInstance] touchEvents] copy];
+    [[[self sharedInstance] touchEvents] removeAllObjects];
+    return touchEventsCopy;
+}
+
+- (void)addX:(float)x andY:(float)y andType:(NSString *)type {
+    if (self.touchEvents.count >= MAX_INTERACTIONS) {
+        return;
+    }
+    
     NSDictionary *point = @{
-        @"x": @(touch.x),
-        @"y": @(touch.y),
-        @"date": [NSDate date]
+        @"x": @(x),
+        @"y": @(y),
+        @"date": [[BugBattle sharedInstance] getJSStringForNSDate: [[NSDate alloc] init]],
+        @"type": type
     };
     [self.touchEvents addObject: point];
 }
