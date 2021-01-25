@@ -8,6 +8,8 @@
 
 #import "BugBattleCore.h"
 #import "BugBattleImageEditorViewController.h"
+#import "BugBattleReplayHelper.h"
+#import <sys/utsname.h>
 
 @interface BugBattle ()
 
@@ -22,7 +24,6 @@
 @property (retain, nonatomic) NSDictionary *customData;
 @property (retain, nonatomic) NSPipe *inputPipe;
 @property (retain, nonatomic) NSPipe *outputPipe;
-@property (retain, nonatomic) NSTimer *stepsToReproduceTimer;
 @property (nonatomic, retain) UITapGestureRecognizer *tapGestureRecognizer;
 
 @end
@@ -58,7 +59,7 @@
     self.apiUrl = @"https://api.bugbattle.io";
     self.privacyPolicyEnabled = false;
     self.privacyPolicyUrl = @"https://www.bugbattle.io/privacy-policy/";
-    self.activationMethod = NONE;
+    self.activationMethods = [[NSArray alloc] init];
     self.applicationType = NATIVE;
     self.data = [[NSMutableDictionary alloc] init];
     self.sessionStart = [[NSDate alloc] init];
@@ -78,6 +79,17 @@
     
     // Open console log.
     [self openConsoleLog];
+}
+
++ (void)enableReplays: (BOOL)enable {
+    [BugBattle sharedInstance].replaysEnabled = enable;
+    
+    if ([BugBattle sharedInstance].replaysEnabled) {
+        // Starts the replay helper.
+        [[BugBattleReplayHelper sharedInstance] start];
+    } else {
+        [[BugBattleReplayHelper sharedInstance] stop];
+    }
 }
 
 /*
@@ -119,14 +131,43 @@
 + (void)initWithToken: (NSString *)token andActivationMethod: (BugBattleActivationMethod)activationMethod {
     BugBattle* instance = [BugBattle sharedInstance];
     instance.token = token;
-    instance.activationMethod = activationMethod;
-    
-    if (activationMethod == THREE_FINGER_DOUBLE_TAB) {
-        [instance initializeGestureRecognizer];
+    instance.activationMethods = @[@(activationMethod)];
+    [instance performActivationMethodInit];
+}
+
+/*
+ Costom initialize method
+ */
++ (void)initWithToken: (NSString *)token andActivationMethods: (NSArray *)activationMethods {
+    BugBattle* instance = [BugBattle sharedInstance];
+    instance.token = token;
+    instance.activationMethods = activationMethods;
+    [instance performActivationMethodInit];
+}
+
+/**
+ Check if activation method exists
+ */
+- (BOOL)isActivationMethodActive: (BugBattleActivationMethod)activationMethod {
+    for (int i = 0; i < self.activationMethods.count; i++) {
+        BugBattleActivationMethod currentActivationMethod = [[self.activationMethods objectAtIndex: i] intValue];
+        if (currentActivationMethod == activationMethod) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+    Performs initial checks for activation methods.
+ */
+- (void)performActivationMethodInit {
+    if ([self isActivationMethodActive: THREE_FINGER_DOUBLE_TAB]) {
+        [self initializeGestureRecognizer];
     }
     
-    if (activationMethod == SCREENSHOT) {
-        [instance initializeScreenshotRecognizer];
+    if ([self isActivationMethodActive: SCREENSHOT]) {
+        [self initializeScreenshotRecognizer];
     }
 }
 
@@ -218,8 +259,8 @@
         return;
     }
     
-    // Stop screen capturung
-    [BugBattle.sharedInstance.stepsToReproduceTimer invalidate];
+    // Stop replays
+    [[BugBattleReplayHelper sharedInstance] stop];
     
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName: @"BugBattleStoryboard" bundle: [BugBattle frameworkBundle]];
     BugBattleImageEditorViewController *bugBattleImageEditor = [storyboard instantiateViewControllerWithIdentifier: @"BugBattleImageEditorViewController"];
@@ -241,7 +282,7 @@
  Invoked when a shake gesture is beeing performed.
  */
 + (void)shakeInvocation {
-    if ([BugBattle sharedInstance].activationMethod == SHAKE) {
+    if ([[BugBattle sharedInstance] isActivationMethodActive: SHAKE]) {
         [BugBattle startBugReporting];
     }
 }
@@ -313,10 +354,37 @@
     return img;
 }
 
+- (UIImage *) captureLowResScreen {
+    return [self captureScreen];
+}
+
 /*
  Sends a bugreport to our backend.
  */
 - (void)sendReport: (void (^)(bool success))completion {
+    if (self.replaysEnabled) {
+        [[BugBattle sharedInstance] uploadStepImages: [BugBattleReplayHelper sharedInstance].replaySteps andCompletion:^(bool success, NSArray * _Nonnull fileUrls) {
+            if (success) {
+                // Attach replay
+                [BugBattle attachData: @{ @"replay": @{
+                                                  @"interval": @1000,
+                                                  @"frames": fileUrls
+                } }];
+            }
+            
+            [self uploadScreenshot:^(bool success) {
+                completion(success);
+            }];
+        }];
+    } else {
+        [self uploadScreenshot:^(bool success) {
+            completion(success);
+        }];
+    }
+}
+
+- (void)uploadScreenshot: (void (^)(bool success))completion {
+    // Process with image upload
     [self uploadImage: self.screenshot andCompletion:^(bool success, NSString *fileUrl) {
         if (!success) {
             return completion(false);
@@ -445,9 +513,82 @@
  Upload image
  */
 - (void)uploadImage: (UIImage *)image andCompletion: (void (^)(bool success, NSString *fileUrl))completion {
-    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
     NSString *contentType = @"image/jpeg";
     [self uploadFile: imageData andFileName: @"screenshot.jpeg" andContentType: contentType andCompletion: completion];
+}
+
+/*
+ Upload files
+ */
+- (void)uploadStepImages: (NSArray *)steps andCompletion: (void (^)(bool success, NSArray *fileUrls))completion {
+    NSMutableURLRequest *request = [NSMutableURLRequest new];
+    [request setURL: [NSURL URLWithString: [NSString stringWithFormat: @"%@/uploads/sdksteps", _apiUrl]]];
+    [request setValue: _token forHTTPHeaderField: @"Api-Token"];
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    [request setHTTPShouldHandleCookies:NO];
+    [request setTimeoutInterval:60];
+    [request setHTTPMethod:@"POST"];
+    
+    // Build multipart/form-data
+    NSString *boundary = @"BBBOUNDARY";
+    NSString *headerContentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+    [request setValue: headerContentType forHTTPHeaderField: @"Content-Type"];
+    NSMutableData *body = [NSMutableData data];
+    
+    // Add files
+    for (int i = 0; i < steps.count; i++) {
+        NSDictionary *currentStep = [steps objectAtIndex: i];
+        UIImage *currentImage = [currentStep objectForKey: @"image"];
+        
+        NSData *imageData = UIImageJPEGRepresentation(currentImage, 0.5);
+        NSString *filename = [NSString stringWithFormat: @"step_%i", i];
+        if (imageData) {
+            NSString *contentType = @"image/jpeg";
+            [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+            [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=%@; filename=%@\r\n", @"file", filename] dataUsingEncoding:NSUTF8StringEncoding]];
+            [body appendData:[[NSString stringWithFormat: @"Content-Type: %@\r\n\r\n", contentType] dataUsingEncoding:NSUTF8StringEncoding]];
+            [body appendData: imageData];
+            [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+        }
+    }
+    
+    [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    // Setting the body of the post to the reqeust
+    [request setHTTPBody:body];
+    
+    // Set the content-length
+    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[body length]];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error != NULL) {
+            return completion(false, nil);
+        }
+        
+        NSError *parseError = nil;
+        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData: data options: 0 error:&parseError];
+        if (!parseError) {
+            NSArray* fileUrls = [responseDict objectForKey: @"fileUrls"];
+            NSMutableArray *replayArray = [[NSMutableArray alloc] init];
+            
+            for (int i = 0; i < steps.count; i++) {
+                NSMutableDictionary *currentStep = [[steps objectAtIndex: i] mutableCopy];
+                NSString *currentImageUrl = [fileUrls objectAtIndex: i];
+                [currentStep setObject: currentImageUrl forKey: @"url"];
+                [currentStep removeObjectForKey: @"image"];
+                [replayArray addObject: currentStep];
+            }
+            
+            return completion(true, replayArray);
+        } else {
+            return completion(false, nil);
+        }
+    }];
+    [task resume];
 }
 
 /*
@@ -457,13 +598,24 @@
     return [_sessionStart timeIntervalSinceNow] * -1.0;
 }
 
+/**
+    Returns the device model name;
+ */
+- (NSString*)getDeviceModelName
+{
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    return [NSString stringWithCString: systemInfo.machine
+                              encoding:NSUTF8StringEncoding];
+}
+
 /*
  Returns all meta data as an NSDictionary.
  */
 - (NSDictionary *)getMetaData {
     UIDevice *currentDevice = [UIDevice currentDevice];
     NSString *deviceName = currentDevice.name;
-    NSString *deviceModel = currentDevice.model;
+    NSString *deviceModel = [self getDeviceModelName];
     NSString *systemName = currentDevice.systemName;
     NSString *systemVersion = currentDevice.systemVersion;
     NSString *deviceIdentifier = [[currentDevice identifierForVendor] UUIDString];
