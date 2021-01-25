@@ -32,10 +32,10 @@
 		B12D915540F10965232C54B256CE11B7 /* colorsCloseIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C40666F4ABEA2FBF18591050F6E16D58 /* colorsCloseIcon.png */; };
 		DE32758A5CDF79039A63C1754D79DD86 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436BAA54A31999B53B3CC7115C55FE50 /* Foundation.framework */; };
 		DF375F5725BF3D1C00300139 /* BugBattleReplayHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = DF375F5525BF3D1C00300139 /* BugBattleReplayHelper.m */; };
-		DF375F5825BF3D1C00300139 /* BugBattleReplayHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = DF375F5625BF3D1C00300139 /* BugBattleReplayHelper.h */; };
-		DF407D4925B1BCA0009B0596 /* BugBattleTouchHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = DF407D4725B1BCA0009B0596 /* BugBattleTouchHelper.h */; };
+		DF375F5825BF3D1C00300139 /* BugBattleReplayHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = DF375F5625BF3D1C00300139 /* BugBattleReplayHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DF407D4925B1BCA0009B0596 /* BugBattleTouchHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = DF407D4725B1BCA0009B0596 /* BugBattleTouchHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DF407D4A25B1BCA0009B0596 /* BugBattleTouchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = DF407D4825B1BCA0009B0596 /* BugBattleTouchHelper.m */; };
-		DF407D6325B1C1F0009B0596 /* UIWindow+BugBattleTouchRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = DF407D6125B1C1F0009B0596 /* UIWindow+BugBattleTouchRecognizer.h */; };
+		DF407D6325B1C1F0009B0596 /* UIWindow+BugBattleTouchRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = DF407D6125B1C1F0009B0596 /* UIWindow+BugBattleTouchRecognizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DF407D6425B1C1F0009B0596 /* UIWindow+BugBattleTouchRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = DF407D6225B1C1F0009B0596 /* UIWindow+BugBattleTouchRecognizer.m */; };
 		E98B5B4A288056DA1ED39259ACA261A7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436BAA54A31999B53B3CC7115C55FE50 /* Foundation.framework */; };
 		ED50CE1D6B6C5C58EB5D577F1B74108F /* BugBattleTouchDrawImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = BCBFE73DB87F294EA5ECE50E079A4865 /* BugBattleTouchDrawImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
