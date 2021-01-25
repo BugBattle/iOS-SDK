@@ -13,9 +13,12 @@
 #import "BugBattle.h"
 #import "BugBattleBugDetailsViewController.h"
 #import "BugBattleCore.h"
+#import "BugBattleTouchHelper.h"
+#import "BugBattleReplayHelper.h"
 #import "BugBattleImageEditorViewController.h"
 #import "BugBattleTouchDrawImageView.h"
 #import "UIWindow+BugBattleShakeRecognizer.h"
+#import "UIWindow+BugBattleTouchRecognizer.h"
 
 FOUNDATION_EXPORT double BugBattleVersionNumber;
 FOUNDATION_EXPORT const unsigned char BugBattleVersionString[];
