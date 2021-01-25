@@ -16,3 +16,6 @@ FOUNDATION_EXPORT const unsigned char BugBattleVersionString[];
 
 #import <BugBattle/BugBattleCore.h>
 #import <BugBattle/UIWindow+BugBattleShakeRecognizer.h>
+#import <BugBattle/UIWindow+BugBattleTouchRecognizer.h>
+#import <BugBattle/BugBattleTouchHelper.h>
+#import <BugBattle/BugBattleReplayHelper.h>
