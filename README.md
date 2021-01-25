@@ -57,3 +57,8 @@ BugBattle.initWithToken("YOUR-API-KEY", andActivationMethod: SHAKE)
 ```
 
 (Your API key can be found in the project settings within Bugbattle)
+
+It's also possible to specify multiple activation methods.
+```
+[BugBattle initWithToken: @"YOUR_API_KEY" andActivationMethods: @[@(THREE_FINGER_DOUBLE_TAB), @(SHAKE), @(SCREENSHOT)]];
+```
