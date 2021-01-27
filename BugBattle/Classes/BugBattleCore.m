@@ -679,12 +679,17 @@
     
     NSString *consoleLogLines = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
     if (consoleLogLines != NULL) {
-        NSArray *lines = [consoleLogLines componentsSeparatedByString: @"\n"];
+        
+        NSError *error = nil;
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\d+-\\d+-\\d+ \\d+:\\d+:\\d+.\\d+\\+\\d+ .+\\[.+:.+\\] " options:NSRegularExpressionCaseInsensitive error:&error];
+        consoleLogLines = [regex stringByReplacingMatchesInString: consoleLogLines options: 0 range:NSMakeRange(0, [consoleLogLines length]) withTemplate:@"#BBNL#"];
+        
+        NSArray *lines = [consoleLogLines componentsSeparatedByString: @"#BBNL#"];
         for (int i = 0; i < lines.count; i++) {
             NSString *line = [lines objectAtIndex: i];
             if (line != NULL && ![line isEqualToString: @""]) {
                 NSString *dateString = [self getJSStringForNSDate: [[NSDate alloc] init]];
-                NSDictionary *log = @{ @"date": dateString, @"log": line };
+                NSDictionary *log = @{ @"date": dateString, @"log": line, @"priority": @"INFO" };
                 if (_consoleLog.count > 1000) {
                     [_consoleLog removeObjectAtIndex: 0];
                 }

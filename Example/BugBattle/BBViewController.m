@@ -22,6 +22,7 @@
     
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary: @{ @"key" : @"value", @"key2" : @"value2"}];
     [BugBattle attachCustomData: dict];
+    [BugBattle enableReplays: true];
 }
 
 - (void)didReceiveMemoryWarning
