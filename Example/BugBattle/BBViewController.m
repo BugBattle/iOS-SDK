@@ -20,9 +20,17 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+    self.title = @"Home";
+    
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary: @{ @"key" : @"value", @"key2" : @"value2"}];
     [BugBattle attachCustomData: dict];
     [BugBattle enableReplays: true];
+    
+    NSLog(@"Started Bugbattle-Demo.");
+    
+    for (int i = 0; i < 5; i++) {
+        NSLog(@"Lorum logsum %i", i);
+    }
 }
 
 - (void)didReceiveMemoryWarning

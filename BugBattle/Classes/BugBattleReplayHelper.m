@@ -66,11 +66,7 @@
     }
     
     UIImage *screenshot = [[BugBattle sharedInstance] captureLowResScreen];
-    NSString *currentViewControllerName = @"NotSet";
-    UIViewController *topViewController = [[BugBattle sharedInstance] getTopMostViewController];
-    if (topViewController != nil) {
-        currentViewControllerName = NSStringFromClass([topViewController class]);
-    }
+    NSString *currentViewControllerName = [[BugBattle sharedInstance] getTopMostViewControllerName];
     
     [self.replaySteps addObject: @{
         @"screenname": currentViewControllerName,

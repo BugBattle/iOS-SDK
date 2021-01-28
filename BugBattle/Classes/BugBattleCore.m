@@ -92,6 +92,19 @@
     }
 }
 
+- (NSString *)getTopMostViewControllerName {
+    NSString *currentViewControllerName = @"NotSet";
+    UIViewController *topViewController = [self getTopMostViewController];
+    if (topViewController != nil) {
+        if (topViewController.title != nil) {
+            currentViewControllerName = topViewController.title;
+        } else {
+            currentViewControllerName = NSStringFromClass([topViewController class]);
+        }
+    }
+    return currentViewControllerName;
+}
+
 /*
  Returns the top most view controller.
  */
@@ -623,6 +636,7 @@
     NSString *releaseVersionNumber = [NSBundle.mainBundle.infoDictionary objectForKey: @"CFBundleShortVersionString"];
     NSString *buildVersionNumber = [NSBundle.mainBundle.infoDictionary objectForKey: @"CFBundleVersion"];
     NSNumber *sessionDuration = [NSNumber numberWithDouble: [self sessionDuration]];
+    NSString *lastScreenName = [self getTopMostViewControllerName];
     
     NSString *applicationType = @"Native";
     if (self.applicationType == FLUTTER) {
@@ -641,7 +655,8 @@
         @"buildVersionNumber": buildVersionNumber,
         @"releaseVersionNumber": releaseVersionNumber,
         @"sessionDuration": sessionDuration,
-        @"applicationType": applicationType
+        @"applicationType": applicationType,
+        @"lastScreenName": lastScreenName
     };
 }
 
