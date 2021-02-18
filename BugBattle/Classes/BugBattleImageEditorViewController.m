@@ -11,6 +11,7 @@
 #import "BugBattleBugDetailsViewController.h"
 #import "BugBattleCore.h"
 #import "BugBattleReplayHelper.h"
+#import "BugBattleTranslationHelper.h"
 
 @interface BugBattleImageEditorViewController ()
 @property (weak, nonatomic) IBOutlet BugBattleTouchDrawImageView *screenshotImageView;
@@ -41,13 +42,13 @@
     
     [[NSUserDefaults standardUserDefaults] setValue: @"" forKey: @"BugBattle_SavedDescription"];
     
-    UIBarButtonItem *nextButton = [[UIBarButtonItem alloc] initWithTitle: @"Next" style: UIBarButtonItemStyleDone target: self action: @selector(showNextStep:)];
+    UIBarButtonItem *nextButton = [[UIBarButtonItem alloc] initWithTitle: [BugBattleTranslationHelper localizedString: @"report_next"] style: UIBarButtonItemStyleDone target: self action: @selector(showNextStep:)];
     self.navigationItem.rightBarButtonItem = nextButton;
     
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCancel target: self action: @selector(closeReporting:)];
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle: [BugBattleTranslationHelper localizedString: @"report_cancel"] style: UIBarButtonItemStylePlain target: self action: @selector(closeReporting:)];
     self.navigationItem.leftBarButtonItem = cancelButton;
     
-    self.navigationItem.title = @"Report a bug";
+    self.navigationItem.title = [BugBattleTranslationHelper localizedString: @"report_title"];
     
     UIColor *defaultColor = UIColor.blackColor;
     if (@available(iOS 13, *)) {

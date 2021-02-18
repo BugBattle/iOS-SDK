@@ -70,6 +70,7 @@
     self.navigationTint = [UIColor systemBlueColor];
     self.navigationBarTint = [UIColor whiteColor];
     self.navigationBarTitleColor = [UIColor blackColor];
+    self.language = [[NSLocale preferredLanguages] firstObject];
     if (@available(iOS 13.0, *)) {
         if (UITraitCollection.currentTraitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
             self.navigationBarTint = [UIColor systemBackgroundColor];
@@ -79,6 +80,10 @@
     
     // Open console log.
     [self openConsoleLog];
+}
+
++ (void)setLanguage: (NSString *)language {
+    [BugBattle sharedInstance].language = language;
 }
 
 + (void)enableReplays: (BOOL)enable {

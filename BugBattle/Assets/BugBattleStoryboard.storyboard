@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -395,9 +395,11 @@
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="bugSentLabel" destination="oiW-XH-tWd" id="qYh-UC-YDG"/>
                         <outlet property="descriptionTextView" destination="Oi2-p3-03B" id="xVK-bl-ac4"/>
                         <outlet property="editIconView" destination="0yU-14-rzx" id="lM6-7a-AqC"/>
                         <outlet property="emailTextField" destination="zTX-mc-hOh" id="wGb-Hi-xWR"/>
+                        <outlet property="loadingLabel" destination="ecR-sR-cPP" id="UIU-xn-Ckj"/>
                         <outlet property="loadingView" destination="QPD-TS-mfH" id="G6H-Wh-csx"/>
                         <outlet property="messageSentIcon" destination="bPb-VF-zsS" id="60r-pu-y7s"/>
                         <outlet property="privacyPolicyContainerView" destination="cXd-P0-7a1" id="Zkv-Sg-ENf"/>

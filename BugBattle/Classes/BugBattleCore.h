@@ -143,6 +143,7 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 + (void)shakeInvocation;
 + (void)attachScreenshot: (UIImage *)screenshot;
 + (UIImage *)getAttachedScreenshot;
++ (void)setLanguage: (NSString *)language;
 
 - (void)sendReport: (void (^)(bool success))completion;
 - (UIImage *) captureLowResScreen;
@@ -151,6 +152,7 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 - (NSString *)getTopMostViewControllerName;
 - (NSString *)getJSStringForNSDate:(NSDate *)date;
 
+@property (nonatomic, retain) NSString* language;
 @property (nonatomic, retain) NSString* token;
 @property (nonatomic, retain) NSString* apiUrl;
 @property (nonatomic, retain) NSString* privacyPolicyUrl;

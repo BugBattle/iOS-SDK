@@ -8,6 +8,7 @@
 
 #import "BugBattleBugDetailsViewController.h"
 #import "BugBattleCore.h"
+#import "BugBattleTranslationHelper.h"
 #import "BugBattleReplayHelper.h"
 
 @interface BugBattleBugDetailsViewController ()
@@ -24,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet UISwitch *privacyPolicyToggle;
 @property (weak, nonatomic) IBOutlet UIView *privacyPolicyContainerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *privacyPolicyHeightConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *bugSentLabel;
+@property (weak, nonatomic) IBOutlet UILabel *loadingLabel;
 @property (nonatomic) UILabel *lbl;
 @property (nonatomic) Boolean sending;
 
@@ -43,16 +46,23 @@
     
     _sending = NO;
     
-    UIBarButtonItem *sendButton = [[UIBarButtonItem alloc] initWithTitle: @"Send" style: UIBarButtonItemStyleDone target: self action: @selector(send:)];
+    UIBarButtonItem *sendButton = [[UIBarButtonItem alloc] initWithTitle: [BugBattleTranslationHelper localizedString: @"report_send"] style: UIBarButtonItemStylePlain target: self action: @selector(send:)];
     self.navigationItem.rightBarButtonItem = sendButton;
     
-    self.navigationItem.title = @"Report a bug";
+    self.navigationItem.title = [BugBattleTranslationHelper localizedString: @"report_title"];
     
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCancel target: self action: @selector(cancel:)];
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle: [BugBattleTranslationHelper localizedString: @"report_back"] style: UIBarButtonItemStyleDone target: self action: @selector(cancel:)];
     self.navigationItem.leftBarButtonItem = cancelButton;
     [self.navigationItem hidesBackButton];
     
     _severity.selectedSegmentIndex = 1;
+    
+    [_severity setTitle: [BugBattleTranslationHelper localizedString: @"report_priority_low"] forSegmentAtIndex: 0];
+    [_severity setTitle: [BugBattleTranslationHelper localizedString: @"report_priority_medium"] forSegmentAtIndex: 1];
+    [_severity setTitle: [BugBattleTranslationHelper localizedString: @"report_priority_high"] forSegmentAtIndex: 2];
+    
+    _loadingLabel.text = [BugBattleTranslationHelper localizedString: @"sending_report"];
+    _bugSentLabel.text = [BugBattleTranslationHelper localizedString: @"report_sent"];
     
     _screenshotPreview.clipsToBounds = true;
     _screenshotPreview.layer.masksToBounds = false;
@@ -70,14 +80,16 @@
     
     [self setupPrivacyPolicy];
     
+    
     NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey: @"BugBattle_SenderEmail"];
     _emailTextField.text = email;
+    _emailTextField.placeholder = [BugBattleTranslationHelper localizedString: @"report_email_placeholder"];
     NSString *savedDescription = [[NSUserDefaults standardUserDefaults] stringForKey: @"BugBattle_SavedDescription"];
     _descriptionTextView.text = savedDescription;
     [self isSendEnabled];
     
     _lbl = [[UILabel alloc] initWithFrame:CGRectMake(3.0, 0.0, _descriptionTextView.frame.size.width - 10.0, 34.0)];
-    [_lbl setText: @"What went wrong?"];
+    [_lbl setText: [BugBattleTranslationHelper localizedString: @"report_description_placeholder"]];
     [_lbl setBackgroundColor: [UIColor clearColor]];
     [_lbl setFont: [UIFont systemFontOfSize: 18.0 weight: UIFontWeightMedium]];
     
@@ -98,9 +110,9 @@
         self.privacyPolicyHeightConstraint.constant = 0;
     }
     
-    NSMutableAttributedString *privacyPolicyText = [[NSMutableAttributedString alloc] initWithString: @"I have read and agree to the "];
+    NSMutableAttributedString *privacyPolicyText = [[NSMutableAttributedString alloc] initWithString: [BugBattleTranslationHelper localizedString: @"report_privacy_policy_description"]];
     NSMutableAttributedString *privacyPolicyAppendix = [[NSMutableAttributedString alloc] initWithString: @"."];
-    NSMutableAttributedString *privacyPolicyLink = [[NSMutableAttributedString alloc] initWithString:@"privacy policy"
+    NSMutableAttributedString *privacyPolicyLink = [[NSMutableAttributedString alloc] initWithString: [BugBattleTranslationHelper localizedString: @"report_privacy_policy_title"]
                                                                            attributes:@{ NSLinkAttributeName: [NSURL URLWithString: BugBattle.sharedInstance.privacyPolicyUrl] }];
     [privacyPolicyText appendAttributedString: privacyPolicyLink];
     [privacyPolicyText appendAttributedString: privacyPolicyAppendix];
@@ -196,8 +208,8 @@
 
 - (IBAction)send:(id)sender {
     if (BugBattle.sharedInstance.privacyPolicyEnabled && !_privacyPolicyToggle.on) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Privacy policy" message:@"Please read and accept the privacy policy." preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle: [BugBattleTranslationHelper localizedString: @"report_privacy_policy_alert_title"] message: [BugBattleTranslationHelper localizedString: @"report_privacy_policy_alert"] preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *ok = [UIAlertAction actionWithTitle: [BugBattleTranslationHelper localizedString: @"ok"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
         [alert addAction:ok];
         [self presentViewController:alert animated:YES completion:nil];
         return;
@@ -244,11 +256,11 @@
             self->_sending = NO;
             [[self navigationController] setNavigationBarHidden: NO animated: NO];
             UIAlertController * alert = [UIAlertController
-                                         alertControllerWithTitle:@"Error"
-                                         message:@"An error occurred, please try again!"
+                                         alertControllerWithTitle: [BugBattleTranslationHelper localizedString: @"report_failed_title"]
+                                         message: [BugBattleTranslationHelper localizedString: @"report_failed"]
                                          preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction* yesButton = [UIAlertAction
-                                        actionWithTitle:@"OK"
+                                        actionWithTitle: [BugBattleTranslationHelper localizedString: @"ok"]
                                         style:UIAlertActionStyleDefault
                                         handler:^(UIAlertAction * action) {
                                             
