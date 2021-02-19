@@ -110,9 +110,9 @@
         self.privacyPolicyHeightConstraint.constant = 0;
     }
     
-    NSMutableAttributedString *privacyPolicyText = [[NSMutableAttributedString alloc] initWithString: [BugBattleTranslationHelper localizedString: @"report_privacy_policy_description"]];
-    NSMutableAttributedString *privacyPolicyAppendix = [[NSMutableAttributedString alloc] initWithString: @"."];
-    NSMutableAttributedString *privacyPolicyLink = [[NSMutableAttributedString alloc] initWithString: [BugBattleTranslationHelper localizedString: @"report_privacy_policy_title"]
+    NSMutableAttributedString *privacyPolicyText = [[NSMutableAttributedString alloc] initWithString: [BugBattleTranslationHelper localizedString: @"report_privacy_policy_prepend"]];
+    NSMutableAttributedString *privacyPolicyAppendix = [[NSMutableAttributedString alloc] initWithString: [BugBattleTranslationHelper localizedString: @"report_privacy_policy_append"]];
+    NSMutableAttributedString *privacyPolicyLink = [[NSMutableAttributedString alloc] initWithString: [BugBattleTranslationHelper localizedString: @"report_privacy_policy_link"]
                                                                            attributes:@{ NSLinkAttributeName: [NSURL URLWithString: BugBattle.sharedInstance.privacyPolicyUrl] }];
     [privacyPolicyText appendAttributedString: privacyPolicyLink];
     [privacyPolicyText appendAttributedString: privacyPolicyAppendix];

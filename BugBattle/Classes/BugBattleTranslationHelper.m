@@ -33,8 +33,9 @@
             @"report_sent": @"¡Gracias por informarnos del error!",
             @"report_failed": @"Se ha producido un error.",
             @"report_failed_title": @"Error",
-            @"report_privacy_policy_description": @"He leído y estoy de acuerdo con",
-            @"report_privacy_policy_title": @"política de privacidad",
+            @"report_privacy_policy_prepend": @"He leído y acepto la ",
+            @"report_privacy_policy_link": @"política de privacidad",
+            @"report_privacy_policy_append": @".",
             @"report_privacy_policy_alert_title": @"Política de privacidad",
             @"report_privacy_policy_alert": @"Lea y acepte la política de privacidad."
         };
@@ -57,8 +58,9 @@
             @"report_sent": @"Grazie per il tuo bug report!",
             @"report_failed": @"Qualcosa è andato storto.",
             @"report_failed_title": @"Error",
-            @"report_privacy_policy_description": @"Ho letto e accetto la ",
-            @"report_privacy_policy_title": @"politica sulla riservatezza",
+            @"report_privacy_policy_prepend": @"Ho letto e accetto la",
+            @"report_privacy_policy_link": @"informativa sulla privacy",
+            @"report_privacy_policy_append": @".",
             @"report_privacy_policy_alert_title": @"Politica sulla riservatezza",
             @"report_privacy_policy_alert": @"Si prega di leggere e accettare l'informativa sulla privacy."
         };
@@ -81,8 +83,9 @@
             @"report_sent": @"Merci de votre rapport de bug!",
             @"report_failed": @"Oups, il y a eu un problème.",
             @"report_failed_title": @"Error",
-            @"report_privacy_policy_description": @"J'ai lu et accepté les",
-            @"report_privacy_policy_title": @"politique de confidentialité",
+            @"report_privacy_policy_prepend": @"J'ai lu et j'accepte la ",
+            @"report_privacy_policy_link": @"politique de confidentialité",
+            @"report_privacy_policy_append": @".",
             @"report_privacy_policy_alert_title": @"Politique de confidentialité",
             @"report_privacy_policy_alert": @"Veuillez lire et accepter la politique de confidentialité."
         };
@@ -101,12 +104,13 @@
             @"report_cancel": @"Abbrechen",
             @"report_title": @"Bug melden",
             @"ok": @"Ok",
-            @"sending_report": @"Bug report wird gesendet.",
+            @"sending_report": @"Bug Report wird gesendet.",
             @"report_sent": @"Vielen Dank!",
             @"report_failed": @"Ups, da ist etwas schief gelaufen.",
-            @"report_failed_title": @"Error",
-            @"report_privacy_policy_description": @"I have read and agree to the ",
-            @"report_privacy_policy_title": @"privacy policy",
+            @"report_failed_title": @"Fehler",
+            @"report_privacy_policy_prepend": @"Ich habe die ",
+            @"report_privacy_policy_link": @"Datenschutzerklärung",
+            @"report_privacy_policy_append": @" gelesen und bin damit einverstanden.",
             @"report_privacy_policy_alert_title": @"Privacy policy",
             @"report_privacy_policy_alert": @"Please read and accept the privacy policy."
         };
@@ -128,8 +132,9 @@
         @"report_sent": @"Thank you!",
         @"report_failed": @"Ups, something went wrong.",
         @"report_failed_title": @"Error",
-        @"report_privacy_policy_description": @"I have read and agree to the ",
-        @"report_privacy_policy_title": @"privacy policy",
+        @"report_privacy_policy_prepend": @"I have read and agree to the ",
+        @"report_privacy_policy_link": @"privacy policy",
+        @"report_privacy_policy_append": @".",
         @"report_privacy_policy_alert_title": @"Privacy policy",
         @"report_privacy_policy_alert": @"Please read and accept the privacy policy."
     };
