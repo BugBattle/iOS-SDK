@@ -102,6 +102,10 @@
     [[BugBattleHttpTrafficRecorder sharedRecorder] startRecording];
 }
 
++ (void)startNetworkRecordingForSessionConfiguration:(NSURLSessionConfiguration *)configuration {
+    [[BugBattleHttpTrafficRecorder sharedRecorder] startRecordingForSessionConfiguration: configuration];
+}
+
 + (void)stopNetworkRecording {
     [[BugBattleHttpTrafficRecorder sharedRecorder] stopRecording];
 }

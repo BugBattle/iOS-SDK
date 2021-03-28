@@ -144,6 +144,15 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 + (void)startNetworkRecording;
 
 /**
+ * Starts network recording with a session configuration.
+ * @author BugBattle
+ *
+ * @param configuration the NSURLSessionConfiguration which should be logged
+ *
+ */
++ (void)startNetworkRecordingForSessionConfiguration:(NSURLSessionConfiguration *)configuration;
+
+/**
  * Stops network recording.
  * @author BugBattle
  *
