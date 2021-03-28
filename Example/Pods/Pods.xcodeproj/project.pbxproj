@@ -66,7 +66,7 @@
 
 /* Begin PBXFileReference section */
 		004FFB860ABD419B95382F6DF1F14978 /* BugBattleTranslationHelper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BugBattleTranslationHelper.m; path = BugBattle/Classes/BugBattleTranslationHelper.m; sourceTree = "<group>"; };
-		0502B2D9F0307929E9BA8F3D9EAAC60F /* Pods_BugBattle_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_BugBattle_Tests.framework; path = "Pods-BugBattle_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0502B2D9F0307929E9BA8F3D9EAAC60F /* Pods_BugBattle_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BugBattle_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E0725D7A5AFEDA3962E68D9CE305332 /* UIWindow+BugBattleTouchRecognizer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIWindow+BugBattleTouchRecognizer.m"; path = "BugBattle/Classes/UIWindow+BugBattleTouchRecognizer.m"; sourceTree = "<group>"; };
 		0EE4C28A861F4A17CDB85CB3C80BBCCC /* BugBattle-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "BugBattle-dummy.m"; sourceTree = "<group>"; };
 		0FD4215A50308928B0CFDBF090A3239C /* BugBattle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattle.h; path = BugBattle/Classes/BugBattle.h; sourceTree = "<group>"; };
@@ -87,12 +87,12 @@
 		430B8713A4DCF7BD97AA21AD85DD10D2 /* Pods-BugBattle_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BugBattle_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		4C416E7CD601BE3FE99588D46BA3B6DC /* Pods-BugBattle_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BugBattle_Example-Info.plist"; sourceTree = "<group>"; };
 		4F17CE43D6AF7431AA72027B9EED8423 /* BugBattleBugDetailsViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BugBattleBugDetailsViewController.m; path = BugBattle/Classes/BugBattleBugDetailsViewController.m; sourceTree = "<group>"; };
-		53E434A0BE41795ACFFCBFEB83B50A92 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		53E434A0BE41795ACFFCBFEB83B50A92 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		55AD7261000FE88C3687A6ED69BC0DB9 /* BugBattleTranslationHelper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattleTranslationHelper.h; path = BugBattle/Classes/BugBattleTranslationHelper.h; sourceTree = "<group>"; };
 		591F15D5AD3ADF5065E94893407F13F5 /* Pods-BugBattle_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BugBattle_Example-umbrella.h"; sourceTree = "<group>"; };
 		5C63C172A1F1C7D11790271BBA58634A /* Pods-BugBattle_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BugBattle_Tests-Info.plist"; sourceTree = "<group>"; };
 		5D853E8A17002AD1C43948ED550AB1BB /* BugBattleHttpTrafficRecorder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BugBattleHttpTrafficRecorder.m; path = BugBattle/Classes/BugBattleHttpTrafficRecorder.m; sourceTree = "<group>"; };
-		5D949CE3EF00A58F1C45D80857CCF3A6 /* BugBattle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BugBattle.framework; path = BugBattle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D949CE3EF00A58F1C45D80857CCF3A6 /* BugBattle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BugBattle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		622D1C8935854456C4D58499119EB28E /* BugBattleImageEditorViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BugBattleImageEditorViewController.m; path = BugBattle/Classes/BugBattleImageEditorViewController.m; sourceTree = "<group>"; };
 		6551829F3788DD9A3EA11288FC8EA218 /* BugBattleReplayHelper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattleReplayHelper.h; path = BugBattle/Classes/BugBattleReplayHelper.h; sourceTree = "<group>"; };
 		675D3182A77F2A866F7B9A38E01F71F9 /* BugBattle-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BugBattle-umbrella.h"; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 		6DDFEA29459B234BACA48E27C7A3CDAF /* BugBattleTouchDrawImageView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattleTouchDrawImageView.h; path = BugBattle/Classes/BugBattleTouchDrawImageView.h; sourceTree = "<group>"; };
 		70FE9072A97A5E9C39E5EA05B20D6A63 /* BugBattleReplayHelper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BugBattleReplayHelper.m; path = BugBattle/Classes/BugBattleReplayHelper.m; sourceTree = "<group>"; };
 		72DED28823C4879459934171075FD90A /* Pods-BugBattle_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BugBattle_Example-frameworks.sh"; sourceTree = "<group>"; };
-		73D5D6C16C001BA3FBA830AC990D6606 /* LICENSE.md */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE.md; sourceTree = "<group>"; };
+		73D5D6C16C001BA3FBA830AC990D6606 /* LICENSE.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		8347A5BF8ED275F7356CFB9F57605895 /* BugBattleTouchHelper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattleTouchHelper.h; path = BugBattle/Classes/BugBattleTouchHelper.h; sourceTree = "<group>"; };
 		856B7D414E35792FEB3C49E0742B8BF1 /* BugBattleCore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattleCore.h; path = BugBattle/Classes/BugBattleCore.h; sourceTree = "<group>"; };
 		89AE7EF2AAA0E5B0BE82DACCDDC42E4F /* UIWindow+BugBattleShakeRecognizer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIWindow+BugBattleShakeRecognizer.m"; path = "BugBattle/Classes/UIWindow+BugBattleShakeRecognizer.m"; sourceTree = "<group>"; };
@@ -110,10 +110,10 @@
 		97AA64354C5FAC5B669DB49A9374EE91 /* colorsCloseIcon.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = colorsCloseIcon.png; path = BugBattle/Assets/colorsCloseIcon.png; sourceTree = "<group>"; };
 		9C175AC5A9CA1BC15DC4C8DD06959DCA /* UIWindow+BugBattleTouchRecognizer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIWindow+BugBattleTouchRecognizer.h"; path = "BugBattle/Classes/UIWindow+BugBattleTouchRecognizer.h"; sourceTree = "<group>"; };
 		9D90E29A40F0FCB1CA492251D4BB1234 /* BugBattle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BugBattle.debug.xcconfig; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A968C3799F01165C0EB2B417C3DEE198 /* BugBattleImageEditorViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BugBattleImageEditorViewController.h; path = BugBattle/Classes/BugBattleImageEditorViewController.h; sourceTree = "<group>"; };
 		B249E68C9A77F556FE9EAD68AFC5E62F /* blurIconActive.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = blurIconActive.png; path = BugBattle/Assets/blurIconActive.png; sourceTree = "<group>"; };
-		B70973D329239C54C496B3FCEE25443D /* Pods_BugBattle_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_BugBattle_Example.framework; path = "Pods-BugBattle_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B70973D329239C54C496B3FCEE25443D /* Pods_BugBattle_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BugBattle_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7AA0AF06F13ED9712530BC6B37DC0B9 /* Pods-BugBattle_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BugBattle_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		C2042720E19307E4734EB5B35E2DF4AC /* UIWindow+BugBattleShakeRecognizer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIWindow+BugBattleShakeRecognizer.h"; path = "BugBattle/Classes/UIWindow+BugBattleShakeRecognizer.h"; sourceTree = "<group>"; };
 		C97F4BF62586D46167EF4C138838F314 /* BugBattleTouchDrawImageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BugBattleTouchDrawImageView.m; path = BugBattle/Classes/BugBattleTouchDrawImageView.m; sourceTree = "<group>"; };
@@ -123,7 +123,7 @@
 		E02E1748955F6A7C4AF0EB0F3E3D4B0B /* backIcon.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = backIcon.png; path = BugBattle/Assets/backIcon.png; sourceTree = "<group>"; };
 		E8984FADB49CB528FEF6B0DE27900AEC /* BugBattle.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = BugBattle.modulemap; sourceTree = "<group>"; };
 		EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		EBCE6F895E492442882B2E7F6E495861 /* BugBattle.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = BugBattle.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		EBCE6F895E492442882B2E7F6E495861 /* BugBattle.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = BugBattle.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		F0FACABDCF21BD5C77460CA6DBAB3E45 /* editIcon.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = editIcon.png; path = BugBattle/Assets/editIcon.png; sourceTree = "<group>"; };
 		F464AA4858080BA0484ED0A2E7E859B2 /* Pods-BugBattle_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BugBattle_Tests-umbrella.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -273,9 +273,6 @@
 		F3469FB04927FC118A62B7382C049726 /* BugBattle */ = {
 			isa = PBXGroup;
 			children = (
-				E02E1748955F6A7C4AF0EB0F3E3D4B0B /* backIcon.png */,
-				D045A30602548EAEAAB7A3581473577D /* blurIcon.png */,
-				B249E68C9A77F556FE9EAD68AFC5E62F /* blurIconActive.png */,
 				0FD4215A50308928B0CFDBF090A3239C /* BugBattle.h */,
 				329D4B1A7F49CC6084E831A378E86BAC /* BugBattleBugDetailsViewController.h */,
 				4F17CE43D6AF7431AA72027B9EED8423 /* BugBattleBugDetailsViewController.m */,
@@ -294,13 +291,16 @@
 				2C6E0432C1ACBBDFC747233A1A25AC05 /* BugBattleTouchHelper.m */,
 				55AD7261000FE88C3687A6ED69BC0DB9 /* BugBattleTranslationHelper.h */,
 				004FFB860ABD419B95382F6DF1F14978 /* BugBattleTranslationHelper.m */,
-				97AA64354C5FAC5B669DB49A9374EE91 /* colorsCloseIcon.png */,
-				F0FACABDCF21BD5C77460CA6DBAB3E45 /* editIcon.png */,
-				19499AB45CB72F82566ED2FE23C56073 /* sentIcon.png */,
 				C2042720E19307E4734EB5B35E2DF4AC /* UIWindow+BugBattleShakeRecognizer.h */,
 				89AE7EF2AAA0E5B0BE82DACCDDC42E4F /* UIWindow+BugBattleShakeRecognizer.m */,
 				9C175AC5A9CA1BC15DC4C8DD06959DCA /* UIWindow+BugBattleTouchRecognizer.h */,
 				0E0725D7A5AFEDA3962E68D9CE305332 /* UIWindow+BugBattleTouchRecognizer.m */,
+				E02E1748955F6A7C4AF0EB0F3E3D4B0B /* backIcon.png */,
+				D045A30602548EAEAAB7A3581473577D /* blurIcon.png */,
+				B249E68C9A77F556FE9EAD68AFC5E62F /* blurIconActive.png */,
+				97AA64354C5FAC5B669DB49A9374EE91 /* colorsCloseIcon.png */,
+				F0FACABDCF21BD5C77460CA6DBAB3E45 /* editIcon.png */,
+				19499AB45CB72F82566ED2FE23C56073 /* sentIcon.png */,
 				AD3F195443B4B8F26DFCA25B70764277 /* Pod */,
 				08BA021CBCE1379FBAF423006C6E0012 /* Support Files */,
 			);
@@ -798,8 +798,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
