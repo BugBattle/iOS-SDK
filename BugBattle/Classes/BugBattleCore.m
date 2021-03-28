@@ -9,6 +9,7 @@
 #import "BugBattleCore.h"
 #import "BugBattleImageEditorViewController.h"
 #import "BugBattleReplayHelper.h"
+#import "BugBattleHttpTrafficRecorder.h"
 #import <sys/utsname.h>
 
 @interface BugBattle ()
@@ -95,6 +96,14 @@
     } else {
         [[BugBattleReplayHelper sharedInstance] stop];
     }
+}
+
++ (void)startNetworkRecording {
+    [[BugBattleHttpTrafficRecorder sharedRecorder] startRecording];
+}
+
++ (void)stopNetworkRecording {
+    [[BugBattleHttpTrafficRecorder sharedRecorder] stopRecording];
 }
 
 - (NSString *)getTopMostViewControllerName {
@@ -333,17 +342,6 @@
     [BugBattle.sharedInstance.data addEntriesFromDictionary: data];
 }
 
-/*
- Tracks a new step.
- */
-+ (void)trackStepWithType: (NSString *)type andData: (NSString *)data {
-    [BugBattle.sharedInstance.stepsToReproduce addObject: @{
-        @"type": type,
-        @"data": data,
-        @"date": [BugBattle.sharedInstance getJSStringForNSDate: [[NSDate alloc] init]]
-    }];
-}
-
 /**
  Sets the application type.
  */
@@ -424,6 +422,9 @@
         
         // Attach custom data.
         [BugBattle attachData: @{ @"customData": [self customData] }];
+        
+        // Attach custom data.
+        [BugBattle attachData: @{ @"networkLogs": [[BugBattleHttpTrafficRecorder sharedRecorder] networkLogs] }];
         
         // Sending report to server.
         [self sendReportToServer:^(bool success) {

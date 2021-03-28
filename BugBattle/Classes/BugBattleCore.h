@@ -129,13 +129,26 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 + (void)setCustomerEmail: (NSString *)email;
 
 /**
- * Add a 'step to reproduce' step.
+ * Set's the current userinterface language.
  * @author BugBattle
  *
- * @param type Type of the step. (Use any custom string or one of the predefined constants - BugBattleStepTypeView, Button, Input)
- * @param data Custom data associated with the step.
+ * @param language The 2 digit ISO code language to set
  */
-+ (void)trackStepWithType: (NSString *)type andData: (NSString *)data;
++ (void)setLanguage: (NSString *)language;
+
+/**
+ * Starts network recording.
+ * @author BugBattle
+ *
+ */
++ (void)startNetworkRecording;
+
+/**
+ * Stops network recording.
+ * @author BugBattle
+ *
+ */
++ (void)stopNetworkRecording;
 
 + (void)setApplicationType: (BugBattleApplicationType)applicationType;
 + (void)attachData: (NSDictionary *)data;
@@ -143,7 +156,6 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 + (void)shakeInvocation;
 + (void)attachScreenshot: (UIImage *)screenshot;
 + (UIImage *)getAttachedScreenshot;
-+ (void)setLanguage: (NSString *)language;
 
 - (void)sendReport: (void (^)(bool success))completion;
 - (UIImage *) captureLowResScreen;

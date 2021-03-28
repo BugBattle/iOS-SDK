@@ -1,5 +1,5 @@
 PODS:
-  - BugBattle (3.0.11)
+  - BugBattle (3.3.0)
 
 DEPENDENCIES:
   - BugBattle (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  BugBattle: 0b23f44471170a2c0d53b7f38d5cbecc972e7a06
+  BugBattle: 137e8d4e3b8f561370c3af5bf6eaace706d3de19
 
 PODFILE CHECKSUM: 7bf6fbf1fbed9f3841edb2497f06fff0fdddf29b
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.1

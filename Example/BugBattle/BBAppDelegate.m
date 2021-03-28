@@ -16,7 +16,8 @@
     // Override point for customization after application launch.
     
     // Replace YOUR_API_KEY with your project API token.
-    [BugBattle initWithToken: @"YOUR-API-KEY" andActivationMethods: @[@(THREE_FINGER_DOUBLE_TAB), @(SHAKE), @(SCREENSHOT)]];
+    [BugBattle initWithToken: @"arO906tKWMgSF1KvHVtTnDchklUZtyM8" andActivationMethods: @[@(THREE_FINGER_DOUBLE_TAB), @(SHAKE), @(SCREENSHOT)]];
+    [BugBattle startNetworkRecording];
     
     return YES;
 }
