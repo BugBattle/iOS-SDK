@@ -8,7 +8,7 @@ You have two ways to set up the Bugbattle SDK for iOS. The easiest way ist to in
 
 ## Docs & Examples
 
-Checkout our [documentation](https://docs.bugbattle.io/docs/ios-sdk) for full reference.
+Checkout our [documentation](https://docs.bugbattle.io/ios-sdk/customizations) for full reference.
 
 ## Installation with CocoaPods
 
