@@ -110,6 +110,10 @@
     [[BugBattleHttpTrafficRecorder sharedRecorder] stopRecording];
 }
 
++ (void)setMaxNetworkLogs: (int)maxNetworkLogs {
+    [[BugBattleHttpTrafficRecorder sharedRecorder] setMaxRequests: maxNetworkLogs];
+}
+
 - (NSString *)getTopMostViewControllerName {
     NSString *currentViewControllerName = @"NotSet";
     UIViewController *topViewController = [self getTopMostViewController];
@@ -647,6 +651,7 @@
     NSString *buildVersionNumber = [NSBundle.mainBundle.infoDictionary objectForKey: @"CFBundleVersion"];
     NSNumber *sessionDuration = [NSNumber numberWithDouble: [self sessionDuration]];
     NSString *lastScreenName = [self getTopMostViewControllerName];
+    NSString *preferredUserLocale = [[[NSBundle mainBundle] preferredLocalizations] firstObject];
     
     NSString *applicationType = @"Native";
     if (self.applicationType == FLUTTER) {
@@ -666,7 +671,8 @@
         @"releaseVersionNumber": releaseVersionNumber,
         @"sessionDuration": sessionDuration,
         @"applicationType": applicationType,
-        @"lastScreenName": lastScreenName
+        @"lastScreenName": lastScreenName,
+        @"preferredUserLocale": preferredUserLocale
     };
 }
 

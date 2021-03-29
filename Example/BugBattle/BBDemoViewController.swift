@@ -14,8 +14,10 @@ import BugBattle
 class DemoViewController: UIViewController {
     
     override func viewDidLoad() {
-        BBSessionManager.sharedManager.request("https://httpbin.org/get").response { response in
-            debugPrint(response)
+        for _ in 1 ... 15 {
+            BBSessionManager.sharedManager.request("https://httpbin.org/get").response { response in
+                debugPrint(response)
+            }
         }
     }
     

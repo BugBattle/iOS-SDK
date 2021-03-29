@@ -19,6 +19,7 @@ NSString * const BugBattleHTTPTrafficRecordingProgressErrorKey     = @"ERROR_KEY
 @property(nonatomic, strong) NSString *recordingPath;
 @property(nonatomic, strong) NSURLSessionConfiguration *sessionConfig;
 @property(nonatomic, strong) NSMutableArray *requests;
+@property(nonatomic, assign) int maxRequestsInQueue;
 @end
 
 @interface BugBattleRecordingProtocol : NSURLProtocol @end
@@ -32,9 +33,14 @@ NSString * const BugBattleHTTPTrafficRecordingProgressErrorKey     = @"ERROR_KEY
     dispatch_once(&onceToken, ^{
         shared = self.new;
         shared.isRecording = NO;
+        shared.maxRequestsInQueue = 10;
         shared.requests = [[NSMutableArray alloc] init];
     });
     return shared;
+}
+
+- (void)setMaxRequests:(int)maxRequests {
+    self.maxRequestsInQueue = maxRequests;
 }
 
 - (void)clearLogs {
@@ -272,7 +278,11 @@ static NSString * const BugBattleRecordingProtocolHandledKey = @"BugBattleRecord
         [request setValue: responseObj forKey: @"response"];
     }
     
-    [[[BugBattleHttpTrafficRecorder sharedRecorder] requests] addObject: [request copy]];
+    BugBattleHttpTrafficRecorder *recorder = [BugBattleHttpTrafficRecorder sharedRecorder];
+    if (recorder.requests.count >= recorder.maxRequestsInQueue) {
+        [[recorder requests] removeObjectAtIndex: 0];
+    }
+    [[recorder requests] addObject: [request copy]];
 }
 
 @end

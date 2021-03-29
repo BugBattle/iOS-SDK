@@ -44,6 +44,11 @@
 - (void)clearLogs;
 
 /**
+ * Sets the maximum requests amount.
+ */
+- (void)setMaxRequests:(int)maxRequests;
+
+/**
  *  A Boolean value which indicates whether the recording is recording traffic.
  */
 @property(nonatomic, readonly, assign) BOOL isRecording;

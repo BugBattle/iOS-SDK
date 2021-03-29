@@ -113,6 +113,14 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 + (void)enablePrivacyPolicy: (BOOL)enable;
 
 /**
+ * Set maximum amount of network logs in queue
+ * @author BugBattle
+ *
+ * @param maxNetworkLogs Sets the maximum amount of network logs.
+ */
++ (void)setMaxNetworkLogs: (int)maxNetworkLogs;
+
+/**
  * Sets a custom privacy policy url.
  * @author BugBattle
  *
