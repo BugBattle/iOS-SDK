@@ -436,7 +436,9 @@
         [BugBattle attachData: @{ @"customData": [self customData] }];
         
         // Attach custom data.
-        [BugBattle attachData: @{ @"networkLogs": [[BugBattleHttpTrafficRecorder sharedRecorder] networkLogs] }];
+        if ([[[BugBattleHttpTrafficRecorder sharedRecorder] networkLogs] count] > 0) {
+            [BugBattle attachData: @{ @"networkLogs": [[BugBattleHttpTrafficRecorder sharedRecorder] networkLogs] }];
+        }
         
         // Sending report to server.
         [self sendReportToServer:^(bool success) {

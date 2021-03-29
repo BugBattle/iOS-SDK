@@ -11,7 +11,7 @@
 
 @interface BBViewController ()
 
-@end
+@endattachData
 
 @implementation BBViewController
 
