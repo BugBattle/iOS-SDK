@@ -252,6 +252,10 @@
                     [self onDismissCleanup];
                 }];
             });
+            
+            if (BugBattle.sharedInstance.delegate && [BugBattle.sharedInstance.delegate respondsToSelector: @selector(bugSent)]) {
+                [BugBattle.sharedInstance.delegate bugSent];
+            }
         } else {
             self->_sending = NO;
             [[self navigationController] setNavigationBarHidden: NO animated: NO];
@@ -267,6 +271,10 @@
                                         }];
             [alert addAction:yesButton];
             [self presentViewController:alert animated:YES completion:nil];
+            
+            if (BugBattle.sharedInstance.delegate && [BugBattle.sharedInstance.delegate respondsToSelector: @selector(bugSendingFailed)]) {
+                [BugBattle.sharedInstance.delegate bugSendingFailed];
+            }
         }
     }];
 }

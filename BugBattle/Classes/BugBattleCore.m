@@ -294,6 +294,10 @@
         return;
     }
     
+    if (BugBattle.sharedInstance.delegate && [BugBattle.sharedInstance.delegate respondsToSelector: @selector(bugWillBeSent)]) {
+        [BugBattle.sharedInstance.delegate bugWillBeSent];
+    }
+    
     // Stop replays
     [[BugBattleReplayHelper sharedInstance] stop];
     

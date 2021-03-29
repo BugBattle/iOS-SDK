@@ -14,6 +14,14 @@ NS_ASSUME_NONNULL_BEGIN
 typedef enum activationMethodTypes { NONE, SHAKE, THREE_FINGER_DOUBLE_TAB, SCREENSHOT } BugBattleActivationMethod;
 typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicationType;
 
+@protocol BugBattleDelegate <NSObject>
+@optional
+- (void) bugWillBeSent;
+- (void) bugSent;
+- (void) bugSendingFailed;
+@required
+@end
+
 @interface BugBattle : NSObject
 
 /**
@@ -190,6 +198,7 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 @property (nonatomic, assign) bool privacyPolicyEnabled;
 @property (nonatomic, assign) bool replaysEnabled;
 @property (nonatomic, assign) BugBattleApplicationType applicationType;
+@property (nonatomic, weak) id <BugBattleDelegate> delegate;
 
 extern NSString *const BugBattleStepTypeView;
 extern NSString *const BugBattleStepTypeButton;

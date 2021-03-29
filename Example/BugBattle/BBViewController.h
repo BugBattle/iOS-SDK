@@ -6,8 +6,9 @@
 //  Copyright (c) 2019 Lukas Böhler. All rights reserved.
 //
 
+#import <BugBattle/BugBattle.h>
 @import UIKit;
 
-@interface BBViewController : UIViewController
+@interface BBViewController : UIViewController <BugBattleDelegate>
 
 @end

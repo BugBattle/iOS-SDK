@@ -7,7 +7,6 @@
 //
 
 #import "BBViewController.h"
-#import <BugBattle/BugBattle.h>
 #import "BBAFURLSessionManager.h"
 
 @interface BBViewController ()
@@ -15,6 +14,10 @@
 @end
 
 @implementation BBViewController
+
+- (void)bugWillBeSent {
+    
+}
 
 - (void)viewDidLoad
 {
@@ -26,6 +29,8 @@
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary: @{ @"key" : @"value", @"key2" : @"value2"}];
     [BugBattle attachCustomData: dict];
     [BugBattle enableReplays: true];
+    
+    BugBattle.sharedInstance.delegate = self;
     
     NSLog(@"Started Bugbattle-Demo.");
     
