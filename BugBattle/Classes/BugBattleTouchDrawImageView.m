@@ -62,6 +62,10 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    if (self.image == nil) {
+        return;
+    }
+    
     [_lastImages addObject: self.image];
     if ([_lastImages count] > MAX_STEPS_BACK) {
         [_lastImages removeObjectAtIndex: 0];
