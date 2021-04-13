@@ -96,7 +96,7 @@
             @"report_priority_low": @"Leicht",
             @"report_priority_medium": @"Mittel",
             @"report_priority_high": @"Schwer",
-            @"report_description_placeholder": @"Beischreibe das Problem",
+            @"report_description_placeholder": @"Beschreibe das Problem",
             @"report_email_placeholder": @"Gib deine Email ein",
             @"report_next": @"Weiter",
             @"report_back": @"Zurück",
