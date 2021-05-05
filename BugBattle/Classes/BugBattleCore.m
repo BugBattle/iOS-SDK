@@ -368,9 +368,12 @@
     UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
     
     if (self.applicationType == FLUTTER) {
-        UIView *topView = [[keyWindow subviews] lastObject];
-        UIGraphicsBeginImageContextWithOptions(topView.bounds.size, false, [UIScreen mainScreen].scale);
-        [topView drawViewHierarchyInRect: topView.bounds afterScreenUpdates: true];
+        UIGraphicsBeginImageContextWithOptions([keyWindow bounds].size, false, [UIScreen mainScreen].scale);
+        NSArray *views = [keyWindow subviews];
+        for (int i = 0; i < views.count; i++) {
+            UIView *view = [views objectAtIndex: i];
+            [view drawViewHierarchyInRect: view.bounds afterScreenUpdates: true];
+        }
     } else {
         UIGraphicsBeginImageContextWithOptions([keyWindow bounds].size, false, [UIScreen mainScreen].scale);
         CGContextRef context = UIGraphicsGetCurrentContext();
