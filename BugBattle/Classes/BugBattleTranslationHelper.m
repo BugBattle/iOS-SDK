@@ -116,6 +116,31 @@
         };
     }
     
+    if ([lang isEqualToString: @"nl"]) {
+        return @{
+            @"report_priority_low": @"Laag",
+            @"report_priority_medium": @"Middel",
+            @"report_priority_high": @"Hoog",
+            @"report_description_placeholder": @"Omschrijf het probleem",
+            @"report_email_placeholder": @"Voer je e-mailadres in",
+            @"report_next": @"Volgende",
+            @"report_back": @"Terug",
+            @"report_send": @"Verstuur",
+            @"report_cancel": @"Annuleer",
+            @"report_title": @"Meld een bug",
+            @"ok": @"Ok",
+            @"sending_report": @"Bezig met versturen bug melding",
+            @"report_sent": @"Dank je wel!",
+            @"report_failed": @"Oeps, er gaat helaas iets mis",
+            @"report_failed_title": @"Fout",
+            @"report_privacy_policy_prepend": @"Ik ga akkoord met ",
+            @"report_privacy_policy_link": @"privacy voorwaarden",
+            @"report_privacy_policy_append": @".",
+            @"report_privacy_policy_alert_title": @"Privacy voorwaarden",
+            @"report_privacy_policy_alert": @"Graag de privacy voorwaarden lezen en accorderen"
+        };
+    }
+    
     return @{
         @"report_priority_low": @"Low",
         @"report_priority_medium": @"Medium",
