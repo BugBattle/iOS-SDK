@@ -12,6 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef enum activationMethodTypes { NONE, SHAKE, THREE_FINGER_DOUBLE_TAB, SCREENSHOT } BugBattleActivationMethod;
+typedef enum bugPriorityTypes { LOW, MEDIUM, HIGH } BugBattleBugPriority;
 typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicationType;
 
 @protocol BugBattleDelegate <NSObject>
@@ -56,6 +57,13 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
  *
  */
 + (void)startBugReporting;
+
+/**
+ * Manually start a silent bug reporting workflow.
+ * @author BugBattle
+ *
+ */
++ (void)sendSilentBugReportWith:(NSString *)email andDescription:(NSString *)description andPriority:(BugBattleBugPriority)priority;
 
 /**
  * Enables replays

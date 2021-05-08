@@ -14,7 +14,7 @@
 
 @interface BugBattle ()
 
-@property (weak, nonatomic) UIImage *screenshot;
+@property (strong, nonatomic) UIImage *screenshot;
 @property (retain, nonatomic) UIColor *navigationBarTint;
 @property (retain, nonatomic) UIColor *navigationTint;
 @property (retain, nonatomic) UIColor *navigationBarTitleColor;
@@ -62,6 +62,7 @@
     self.privacyPolicyUrl = @"https://www.bugbattle.io/privacy-policy/";
     self.activationMethods = [[NSArray alloc] init];
     self.applicationType = NATIVE;
+    self.screenshot = nil;
     self.data = [[NSMutableDictionary alloc] init];
     self.sessionStart = [[NSDate alloc] init];
     self.consoleLog = [[NSMutableArray alloc] init];
@@ -286,9 +287,37 @@
 }
 
 /*
+ Starts a silent bug reporting flow, when a SDK key has been assigned.
+ */
++ (void)sendSilentBugReportWith:(NSString *)email andDescription:(NSString *)description andPriority:(BugBattleBugPriority)priority {
+    NSMutableDictionary *dataToAppend = [[NSMutableDictionary alloc] init];
+    
+    NSString *bugReportPriority = @"LOW";
+    if (priority == MEDIUM) {
+        bugReportPriority = @"MEDIUM";
+    }
+    if (priority == HIGH) {
+        bugReportPriority = @"HIGH";
+    }
+    
+    [dataToAppend setValue: email forKey: @"reportedBy"];
+    [dataToAppend setValue: description forKey: @"description"];
+    [dataToAppend setValue: bugReportPriority forKey: @"priority"];
+    
+    [BugBattle attachData: dataToAppend];
+    
+    UIImage * screenshot = [BugBattle.sharedInstance captureScreen];
+    [self startBugReportingWithScreenshot: screenshot andUI: false];
+}
+
+/*
  Starts the bug reporting flow, when a SDK key has been assigned.
  */
 + (void)startBugReportingWithScreenshot:(UIImage *)screenshot {
+    [self startBugReportingWithScreenshot: screenshot andUI: true];
+}
+
++ (void)startBugReportingWithScreenshot:(UIImage *)screenshot andUI:(BOOL)ui {
     if (BugBattle.sharedInstance.token.length == 0) {
         NSLog(@"WARN: Please provide a valid BugBattle project TOKEN!");
         return;
@@ -301,20 +330,37 @@
     // Stop replays
     [[BugBattleReplayHelper sharedInstance] stop];
     
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName: @"BugBattleStoryboard" bundle: [BugBattle frameworkBundle]];
-    BugBattleImageEditorViewController *bugBattleImageEditor = [storyboard instantiateViewControllerWithIdentifier: @"BugBattleImageEditorViewController"];
-    
-    UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController: bugBattleImageEditor];
-    navController.navigationBar.barStyle = UIBarStyleBlack;
-    [navController.navigationBar setTranslucent: NO];
-    [navController.navigationBar setBarTintColor: BugBattle.sharedInstance.navigationBarTint];
-    [navController.navigationBar setTintColor: BugBattle.sharedInstance.navigationTint];
-    navController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: BugBattle.sharedInstance.navigationBarTitleColor};
-    
-    // Show on top of all viewcontrollers.
-    [[BugBattle.sharedInstance getTopMostViewController] presentViewController: navController animated: true completion:^{
-        [bugBattleImageEditor setScreenshot: screenshot];
-    }];
+    if (ui) {
+        // UI flow
+        UIStoryboard* storyboard = [UIStoryboard storyboardWithName: @"BugBattleStoryboard" bundle: [BugBattle frameworkBundle]];
+        BugBattleImageEditorViewController *bugBattleImageEditor = [storyboard instantiateViewControllerWithIdentifier: @"BugBattleImageEditorViewController"];
+        
+        UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController: bugBattleImageEditor];
+        navController.navigationBar.barStyle = UIBarStyleBlack;
+        [navController.navigationBar setTranslucent: NO];
+        [navController.navigationBar setBarTintColor: BugBattle.sharedInstance.navigationBarTint];
+        [navController.navigationBar setTintColor: BugBattle.sharedInstance.navigationTint];
+        navController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: BugBattle.sharedInstance.navigationBarTitleColor};
+        
+        // Show on top of all viewcontrollers.
+        [[BugBattle.sharedInstance getTopMostViewController] presentViewController: navController animated: true completion:^{
+            [bugBattleImageEditor setScreenshot: screenshot];
+        }];
+    } else {
+        // No UI flow
+        [BugBattle attachScreenshot: screenshot];
+        [BugBattle.sharedInstance sendReport:^(bool success) {
+            if (success) {
+                if (BugBattle.sharedInstance.delegate && [BugBattle.sharedInstance.delegate respondsToSelector: @selector(bugSent)]) {
+                    [BugBattle.sharedInstance.delegate bugSent];
+                }
+            } else {
+                if (BugBattle.sharedInstance.delegate && [BugBattle.sharedInstance.delegate respondsToSelector: @selector(bugSendingFailed)]) {
+                    [BugBattle.sharedInstance.delegate bugSendingFailed];
+                }
+            }
+        }];
+    }
 }
 
 /*
@@ -403,18 +449,18 @@
                 } }];
             }
             
-            [self uploadScreenshot:^(bool success) {
+            [self uploadScreenshotAndSendBugReport:^(bool success) {
                 completion(success);
             }];
         }];
     } else {
-        [self uploadScreenshot:^(bool success) {
+        [self uploadScreenshotAndSendBugReport:^(bool success) {
             completion(success);
         }];
     }
 }
 
-- (void)uploadScreenshot: (void (^)(bool success))completion {
+- (void)uploadScreenshotAndSendBugReport: (void (^)(bool success))completion {
     // Process with image upload
     [self uploadImage: self.screenshot andCompletion:^(bool success, NSString *fileUrl) {
         if (!success) {
