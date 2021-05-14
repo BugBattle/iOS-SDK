@@ -30,8 +30,8 @@
             filePath = "../BugBattle/Classes/BugBattleCore.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "465"
-            endingLineNumber = "465"
+            startingLineNumber = "468"
+            endingLineNumber = "468"
             landmarkName = "-uploadScreenshotAndSendBugReport:"
             landmarkType = "7">
             <Locations>
@@ -78,8 +78,8 @@
             filePath = "../BugBattle/Classes/BugBattleCore.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "386"
-            endingLineNumber = "386"
+            startingLineNumber = "393"
+            endingLineNumber = "393"
             landmarkName = "+attachScreenshot:"
             landmarkType = "7">
          </BreakpointContent>

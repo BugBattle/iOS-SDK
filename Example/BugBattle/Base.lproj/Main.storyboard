@@ -62,30 +62,15 @@
                                     <segue destination="bag-SC-M9j" kind="presentation" id="SG5-2s-HSv"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nqe-w6-cKt">
-                                <rect key="frame" x="36" y="20" width="303" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="1IO-3W-XgM"/>
-                                </constraints>
-                                <state key="normal" title="Network request tests">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <segue destination="4xW-Pe-X9Q" kind="show" id="tD5-xK-x8U"/>
-                                </connections>
-                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.44209823009999999" green="0.72242313619999998" blue="0.85492807630000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.31372550129999999" green="0.5411764979" blue="0.96862745289999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="W3Y-FC-UwO" firstAttribute="centerY" secondItem="TpU-gO-2f1" secondAttribute="centerY" id="6d6-dx-FaY"/>
-                            <constraint firstItem="Nqe-w6-cKt" firstAttribute="top" secondItem="uEw-UM-LJ8" secondAttribute="bottom" constant="20" id="Fp0-cg-CUk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="KUF-M9-kXH" secondAttribute="trailing" constant="20" id="JE6-96-CrW"/>
                             <constraint firstItem="lwX-gu-1UV" firstAttribute="centerX" secondItem="TpU-gO-2f1" secondAttribute="centerX" id="Z2A-OO-I8o"/>
-                            <constraint firstItem="Nqe-w6-cKt" firstAttribute="leading" secondItem="TpU-gO-2f1" secondAttribute="leadingMargin" constant="20" id="aHn-eQ-mEu"/>
                             <constraint firstItem="KUF-M9-kXH" firstAttribute="leading" secondItem="TpU-gO-2f1" secondAttribute="leadingMargin" constant="20" id="kcv-r2-pZR"/>
                             <constraint firstItem="lwX-gu-1UV" firstAttribute="centerY" secondItem="TpU-gO-2f1" secondAttribute="centerY" id="uBG-aX-KYE"/>
                             <constraint firstItem="W3Y-FC-UwO" firstAttribute="centerX" secondItem="TpU-gO-2f1" secondAttribute="centerX" id="wus-uh-zhE"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Nqe-w6-cKt" secondAttribute="trailing" constant="20" id="xhM-dS-iXg"/>
                             <constraint firstItem="Mvr-aV-6Um" firstAttribute="top" secondItem="KUF-M9-kXH" secondAttribute="bottom" constant="20" id="zAx-qC-ugG"/>
                         </constraints>
                     </view>

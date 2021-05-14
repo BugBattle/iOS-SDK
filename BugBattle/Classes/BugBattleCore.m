@@ -84,6 +84,12 @@
     [self openConsoleLog];
 }
 
++ (void)afterBugReportCleanup {
+    if ([BugBattle sharedInstance].replaysEnabled) {
+        [[BugBattleReplayHelper sharedInstance] start];
+    }
+}
+
 + (void)setLanguage: (NSString *)language {
     [BugBattle sharedInstance].language = language;
 }
@@ -359,6 +365,7 @@
                     [BugBattle.sharedInstance.delegate bugSendingFailed];
                 }
             }
+            [BugBattle afterBugReportCleanup];
         }];
     }
 }
@@ -429,10 +436,6 @@
     UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return img;
-}
-
-- (UIImage *) captureLowResScreen {
-    return [self captureScreen];
 }
 
 /*
@@ -595,7 +598,7 @@
  Upload image
  */
 - (void)uploadImage: (UIImage *)image andCompletion: (void (^)(bool success, NSString *fileUrl))completion {
-    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.8);
     NSString *contentType = @"image/jpeg";
     [self uploadFile: imageData andFileName: @"screenshot.jpeg" andContentType: contentType andCompletion: completion];
 }
@@ -604,73 +607,77 @@
  Upload files
  */
 - (void)uploadStepImages: (NSArray *)steps andCompletion: (void (^)(bool success, NSArray *fileUrls))completion {
-    NSMutableURLRequest *request = [NSMutableURLRequest new];
-    [request setURL: [NSURL URLWithString: [NSString stringWithFormat: @"%@/uploads/sdksteps", _apiUrl]]];
-    [request setValue: _token forHTTPHeaderField: @"Api-Token"];
-    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
-    [request setHTTPShouldHandleCookies:NO];
-    [request setTimeoutInterval:60];
-    [request setHTTPMethod:@"POST"];
-    
-    // Build multipart/form-data
-    NSString *boundary = @"BBBOUNDARY";
-    NSString *headerContentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
-    [request setValue: headerContentType forHTTPHeaderField: @"Content-Type"];
-    NSMutableData *body = [NSMutableData data];
-    
-    // Add files
-    for (int i = 0; i < steps.count; i++) {
-        NSDictionary *currentStep = [steps objectAtIndex: i];
-        UIImage *currentImage = [currentStep objectForKey: @"image"];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSMutableURLRequest *request = [NSMutableURLRequest new];
+        [request setURL: [NSURL URLWithString: [NSString stringWithFormat: @"%@/uploads/sdksteps", _apiUrl]]];
+        [request setValue: _token forHTTPHeaderField: @"Api-Token"];
+        [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+        [request setHTTPShouldHandleCookies:NO];
+        [request setTimeoutInterval:60];
+        [request setHTTPMethod:@"POST"];
         
-        NSData *imageData = UIImageJPEGRepresentation(currentImage, 0.5);
-        NSString *filename = [NSString stringWithFormat: @"step_%i", i];
-        if (imageData) {
-            NSString *contentType = @"image/jpeg";
-            [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=%@; filename=%@\r\n", @"file", filename] dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[[NSString stringWithFormat: @"Content-Type: %@\r\n\r\n", contentType] dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData: imageData];
-            [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-        }
-    }
-    
-    [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    // Setting the body of the post to the reqeust
-    [request setHTTPBody:body];
-    
-    // Set the content-length
-    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[body length]];
-    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    
-    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error != NULL) {
-            return completion(false, nil);
-        }
+        // Build multipart/form-data
+        NSString *boundary = @"BBBOUNDARY";
+        NSString *headerContentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+        [request setValue: headerContentType forHTTPHeaderField: @"Content-Type"];
+        NSMutableData *body = [NSMutableData data];
         
-        NSError *parseError = nil;
-        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData: data options: 0 error:&parseError];
-        if (!parseError) {
-            NSArray* fileUrls = [responseDict objectForKey: @"fileUrls"];
-            NSMutableArray *replayArray = [[NSMutableArray alloc] init];
+        for (int i = 0; i < steps.count; i++) {
+            NSDictionary *currentStep = [steps objectAtIndex: i];
+            UIImage *currentImage = [currentStep objectForKey: @"image"];
             
-            for (int i = 0; i < steps.count; i++) {
-                NSMutableDictionary *currentStep = [[steps objectAtIndex: i] mutableCopy];
-                NSString *currentImageUrl = [fileUrls objectAtIndex: i];
-                [currentStep setObject: currentImageUrl forKey: @"url"];
-                [currentStep removeObjectForKey: @"image"];
-                [replayArray addObject: currentStep];
+            // Resize screenshot
+            CGSize size = CGSizeMake(currentImage.size.width * 0.5, currentImage.size.height * 0.5);
+            UIGraphicsBeginImageContext(size);
+            [currentImage drawInRect:CGRectMake(0, 0, size.width, size.height)];
+            UIImage *destImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            
+            NSData *imageData = UIImageJPEGRepresentation(destImage, 0.9);
+            NSString *filename = [NSString stringWithFormat: @"step_%i", i];
+            if (imageData) {
+                NSString *contentType = @"image/jpeg";
+                [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+                [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=%@; filename=%@\r\n", @"file", filename] dataUsingEncoding:NSUTF8StringEncoding]];
+                [body appendData:[[NSString stringWithFormat: @"Content-Type: %@\r\n\r\n", contentType] dataUsingEncoding:NSUTF8StringEncoding]];
+                [body appendData: imageData];
+                [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+            }
+        }
+        
+        [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [request setHTTPBody:body];
+        NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[body length]];
+        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+        
+        NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+        NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            if (error != NULL) {
+                return completion(false, nil);
             }
             
-            return completion(true, replayArray);
-        } else {
-            return completion(false, nil);
-        }
-    }];
-    [task resume];
+            NSError *parseError = nil;
+            NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData: data options: 0 error:&parseError];
+            if (!parseError) {
+                NSArray* fileUrls = [responseDict objectForKey: @"fileUrls"];
+                NSMutableArray *replayArray = [[NSMutableArray alloc] init];
+                
+                for (int i = 0; i < steps.count; i++) {
+                    NSMutableDictionary *currentStep = [[steps objectAtIndex: i] mutableCopy];
+                    NSString *currentImageUrl = [fileUrls objectAtIndex: i];
+                    [currentStep setObject: currentImageUrl forKey: @"url"];
+                    [currentStep removeObjectForKey: @"image"];
+                    [replayArray addObject: currentStep];
+                }
+                
+                return completion(true, replayArray);
+            } else {
+                return completion(false, nil);
+            }
+        }];
+        [task resume];
+    });
 }
 
 /*

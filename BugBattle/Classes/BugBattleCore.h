@@ -191,11 +191,12 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 + (UIImage *)getAttachedScreenshot;
 
 - (void)sendReport: (void (^)(bool success))completion;
-- (UIImage *) captureLowResScreen;
 - (void)uploadStepImages: (NSArray *)steps andCompletion: (void (^)(bool success, NSArray *fileUrls))completion;
 - (UIViewController *)getTopMostViewController;
 - (NSString *)getTopMostViewControllerName;
 - (NSString *)getJSStringForNSDate:(NSDate *)date;
+- (UIImage *) captureScreen;
++ (void)afterBugReportCleanup;
 
 @property (nonatomic, retain) NSString* language;
 @property (nonatomic, retain) NSString* token;

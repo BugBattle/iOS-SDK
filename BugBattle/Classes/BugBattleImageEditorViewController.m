@@ -176,10 +176,7 @@
 }
 
 - (void)onDismissCleanup {
-    // Starts the replay helper.
-    if ([BugBattle sharedInstance].replaysEnabled) {
-        [[BugBattleReplayHelper sharedInstance] start];
-    }
+    [BugBattle afterBugReportCleanup];
 }
 
 

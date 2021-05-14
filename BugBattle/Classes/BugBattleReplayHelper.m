@@ -65,15 +65,17 @@
         [self.replaySteps removeObjectAtIndex: 0];
     }
     
-    UIImage *screenshot = [[BugBattle sharedInstance] captureLowResScreen];
-    NSString *currentViewControllerName = [[BugBattle sharedInstance] getTopMostViewControllerName];
-    
-    [self.replaySteps addObject: @{
-        @"screenname": currentViewControllerName,
-        @"image": screenshot,
-        @"interactions": [BugBattleTouchHelper getAndClearTouchEvents],
-        @"date": [[BugBattle sharedInstance] getJSStringForNSDate: [[NSDate alloc] init]]
-    }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIImage *screenshot = [[BugBattle sharedInstance] captureScreen];
+        NSString *currentViewControllerName = [[BugBattle sharedInstance] getTopMostViewControllerName];
+        
+        [self.replaySteps addObject: @{
+            @"screenname": currentViewControllerName,
+            @"image": screenshot,
+            @"interactions": [BugBattleTouchHelper getAndClearTouchEvents],
+            @"date": [[BugBattle sharedInstance] getJSStringForNSDate: [[NSDate alloc] init]]
+        }];
+    });
 }
 
 @end

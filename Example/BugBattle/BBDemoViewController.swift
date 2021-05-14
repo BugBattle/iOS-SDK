@@ -17,6 +17,9 @@ class DemoViewController: UIViewController {
         for _ in 1 ... 15 {
             BBSessionManager.sharedManager.request("https://httpbin.org/get").response { response in
                 debugPrint(response)
+                
+                
+                BugBattle.sendSilentBugReport(with: "hello@email.some", andDescription: "Error on startup", andPriority: MEDIUM)
             }
         }
     }
