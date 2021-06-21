@@ -30,7 +30,17 @@
     [BugBattle attachCustomData: dict];
     [BugBattle enableReplays: true];
     
+    [BugBattle enablePrivacyPolicy: true];
+    
     BugBattle.sharedInstance.delegate = self;
+    
+    NSLog(@"Started Bugbattle-Demo.");
+    
+    [BugBattle sendSilentBugReportWith: @"asdf 1" andDescription: @"asdf" andPriority: HIGH];
+    
+    NSLog(@"Started Bugbattle-Demo.");
+    
+    [BugBattle sendSilentBugReportWith: @"asdf 2" andDescription: @"asdf" andPriority: HIGH];
     
     NSLog(@"Started Bugbattle-Demo.");
     

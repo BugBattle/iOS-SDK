@@ -141,6 +141,31 @@
         };
     }
     
+    if ([lang isEqualToString: @"cz"]) {
+        return @{
+            @"report_priority_low": @"Nízká",
+            @"report_priority_medium": @"Střední",
+            @"report_priority_high": @"Vysoká",
+            @"report_description_placeholder": @"Popište svůj problém",
+            @"report_email_placeholder": @"Zadejte svůj e-mail",
+            @"report_next": @"Další",
+            @"report_back": @"Zpět",
+            @"report_send": @"Odeslat",
+            @"report_cancel": @"Zrušit",
+            @"report_title": @"Nahlásit chybu",
+            @"ok": @"Ok",
+            @"sending_report": @"Odesílání hlášení o chybě.",
+            @"report_sent": @"Děkuji!",
+            @"report_failed": @"Ups, něco se pokazilo.",
+            @"report_failed_title": @"Chyba",
+            @"report_privacy_policy_prepend": @"Přečetl jsem si a souhlasím s ",
+            @"report_privacy_policy_link": @"zásady ochrany osobních údajů",
+            @"report_privacy_policy_append": @".",
+            @"report_privacy_policy_alert_title": @"Zásady ochrany osobních údajů",
+            @"report_privacy_policy_alert": @"Přečtěte si prosím a přijměte zásady ochrany osobních údajů."
+        };
+    }
+    
     return @{
         @"report_priority_low": @"Low",
         @"report_priority_medium": @"Medium",
