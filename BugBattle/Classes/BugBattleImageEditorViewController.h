@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BugBattleImageEditorViewController : UIViewController
+@interface BugBattleImageEditorViewController : UIViewController <WKScriptMessageHandler, WKNavigationDelegate>
 
 - (void)setScreenshot:(UIImage *)image;
 

@@ -335,6 +335,7 @@
     
     // Stop replays
     [[BugBattleReplayHelper sharedInstance] stop];
+    [BugBattle attachScreenshot: screenshot];
     
     if (ui) {
         // UI flow
@@ -354,7 +355,6 @@
         }];
     } else {
         // No UI flow
-        [BugBattle attachScreenshot: screenshot];
         [BugBattle.sharedInstance sendReport:^(bool success) {
             if (success) {
                 if (BugBattle.sharedInstance.delegate && [BugBattle.sharedInstance.delegate respondsToSelector: @selector(bugSent)]) {

@@ -8,12 +8,13 @@
 
 #import "BugBattleImageEditorViewController.h"
 #import "BugBattleTouchDrawImageView.h"
-#import "BugBattleBugDetailsViewController.h"
 #import "BugBattleCore.h"
 #import "BugBattleReplayHelper.h"
 #import "BugBattleTranslationHelper.h"
+#import <SafariServices/SafariServices.h>
 
 @interface BugBattleImageEditorViewController ()
+@property (strong, nonatomic) WKWebView *webView;
 @property (weak, nonatomic) IBOutlet BugBattleTouchDrawImageView *screenshotImageView;
 @property (weak, nonatomic) IBOutlet UIButton *color1;
 @property (weak, nonatomic) IBOutlet UIButton *color2;
@@ -29,6 +30,10 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *screenshotHeightContraint;
 @property (copy, nonatomic) NSArray *colorViews;
 @property (copy, nonatomic) NSArray *previewColorViews;
+@property (weak, nonatomic) IBOutlet UIView *loadingView;
+@property (weak, nonatomic) IBOutlet UIView *reportSent;
+@property (nonatomic, assign) bool sending;
+@property (nonatomic, assign) bool lastStepWasScreenshotEditor;
 
 @end
 
@@ -37,18 +42,175 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _colorViews = @[_color1, _color2, _color3];
-    _previewColorViews = @[_colorPreview1, _colorPreview2, _colorPreview3];
+    _lastStepWasScreenshotEditor = false;
+    [_loadingView setHidden: true];
+    [_reportSent setHidden: true];
     
-    [[NSUserDefaults standardUserDefaults] setValue: @"" forKey: @"BugBattle_SavedDescription"];
+    self.navigationItem.title = @"";
+    [self showCancelButton];
     
-    UIBarButtonItem *nextButton = [[UIBarButtonItem alloc] initWithTitle: [BugBattleTranslationHelper localizedString: @"report_next"] style: UIBarButtonItemStyleDone target: self action: @selector(showNextStep:)];
-    self.navigationItem.rightBarButtonItem = nextButton;
-    
+    [self createWebView];
+    [self initializeScreenshotEditor];
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    return nil;
+}
+
+- (void)showBackButton {
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: [BugBattleTranslationHelper localizedString: @"report_back"] style: UIBarButtonItemStylePlain target: self action: @selector(backAction:)];
+    self.navigationItem.leftBarButtonItem = backButton;
+}
+
+- (void)showCancelButton {
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle: [BugBattleTranslationHelper localizedString: @"report_cancel"] style: UIBarButtonItemStylePlain target: self action: @selector(closeReporting:)];
     self.navigationItem.leftBarButtonItem = cancelButton;
+}
+
+- (void)closeReporting:(id)sender {
+    [self dismissViewControllerAnimated: YES completion:^{
+        [self onDismissCleanup];
+    }];
+}
+
+- (void)showNextButton {
+    UIBarButtonItem *nextButton = [[UIBarButtonItem alloc] initWithTitle: [BugBattleTranslationHelper localizedString: @"report_next"] style: UIBarButtonItemStyleDone target: self action: @selector(showNextStep:)];
+    self.navigationItem.rightBarButtonItem = nextButton;
+}
+
+- (void)backAction:(id)sender {
+    if (self.lastStepWasScreenshotEditor) {
+        _lastStepWasScreenshotEditor = NO;
+        [_webView setHidden: YES];
+        [self showNextButton];
+        return;
+    }
     
-    self.navigationItem.title = [BugBattleTranslationHelper localizedString: @"report_title"];
+    [_webView reload];
+    if (_webView.isHidden) {
+        [_webView setHidden: NO];
+        [self showCancelButton];
+        self.navigationItem.rightBarButtonItem = nil;
+    } else {
+        [self showCancelButton];
+    }
+}
+
+- (void)userContentController:(WKUserContentController*)userContentController didReceiveScriptMessage:(WKScriptMessage*)message
+{
+    if ([message.name isEqualToString: @"selectedMenuOption"]) {
+        [self showBackButton];
+    }
+    
+    if ([message.name isEqualToString: @"openScreenshotEditor"]) {
+        [_webView setHidden: YES];
+        [self showNextButton];
+    }
+    
+    if ([message.name isEqualToString: @"sendFeedback"]) {
+        [_webView setHidden: YES];
+        NSDictionary *formData = [message.body objectForKey: @"formData"];
+        NSString *feedbackType = [message.body objectForKey: @"type"];
+        
+        NSMutableDictionary *dataToAppend = [[NSMutableDictionary alloc] init];
+        
+        [dataToAppend setValue: @"--" forKey: @"reportedBy"];
+        [dataToAppend setValue: @"--" forKey: @"description"];
+        [dataToAppend setValue: @"MEDIUM" forKey: @"priority"];
+        [dataToAppend setValue: formData forKey: @"formData"];
+        [dataToAppend setValue: feedbackType forKey: @"type"];
+        [BugBattle attachData: dataToAppend];
+        
+        [self sendBugReport];
+    }
+}
+
+- (void)createWebView {
+    WKWebViewConfiguration *webConfig = [[WKWebViewConfiguration alloc] init];
+    WKUserContentController* userController = [[WKUserContentController alloc] init];
+    [userController addScriptMessageHandler: self name: @"sendFeedback"];
+    [userController addScriptMessageHandler: self name: @"openScreenshotEditor"];
+    [userController addScriptMessageHandler: self name: @"selectedMenuOption"];
+    webConfig.userContentController = userController;
+    
+    self.webView = [[WKWebView alloc] initWithFrame:self.view.frame configuration: webConfig];
+    if (@available(iOS 13.0, *)) {
+        self.webView.backgroundColor = UIColor.systemBackgroundColor;
+    } else {
+        // Fallback on earlier versions
+        self.webView.backgroundColor = UIColor.whiteColor;
+    }
+    self.webView.navigationDelegate = self;
+    self.webView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [self.view insertSubview: self.webView belowSubview: self.loadingView];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.bottomLayoutGuide attribute:NSLayoutAttributeTop multiplier:1.0 constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.topLayoutGuide attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:0]];
+    
+    NSURL * url = [NSURL URLWithString:@"http://192.168.1.158:4444/appwidget.html"];
+    NSURLRequest * request = [NSURLRequest requestWithURL: url];
+    [self.webView loadRequest: request];
+}
+
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
+    [_loadingView setHidden: false];
+}
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    double delayInSeconds = 0.3;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+        [self->_loadingView setHidden: true];
+    });
+}
+
+- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    [_loadingView setHidden: true];
+    [self dismissViewControllerAnimated: YES completion:^{
+        
+    }];
+}
+
+- (void)showNextStep:(id)sender {
+    [_webView setHidden: false];
+    if (self.screenshotImageView.image) {
+        [BugBattle attachScreenshot: self.screenshotImageView.image];
+    }
+    self.lastStepWasScreenshotEditor = YES;
+    self.navigationItem.rightBarButtonItem = nil;
+}
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    if (navigationAction.navigationType == WKNavigationTypeLinkActivated) {
+        NSURL *url = navigationAction.request.URL;
+        if ([url.absoluteString hasPrefix: @"mailto:"]) {
+            if ([[UIApplication sharedApplication] canOpenURL: url]) {
+                [[UIApplication sharedApplication] openURL: url];
+            }
+        } else {
+            if ([SFSafariViewController class]) {
+                SFSafariViewController *viewController = [[SFSafariViewController alloc] initWithURL: url];
+                viewController.modalPresentationStyle = UIModalPresentationFormSheet;
+                viewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+                [self presentViewController:viewController animated:YES completion:nil];
+            } else {
+                if ([[UIApplication sharedApplication] canOpenURL: url]) {
+                    [[UIApplication sharedApplication] openURL: url];
+                }
+            }
+        }
+        return decisionHandler(WKNavigationActionPolicyCancel);
+    }
+    
+    return decisionHandler(WKNavigationActionPolicyAllow);
+}
+
+- (void)initializeScreenshotEditor {
+    _colorViews = @[_color1, _color2, _color3];
+    _previewColorViews = @[_colorPreview1, _colorPreview2, _colorPreview3];
     
     UIColor *defaultColor = UIColor.blackColor;
     if (@available(iOS 13, *)) {
@@ -77,6 +239,50 @@
     
     [self setColorForButton: _color1];
     [self enableColorSelection: NO];
+}
+
+- (void)sendBugReport {
+    self.navigationItem.leftBarButtonItem = false;
+    self.navigationItem.rightBarButtonItem = false;
+    
+    [_loadingView setHidden: false];
+    [BugBattle.sharedInstance sendReport:^(bool success) {
+        [self->_loadingView setHidden: true];
+        if (success) {
+            [self->_reportSent setHidden: false];
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+                self.sending = NO;
+                [self dismissViewControllerAnimated: true completion:^{
+                    [[NSUserDefaults standardUserDefaults] setValue: @"" forKey: @"BugBattle_SavedDescription"];
+                    [self onDismissCleanup];
+                }];
+            });
+            
+            if (BugBattle.sharedInstance.delegate && [BugBattle.sharedInstance.delegate respondsToSelector: @selector(bugSent)]) {
+                [BugBattle.sharedInstance.delegate bugSent];
+            }
+        } else {
+            self.sending = NO;
+            [[self navigationController] setNavigationBarHidden: NO animated: NO];
+            UIAlertController * alert = [UIAlertController
+                                         alertControllerWithTitle: [BugBattleTranslationHelper localizedString: @"report_failed_title"]
+                                         message: [BugBattleTranslationHelper localizedString: @"report_failed"]
+                                         preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* yesButton = [UIAlertAction
+                                        actionWithTitle: [BugBattleTranslationHelper localizedString: @"ok"]
+                                        style:UIAlertActionStyleDefault
+                                        handler:^(UIAlertAction * action) {
+                                            
+                                        }];
+            [alert addAction:yesButton];
+            [self presentViewController:alert animated:YES completion:nil];
+            
+            if (BugBattle.sharedInstance.delegate && [BugBattle.sharedInstance.delegate respondsToSelector: @selector(bugSendingFailed)]) {
+                [BugBattle.sharedInstance.delegate bugSendingFailed];
+            }
+        }
+    }];
 }
 
 - (void)addEffectToColorSelectionButton:(UIButton *)button withDistance:(double)distance {
@@ -164,26 +370,8 @@
     self.screenshotImageView.image = image;
 }
 
-- (IBAction)showNextStep:(id)sender {
-    if (self.screenshotImageView.image) {
-        [BugBattle attachScreenshot: self.screenshotImageView.image];
-        
-        // Push finalization screen.
-        UIStoryboard* storyboard = [UIStoryboard storyboardWithName: @"BugBattleStoryboard" bundle: [BugBattle frameworkBundle]];
-        BugBattleBugDetailsViewController *bugBattleBugDetails = [storyboard instantiateViewControllerWithIdentifier: @"BugBattleBugDetailsViewController"];
-        [self.navigationController pushViewController: bugBattleBugDetails animated: YES];
-    }
-}
-
 - (void)onDismissCleanup {
     [BugBattle afterBugReportCleanup];
-}
-
-
-- (IBAction)closeReporting:(id)sender {
-    [self dismissViewControllerAnimated: YES completion:^{
-        [self onDismissCleanup];
-    }];
 }
 
 @end

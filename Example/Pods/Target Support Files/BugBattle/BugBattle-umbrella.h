@@ -11,7 +11,6 @@
 #endif
 
 #import "BugBattle.h"
-#import "BugBattleBugDetailsViewController.h"
 #import "BugBattleCore.h"
 #import "BugBattleHttpTrafficRecorder.h"
 #import "BugBattleImageEditorViewController.h"

@@ -18,8 +18,6 @@
     // Replace YOUR_API_KEY with your project API token.
     [BugBattle initWithToken: @"J4ADFNfzzCdYWr8NBO4rozcb6NFeyyES" andActivationMethods: @[@(THREE_FINGER_DOUBLE_TAB), @(SHAKE), @(SCREENSHOT)]];
     
-    [BugBattle setMaxNetworkLogs: 1];
-    
     return YES;
 }
 

@@ -36,26 +36,9 @@
     
     NSLog(@"Started Bugbattle-Demo.");
     
-    [BugBattle sendSilentBugReportWith: @"asdf 1" andDescription: @"asdf" andPriority: HIGH];
-    
-    NSLog(@"Started Bugbattle-Demo.");
-    
-    [BugBattle sendSilentBugReportWith: @"asdf 2" andDescription: @"asdf" andPriority: HIGH];
-    
-    NSLog(@"Started Bugbattle-Demo.");
-    
     for (int i = 0; i < 5; i++) {
         NSLog(@"Lorum logsum %i", i);
     }
-    
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    BBAFURLSessionManager *manager = [[BBAFURLSessionManager alloc] initWithSessionConfiguration: configuration];
-    
-    [manager GET: @"https://run.mocky.io/v3/28703249-3fdd-43e6-a30a-9cc436d75941" parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"JSON: %@", responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"Error: %@", error);
-    }];
 }
 
 - (void)didReceiveMemoryWarning
