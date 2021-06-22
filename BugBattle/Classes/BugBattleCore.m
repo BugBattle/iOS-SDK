@@ -15,14 +15,13 @@
 @interface BugBattle ()
 
 @property (strong, nonatomic) UIImage *screenshot;
-@property (retain, nonatomic) UIColor *navigationBarTint;
 @property (retain, nonatomic) UIColor *navigationTint;
-@property (retain, nonatomic) UIColor *navigationBarTitleColor;
 @property (retain, nonatomic) NSDate *sessionStart;
 @property (retain, nonatomic) NSMutableArray *consoleLog;
 @property (retain, nonatomic) NSMutableArray *callstack;
 @property (retain, nonatomic) NSMutableArray *stepsToReproduce;
-@property (retain, nonatomic) NSDictionary *customData;
+@property (retain, nonatomic) NSMutableDictionary *customData;
+@property (retain, nonatomic) NSMutableDictionary *customActions;
 @property (retain, nonatomic) NSPipe *inputPipe;
 @property (retain, nonatomic) NSPipe *outputPipe;
 @property (nonatomic, retain) UITapGestureRecognizer *tapGestureRecognizer;
@@ -68,17 +67,9 @@
     self.consoleLog = [[NSMutableArray alloc] init];
     self.callstack = [[NSMutableArray alloc] init];
     self.stepsToReproduce = [[NSMutableArray alloc] init];
-    self.customData = [[NSDictionary alloc] init];
+    self.customData = [[NSMutableDictionary alloc] init];
     self.navigationTint = [UIColor systemBlueColor];
-    self.navigationBarTint = [UIColor whiteColor];
-    self.navigationBarTitleColor = [UIColor blackColor];
     self.language = [[NSLocale preferredLanguages] firstObject];
-    if (@available(iOS 13.0, *)) {
-        if (UITraitCollection.currentTraitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
-            self.navigationBarTint = [UIColor systemBackgroundColor];
-            self.navigationBarTitleColor = [UIColor whiteColor];
-        }
-    }
     
     // Open console log.
     [self openConsoleLog];
@@ -187,6 +178,46 @@
     [instance performActivationMethodInit];
 }
 
++ (void)autoconfigure {
+    NSString *widgetConfigURL = [NSString stringWithFormat: @"https://widget.bugbattle.io/appwidget/%@/config", BugBattle.sharedInstance.token];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setHTTPMethod:@"GET"];
+    [request setURL: [NSURL URLWithString: widgetConfigURL]];
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
+      ^(NSData * _Nullable data,
+        NSURLResponse * _Nullable response,
+        NSError * _Nullable error) {
+        NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSError *e = nil;
+        NSData *jsonData = [responseString dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary *configData = [NSJSONSerialization JSONObjectWithData:jsonData options: NSJSONReadingMutableContainers error: &e];
+        if (e == nil && configData != nil) {
+            [BugBattle.sharedInstance configureBugBattleWithConfig: configData];
+        }
+    }] resume];
+}
+
+- (void)configureBugBattleWithConfig: (NSDictionary *)config {
+    if ([config objectForKey: @"color"] != nil) {
+        UIColor * color = [self colorFromHexString: [config objectForKey: @"color"]];
+        [BugBattle setNavigationTint: color];
+    }
+    if ([config objectForKey: @"enableNetworkLogs"] != nil && [[config objectForKey: @"enableNetworkLogs"] boolValue] == YES) {
+        [BugBattle startNetworkRecording];
+    }
+    if ([config objectForKey: @"enableReplays"] != nil) {
+        [BugBattle enableReplays: [[config objectForKey: @"enableReplays"] boolValue]];
+    }
+}
+
+-(UIColor *)colorFromHexString:(NSString *)hexString {
+    unsigned rgbValue = 0;
+    NSScanner *scanner = [NSScanner scannerWithString:hexString];
+    [scanner setScanLocation:1];
+    [scanner scanHexInt:&rgbValue];
+    return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+}
+
 /**
  Check if activation method exists
  */
@@ -257,24 +288,10 @@
 }
 
 /*
- Sets the navigationbar tint color.
- */
-+ (void)setNavigationBarTint: (UIColor *)color {
-    BugBattle.sharedInstance.navigationBarTint = color;
-}
-
-/*
  Sets the navigation tint color.
  */
 + (void)setNavigationTint: (UIColor *)color {
     BugBattle.sharedInstance.navigationTint = color;
-}
-
-/*
- Sets the navigationbar title color.
- */
-+ (void)setNavigationBarTitleColor: (UIColor *)color {
-    BugBattle.sharedInstance.navigationBarTitleColor = color;
 }
 
 /*
@@ -345,9 +362,8 @@
         UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController: bugBattleImageEditor];
         navController.navigationBar.barStyle = UIBarStyleBlack;
         [navController.navigationBar setTranslucent: NO];
-        [navController.navigationBar setBarTintColor: BugBattle.sharedInstance.navigationBarTint];
         [navController.navigationBar setTintColor: BugBattle.sharedInstance.navigationTint];
-        navController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: BugBattle.sharedInstance.navigationBarTitleColor};
+        [navController.navigationBar setBarTintColor: [UIColor whiteColor]];
         
         // Show on top of all viewcontrollers.
         [[BugBattle.sharedInstance getTopMostViewController] presentViewController: navController animated: true completion:^{
@@ -380,10 +396,38 @@
 }
 
 /*
+ Attaches multiple user attributes
+ */
++ (void)attachUserAttributes: (NSDictionary *)attributes  {
+    [[BugBattle sharedInstance].customData addEntriesFromDictionary: attributes];
+}
+
+/*
  Attaches custom data.
  */
-+ (void)attachCustomData: (NSDictionary *)customData {
-    [BugBattle sharedInstance].customData = customData;
++ (void)attachCustomData: (NSDictionary *)customData __deprecated {
+    [[BugBattle sharedInstance].customData addEntriesFromDictionary: customData];
+}
+
+/*
+ Clears all user attributes
+ */
++ (void)clearAllUserAttributes {
+    [[BugBattle sharedInstance].customData removeAllObjects];
+}
+
+/**
+ * Attach custom data, which can be view in the BugBattle dashboard.
+ */
++ (void)setUserAttribute: (NSString *)key with: (NSString *)value {
+    [[BugBattle sharedInstance].customData setObject: value forKey: key];
+}
+
+/**
+ * Removes one key from the custom data
+ */
++ (void)removeUserAttribute: (NSString *)key {
+    [[BugBattle sharedInstance].customData removeObjectForKey: key];
 }
 
 /*
@@ -417,7 +461,7 @@
 /*
  Captures the current screen as UIImage.
  */
-- (UIImage *) captureScreen {
+- (UIImage *)captureScreen {
     UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
     
     if (self.applicationType == FLUTTER) {

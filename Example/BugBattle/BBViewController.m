@@ -15,8 +15,8 @@
 
 @implementation BBViewController
 
-- (void)bugWillBeSent {
-    
+- (void)customActionCalled:(NSString *)customAction {
+    NSLog(customAction);
 }
 
 - (void)viewDidLoad
@@ -28,11 +28,6 @@
     
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary: @{ @"key" : @"value", @"key2" : @"value2"}];
     [BugBattle attachCustomData: dict];
-    [BugBattle enableReplays: true];
-    
-    [BugBattle enablePrivacyPolicy: true];
-    
-    BugBattle.sharedInstance.delegate = self;
     
     NSLog(@"Started Bugbattle-Demo.");
     

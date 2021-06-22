@@ -20,6 +20,7 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 - (void) bugWillBeSent;
 - (void) bugSent;
 - (void) bugSendingFailed;
+- (void) customActionCalled: (NSString *)customAction;
 @required
 @end
 
@@ -52,6 +53,13 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 + (void)initWithToken: (NSString *)token andActivationMethods: (NSArray *)activationMethods;
 
 /**
+ * Auto-configures the BugBattle SDK from the remote config.
+ * @author BugBattle
+ *
+ */
++ (void)autoconfigure;
+
+/**
  * Manually start the bug reporting workflow. This is used, when you use the activation method "NONE".
  * @author BugBattle
  *
@@ -73,28 +81,43 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 + (void)enableReplays: (BOOL)enable;
 
 /**
- * Manually start the bug reporting workflow, using a custom screenshot (rather than
- * automatically capturing one). This is used, when you use the activation method "NONE".
+ * Attaches custom data. This will be merged with user attributes.
  * @author BugBattle
  *
+ * @param customData The data to attach to a bug report.
  */
-+ (void)startBugReportingWithScreenshot: (UIImage *)screenshot;
++ (void)attachCustomData: (NSDictionary *)customData __deprecated;
+
+/**
+ * Attach custom user attributes to your  reports.
+ * @author BugBattle
+ *
+ * @param attributes The data to attach to your reports.
+ */
++ (void)attachUserAttributes: (NSDictionary *)attributes;
 
 /**
  * Attach custom data, which can be view in the BugBattle dashboard.
  * @author BugBattle
  *
- * @param customData The data to attach to a bug report.
+ * @param key The key of the attribute
+ * @param value The value you want to add
  */
-+ (void)attachCustomData: (NSDictionary *)customData;
++ (void)setUserAttribute: (NSString *)key with: (NSString *)value;
 
 /**
- * Set a custom navigationbar tint color.
+ * Removes one key from the custom data
  * @author BugBattle
  *
- * @param color The background color of the navigationbar.
+ * @param key The key of the attribute
  */
-+ (void)setNavigationBarTint: (UIColor *)color;
++ (void)removeUserAttribute: (NSString *)key;
+
+/**
+ * Clears all user attributes
+ * @author BugBattle
+ */
++ (void)clearAllUserAttributes;
 
 /**
  * Set a custom navigation tint color.
@@ -103,14 +126,6 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
  * @param color The  color of the navigation action items.
  */
 + (void)setNavigationTint:(UIColor *)color;
-
-/**
- * Set a custom navigationbar title color.
- * @author BugBattle
- *
- * @param color The  color of the navigationbar title.
- */
-+ (void)setNavigationBarTitleColor:(UIColor *)color;
 
 /**
  * Sets a custom api url.

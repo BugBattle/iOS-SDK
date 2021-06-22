@@ -98,6 +98,13 @@
 
 - (void)userContentController:(WKUserContentController*)userContentController didReceiveScriptMessage:(WKScriptMessage*)message
 {
+    if ([message.name isEqualToString: @"customActionCalled"]) {
+        if (BugBattle.sharedInstance.delegate && [BugBattle.sharedInstance.delegate respondsToSelector: @selector(customActionCalled:)]) {
+            [BugBattle.sharedInstance.delegate customActionCalled: [message.body objectForKey: @"name"]];
+        }
+        [self closeReporting: nil];
+    }
+    
     if ([message.name isEqualToString: @"selectedMenuOption"]) {
         [self showBackButton];
     }
@@ -150,7 +157,7 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:0]];
     
-    NSURL * url = [NSURL URLWithString:@"http://192.168.1.158:4444/appwidget.html"];
+    NSURL * url = [NSURL URLWithString: [NSString stringWithFormat: @"https://widget.bugbattle.io/appwidget/%@", BugBattle.sharedInstance.token]];
     NSURLRequest * request = [NSURLRequest requestWithURL: url];
     [self.webView loadRequest: request];
 }
@@ -160,11 +167,18 @@
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    double delayInSeconds = 0.3;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-        [self->_loadingView setHidden: true];
-    });
+    [self->_loadingView setHidden: true];
+    
+    NSString *email = [[NSUserDefaults standardUserDefaults] valueForKey: @"BugBattle_SenderEmail"];
+    if (email != nil) {
+        [self->_webView evaluateJavaScript: [NSString stringWithFormat: @"if (window.BugBattle.default) {"
+                                             "window.BugBattle.default.setCustomerEmail('%@');"
+                                         "} else {"
+                                             "window.BugBattle.onBugBattleLoaded = function (BugBattle) {"
+                                                 "BugBattle.setCustomerEmail('%@');"
+                                             "};"
+                                         "}", email, email] completionHandler: nil];
+    }
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
