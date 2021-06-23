@@ -138,6 +138,7 @@
     [userController addScriptMessageHandler: self name: @"sendFeedback"];
     [userController addScriptMessageHandler: self name: @"openScreenshotEditor"];
     [userController addScriptMessageHandler: self name: @"selectedMenuOption"];
+    [userController addScriptMessageHandler: self name: @"customActionCalled"];
     webConfig.userContentController = userController;
     
     self.webView = [[WKWebView alloc] initWithFrame:self.view.frame configuration: webConfig];

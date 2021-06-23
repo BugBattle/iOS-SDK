@@ -57,7 +57,7 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
  * @author BugBattle
  *
  */
-+ (void)autoconfigure;
++ (void)autoConfigure;
 
 /**
  * Manually start the bug reporting workflow. This is used, when you use the activation method "NONE".
@@ -81,43 +81,35 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 + (void)enableReplays: (BOOL)enable;
 
 /**
- * Attaches custom data. This will be merged with user attributes.
+ * Attaches custom data, which can be viewed in the BugBattle dashboard. New data will be merged with existing custom data.
  * @author BugBattle
  *
  * @param customData The data to attach to a bug report.
  */
-+ (void)attachCustomData: (NSDictionary *)customData __deprecated;
++ (void)attachCustomData: (NSDictionary *)customData;
 
 /**
- * Attach custom user attributes to your  reports.
+ * Attach one key value pair to existing custom data.
  * @author BugBattle
  *
- * @param attributes The data to attach to your reports.
- */
-+ (void)attachUserAttributes: (NSDictionary *)attributes;
-
-/**
- * Attach custom data, which can be view in the BugBattle dashboard.
- * @author BugBattle
- *
- * @param key The key of the attribute
  * @param value The value you want to add
+ * @param key The key of the attribute
  */
-+ (void)setUserAttribute: (NSString *)key with: (NSString *)value;
++ (void)setCustomData: (NSString *)value forKey: (NSString *)key;
 
 /**
- * Removes one key from the custom data
+ * Removes one key from existing custom data.
  * @author BugBattle
  *
  * @param key The key of the attribute
  */
-+ (void)removeUserAttribute: (NSString *)key;
++ (void)removeCustomDataForKey: (NSString *)key;
 
 /**
- * Clears all user attributes
+ * Clears all custom data.
  * @author BugBattle
  */
-+ (void)clearAllUserAttributes;
++ (void)clearCustomData;
 
 /**
  * Set a custom navigation tint color.

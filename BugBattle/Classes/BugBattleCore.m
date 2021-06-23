@@ -178,7 +178,7 @@
     [instance performActivationMethodInit];
 }
 
-+ (void)autoconfigure {
++ (void)autoConfigure {
     NSString *widgetConfigURL = [NSString stringWithFormat: @"https://widget.bugbattle.io/appwidget/%@/config", BugBattle.sharedInstance.token];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setHTTPMethod:@"GET"];
@@ -396,37 +396,30 @@
 }
 
 /*
- Attaches multiple user attributes
+ Attaches custom data, which can be viewed in the BugBattle dashboard. New data will be merged with existing custom data.
  */
-+ (void)attachUserAttributes: (NSDictionary *)attributes  {
-    [[BugBattle sharedInstance].customData addEntriesFromDictionary: attributes];
-}
-
-/*
- Attaches custom data.
- */
-+ (void)attachCustomData: (NSDictionary *)customData __deprecated {
++ (void)attachCustomData: (NSDictionary *)customData {
     [[BugBattle sharedInstance].customData addEntriesFromDictionary: customData];
 }
 
 /*
- Clears all user attributes
+ Clears all custom data.
  */
-+ (void)clearAllUserAttributes {
++ (void)clearCustomData {
     [[BugBattle sharedInstance].customData removeAllObjects];
 }
 
 /**
- * Attach custom data, which can be view in the BugBattle dashboard.
+ * Attach one key value pair to existing custom data.
  */
-+ (void)setUserAttribute: (NSString *)key with: (NSString *)value {
++ (void)setCustomData: (NSString *)value forKey: (NSString *)key {
     [[BugBattle sharedInstance].customData setObject: value forKey: key];
 }
 
 /**
- * Removes one key from the custom data
+ * Removes one key from existing custom data.
  */
-+ (void)removeUserAttribute: (NSString *)key {
++ (void)removeCustomDataForKey: (NSString *)key {
     [[BugBattle sharedInstance].customData removeObjectForKey: key];
 }
 
