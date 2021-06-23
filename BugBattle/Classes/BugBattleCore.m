@@ -25,6 +25,7 @@
 @property (retain, nonatomic) NSPipe *inputPipe;
 @property (retain, nonatomic) NSPipe *outputPipe;
 @property (nonatomic, retain) UITapGestureRecognizer *tapGestureRecognizer;
+@property (retain, nonatomic) NSString *lastScreenName;
 
 @end
 
@@ -55,6 +56,7 @@
  Init helper.
  */
 - (void)initHelper {
+    self.lastScreenName = @"";
     self.token = @"";
     self.apiUrl = @"https://api.bugbattle.io";
     self.privacyPolicyEnabled = false;
@@ -350,6 +352,9 @@
         [BugBattle.sharedInstance.delegate bugWillBeSent];
     }
     
+    // Update last screen name
+    [BugBattle.sharedInstance updateLastScreenName];
+    
     // Stop replays
     [[BugBattleReplayHelper sharedInstance] stop];
     [BugBattle attachScreenshot: screenshot];
@@ -500,6 +505,10 @@
             completion(success);
         }];
     }
+}
+
+- (void)updateLastScreenName {
+    _lastScreenName = [self getTopMostViewControllerName];
 }
 
 - (void)uploadScreenshotAndSendBugReport: (void (^)(bool success))completion {
@@ -751,7 +760,6 @@
     NSString *releaseVersionNumber = [NSBundle.mainBundle.infoDictionary objectForKey: @"CFBundleShortVersionString"];
     NSString *buildVersionNumber = [NSBundle.mainBundle.infoDictionary objectForKey: @"CFBundleVersion"];
     NSNumber *sessionDuration = [NSNumber numberWithDouble: [self sessionDuration]];
-    NSString *lastScreenName = [self getTopMostViewControllerName];
     NSString *preferredUserLocale = [[[NSBundle mainBundle] preferredLocalizations] firstObject];
     
     NSString *applicationType = @"Native";
@@ -772,7 +780,7 @@
         @"releaseVersionNumber": releaseVersionNumber,
         @"sessionDuration": sessionDuration,
         @"applicationType": applicationType,
-        @"lastScreenName": lastScreenName,
+        @"lastScreenName": _lastScreenName,
         @"preferredUserLocale": preferredUserLocale
     };
 }

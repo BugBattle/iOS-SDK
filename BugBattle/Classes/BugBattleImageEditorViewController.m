@@ -135,8 +135,6 @@
         
         NSMutableDictionary *dataToAppend = [[NSMutableDictionary alloc] init];
         
-        [dataToAppend setValue: @"--" forKey: @"reportedBy"];
-        [dataToAppend setValue: @"--" forKey: @"description"];
         [dataToAppend setValue: @"MEDIUM" forKey: @"priority"];
         [dataToAppend setValue: formData forKey: @"formData"];
         [dataToAppend setValue: feedbackType forKey: @"type"];
@@ -157,6 +155,12 @@
                                                           completionHandler();
                                                       }]];
     [self presentViewController:alertController animated:YES completion:^{}];
+}
+
+- (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures {
+    NSURL *url = navigationAction.request.URL;
+    [self openURLExternally: url];
+    return nil;
 }
 
 - (void)createWebView {
@@ -210,11 +214,26 @@
     }
 }
 
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    [self loadingFailed: error];
+}
+
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
-    [_loadingView setHidden: true];
-    [self dismissViewControllerAnimated: YES completion:^{
-        
-    }];
+    [self loadingFailed: error];
+}
+
+- (void)loadingFailed:(NSError *)error {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle: error.localizedDescription
+                                                                             message: nil
+                                                                      preferredStyle: UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:^(UIAlertAction *action) {
+        [self dismissViewControllerAnimated: YES completion:^{
+            
+        }];
+    }]];
+    [self presentViewController:alertController animated:YES completion:^{}];
 }
 
 - (void)showNextStep:(id)sender {
@@ -228,6 +247,19 @@
     [self showBackButton];
 }
 
+- (void)openURLExternally:(NSURL *)url {
+    if ([SFSafariViewController class]) {
+        SFSafariViewController *viewController = [[SFSafariViewController alloc] initWithURL: url];
+        viewController.modalPresentationStyle = UIModalPresentationFormSheet;
+        viewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:viewController animated:YES completion:nil];
+    } else {
+        if ([[UIApplication sharedApplication] canOpenURL: url]) {
+            [[UIApplication sharedApplication] openURL: url];
+        }
+    }
+}
+
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     if (navigationAction.navigationType == WKNavigationTypeLinkActivated) {
         NSURL *url = navigationAction.request.URL;
@@ -236,16 +268,7 @@
                 [[UIApplication sharedApplication] openURL: url];
             }
         } else {
-            if ([SFSafariViewController class]) {
-                SFSafariViewController *viewController = [[SFSafariViewController alloc] initWithURL: url];
-                viewController.modalPresentationStyle = UIModalPresentationFormSheet;
-                viewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-                [self presentViewController:viewController animated:YES completion:nil];
-            } else {
-                if ([[UIApplication sharedApplication] canOpenURL: url]) {
-                    [[UIApplication sharedApplication] openURL: url];
-                }
-            }
+            [self openURLExternally: url];
         }
         return decisionHandler(WKNavigationActionPolicyCancel);
     }
@@ -358,10 +381,6 @@
 - (void)enableColorSelection:(BOOL)show {
     [_colorSelectionView setHidden: !show];
     [_mainToolsView setHidden: show];
-}
-
-- (BOOL)shouldAutorotate {
-    return NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
