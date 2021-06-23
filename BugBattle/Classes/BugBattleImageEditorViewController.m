@@ -35,6 +35,7 @@
 @property (weak, nonatomic) IBOutlet UIView *reportSent;
 @property (nonatomic, assign) bool sending;
 @property (nonatomic, assign) bool lastStepWasScreenshotEditor;
+@property (nonatomic, assign) bool screenshotEditorIsFirstStep;
 
 @end
 
@@ -43,9 +44,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _lastStepWasScreenshotEditor = false;
-    [_loadingView setHidden: true];
-    [_reportSent setHidden: true];
+    _lastStepWasScreenshotEditor = NO;
+    _screenshotEditorIsFirstStep = NO;
+    [_loadingView setHidden: YES];
+    [_reportSent setHidden: YES];
     
     self.navigationItem.title = @"";
     [self showCancelButton];
@@ -84,6 +86,9 @@
     [_webView setHidden: YES];
     self.navigationItem.title = [BugBattleTranslationHelper localizedString: @"mark_the_bug"];
     [self showNextButton];
+    if (_screenshotEditorIsFirstStep) {
+        [self showCancelButton];
+    }
 }
 
 - (void)backAction:(id)sender {
@@ -117,6 +122,9 @@
     }
     
     if ([message.name isEqualToString: @"openScreenshotEditor"]) {
+        if ([message.body objectForKey: @"screenshotEditorIsFirstStep"] != nil) {
+            _screenshotEditorIsFirstStep = YES;
+        }
         [self showEditorView];
     }
     
@@ -138,6 +146,19 @@
     }
 }
 
+- (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:message
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:^(UIAlertAction *action) {
+                                                          completionHandler();
+                                                      }]];
+    [self presentViewController:alertController animated:YES completion:^{}];
+}
+
 - (void)createWebView {
     WKWebViewConfiguration *webConfig = [[WKWebViewConfiguration alloc] init];
     WKUserContentController* userController = [[WKUserContentController alloc] init];
@@ -155,6 +176,7 @@
         self.webView.backgroundColor = UIColor.whiteColor;
     }
     self.webView.navigationDelegate = self;
+    self.webView.UIDelegate = self;
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self.view insertSubview: self.webView belowSubview: self.loadingView];
@@ -203,6 +225,7 @@
     self.navigationItem.title = @"";
     self.lastStepWasScreenshotEditor = YES;
     self.navigationItem.rightBarButtonItem = nil;
+    [self showBackButton];
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
@@ -360,8 +383,8 @@
     float imageHeight = _screenshotImageView.image.size.height;
     float aspectRatio = fmin(viewWidth / imageWidth, viewHeight / imageHeight);
     
-    _screenshotWidthContraint.constant = imageWidth * aspectRatio;
-    _screenshotHeightContraint.constant = imageHeight * aspectRatio;
+    _screenshotWidthContraint.constant = round(imageWidth * aspectRatio);
+    _screenshotHeightContraint.constant = round(imageHeight * aspectRatio);
     [self.view setNeedsLayout];
 }
 
@@ -409,7 +432,7 @@
     _screenshotImageView.red = 0.0;
     _screenshotImageView.green = 0.0;
     _screenshotImageView.blue = 0.0;
-    _screenshotImageView.paintWidth = 15.0;
+    _screenshotImageView.paintWidth = 20.0;
 }
 
 - (IBAction)setColor:(id)sender {
