@@ -122,7 +122,7 @@
     }
     
     if ([message.name isEqualToString: @"openScreenshotEditor"]) {
-        if ([message.body objectForKey: @"screenshotEditorIsFirstStep"] != nil) {
+        if ([message.body objectForKey: @"screenshotEditorIsFirstStep"] != nil && [[message.body objectForKey: @"screenshotEditorIsFirstStep"] boolValue] == YES) {
             _screenshotEditorIsFirstStep = YES;
         }
         [self showEditorView];

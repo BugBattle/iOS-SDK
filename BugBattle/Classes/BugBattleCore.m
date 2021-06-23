@@ -59,8 +59,6 @@
     self.lastScreenName = @"";
     self.token = @"";
     self.apiUrl = @"https://api.bugbattle.io";
-    self.privacyPolicyEnabled = false;
-    self.privacyPolicyUrl = @"https://www.bugbattle.io/privacy-policy/";
     self.activationMethods = [[NSArray alloc] init];
     self.applicationType = NATIVE;
     self.screenshot = nil;
@@ -304,12 +302,12 @@
     BugBattle.sharedInstance.apiUrl = apiUrl;
 }
 
-+ (void)setPrivacyPolicyUrl: (NSString *)privacyPolicyUrl {
-    BugBattle.sharedInstance.privacyPolicyUrl = privacyPolicyUrl;
++ (void)setPrivacyPolicyUrl: (NSString *)privacyPolicyUrl __deprecated {
+    // Deprecated
 }
 
-+ (void)enablePrivacyPolicy:(BOOL)enable {
-    BugBattle.sharedInstance.privacyPolicyEnabled = enable;
++ (void)enablePrivacyPolicy:(BOOL)enable __deprecated {
+    // Deprecated
 }
 
 /**

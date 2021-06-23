@@ -134,7 +134,15 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
  *
  * @param enable Enable the privacy policy.
  */
-+ (void)enablePrivacyPolicy: (BOOL)enable;
++ (void)enablePrivacyPolicy: (BOOL)enable __deprecated;
+
+/**
+ * Sets a custom privacy policy url.
+ * @author BugBattle
+ *
+ * @param privacyPolicyUrl The URL pointing to your privacy policy.
+ */
++ (void)setPrivacyPolicyUrl: (NSString *)privacyPolicyUrl __deprecated;
 
 /**
  * Set maximum amount of network logs in queue
@@ -143,14 +151,6 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
  * @param maxNetworkLogs Sets the maximum amount of network logs.
  */
 + (void)setMaxNetworkLogs: (int)maxNetworkLogs;
-
-/**
- * Sets a custom privacy policy url.
- * @author BugBattle
- *
- * @param privacyPolicyUrl The URL pointing to your privacy policy.
- */
-+ (void)setPrivacyPolicyUrl: (NSString *)privacyPolicyUrl;
 
 /**
  * Sets the customer's email address.
