@@ -364,6 +364,8 @@
         [navController.navigationBar setTranslucent: NO];
         [navController.navigationBar setTintColor: BugBattle.sharedInstance.navigationTint];
         [navController.navigationBar setBarTintColor: [UIColor whiteColor]];
+        [navController.navigationBar setTitleTextAttributes:
+           @{NSForegroundColorAttributeName:[UIColor blackColor]}];
         
         // Show on top of all viewcontrollers.
         [[BugBattle.sharedInstance getTopMostViewController] presentViewController: navController animated: true completion:^{
@@ -646,8 +648,8 @@
 - (void)uploadStepImages: (NSArray *)steps andCompletion: (void (^)(bool success, NSArray *fileUrls))completion {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSMutableURLRequest *request = [NSMutableURLRequest new];
-        [request setURL: [NSURL URLWithString: [NSString stringWithFormat: @"%@/uploads/sdksteps", _apiUrl]]];
-        [request setValue: _token forHTTPHeaderField: @"Api-Token"];
+        [request setURL: [NSURL URLWithString: [NSString stringWithFormat: @"%@/uploads/sdksteps", self->_apiUrl]]];
+        [request setValue: self->_token forHTTPHeaderField: @"Api-Token"];
         [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
         [request setHTTPShouldHandleCookies:NO];
         [request setTimeoutInterval:60];

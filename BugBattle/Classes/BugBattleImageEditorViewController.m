@@ -12,6 +12,7 @@
 #import "BugBattleReplayHelper.h"
 #import "BugBattleTranslationHelper.h"
 #import <SafariServices/SafariServices.h>
+#import <math.h>
 
 @interface BugBattleImageEditorViewController ()
 @property (strong, nonatomic) WKWebView *webView;
@@ -78,14 +79,20 @@
     self.navigationItem.rightBarButtonItem = nextButton;
 }
 
+- (void)showEditorView {
+    _lastStepWasScreenshotEditor = NO;
+    [_webView setHidden: YES];
+    self.navigationItem.title = [BugBattleTranslationHelper localizedString: @"mark_the_bug"];
+    [self showNextButton];
+}
+
 - (void)backAction:(id)sender {
     if (self.lastStepWasScreenshotEditor) {
-        _lastStepWasScreenshotEditor = NO;
-        [_webView setHidden: YES];
-        [self showNextButton];
+        [self showEditorView];
         return;
     }
     
+    self.navigationItem.title = @"";
     [_webView reload];
     if (_webView.isHidden) {
         [_webView setHidden: NO];
@@ -110,8 +117,7 @@
     }
     
     if ([message.name isEqualToString: @"openScreenshotEditor"]) {
-        [_webView setHidden: YES];
-        [self showNextButton];
+        [self showEditorView];
     }
     
     if ([message.name isEqualToString: @"sendFeedback"]) {
@@ -194,6 +200,7 @@
     if (self.screenshotImageView.image) {
         [BugBattle attachScreenshot: self.screenshotImageView.image];
     }
+    self.navigationItem.title = @"";
     self.lastStepWasScreenshotEditor = YES;
     self.navigationItem.rightBarButtonItem = nil;
 }
@@ -221,6 +228,15 @@
     }
     
     return decisionHandler(WKNavigationActionPolicyAllow);
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateScreenshotConstraints];
+    });
 }
 
 - (void)initializeScreenshotEditor {
@@ -326,8 +342,27 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    _screenshotWidthContraint.constant = round([[UIScreen mainScreen] bounds].size.width * 0.66);
-    _screenshotHeightContraint.constant = round([[UIScreen mainScreen] bounds].size.height * 0.66);
+    [self updateScreenshotConstraints];
+}
+
+- (void)updateScreenshotConstraints {
+    if (_screenshotImageView.image == nil) {
+        return;
+    }
+    
+    float paddingHorizontal = 20;
+    float paddingVertical = 100;
+    float viewWidth = self.view.bounds.size.width;
+    float viewHeight = self.view.bounds.size.height;
+    viewWidth = viewWidth - (paddingHorizontal * 2);
+    viewHeight = viewHeight - (paddingVertical * 2);
+    float imageWidth = _screenshotImageView.image.size.width;
+    float imageHeight = _screenshotImageView.image.size.height;
+    float aspectRatio = fmin(viewWidth / imageWidth, viewHeight / imageHeight);
+    
+    _screenshotWidthContraint.constant = imageWidth * aspectRatio;
+    _screenshotHeightContraint.constant = imageHeight * aspectRatio;
+    [self.view setNeedsLayout];
 }
 
 - (void)resetBorder {
@@ -374,7 +409,7 @@
     _screenshotImageView.red = 0.0;
     _screenshotImageView.green = 0.0;
     _screenshotImageView.blue = 0.0;
-    _screenshotImageView.paintWidth = 10.0;
+    _screenshotImageView.paintWidth = 15.0;
 }
 
 - (IBAction)setColor:(id)sender {
@@ -383,6 +418,7 @@
 
 - (void)setScreenshot:(UIImage *)image {
     self.screenshotImageView.image = image;
+    [self updateScreenshotConstraints];
 }
 
 - (void)onDismissCleanup {
