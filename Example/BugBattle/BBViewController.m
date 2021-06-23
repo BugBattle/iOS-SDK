@@ -39,6 +39,17 @@
     for (int i = 0; i < 5; i++) {
         NSLog(@"Lorum logsum %i", i);
     }
+    
+    [BugBattle setLanguage: @"en"];
+    
+    [BugBattle setCustomerEmail: @"isabella@bugbattle.io"];
+    
+    [BugBattle enableReplays: true];
+    
+    [BugBattle enablePrivacyPolicy: true];
+    
+    [BugBattle setPrivacyPolicyUrl: @""];
+    
 }
 
 - (void)didReceiveMemoryWarning

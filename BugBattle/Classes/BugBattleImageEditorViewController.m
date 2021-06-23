@@ -190,7 +190,7 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:0]];
     
-    NSURL * url = [NSURL URLWithString: [NSString stringWithFormat: @"https://widget.bugbattle.io/appwidget/%@", BugBattle.sharedInstance.token]];
+    NSURL * url = [NSURL URLWithString: [NSString stringWithFormat: @"https://widget.bugbattle.io/appwidget/%@?email=%@&lang=%@", BugBattle.sharedInstance.token, [BugBattle.sharedInstance.customerEmail stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], [BugBattle.sharedInstance.language stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]];
     NSURLRequest * request = [NSURLRequest requestWithURL: url];
     [self.webView loadRequest: request];
 }
@@ -201,17 +201,6 @@
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self->_loadingView setHidden: true];
-    
-    NSString *email = [[NSUserDefaults standardUserDefaults] valueForKey: @"BugBattle_SenderEmail"];
-    if (email != nil) {
-        [self->_webView evaluateJavaScript: [NSString stringWithFormat: @"if (window.BugBattle.default) {"
-                                             "window.BugBattle.default.setCustomerEmail('%@');"
-                                         "} else {"
-                                             "window.BugBattle.onBugBattleLoaded = function (BugBattle) {"
-                                                 "BugBattle.setCustomerEmail('%@');"
-                                             "};"
-                                         "}", email, email] completionHandler: nil];
-    }
 }
 
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {

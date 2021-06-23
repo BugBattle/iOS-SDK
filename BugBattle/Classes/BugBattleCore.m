@@ -25,7 +25,6 @@
 @property (retain, nonatomic) NSPipe *inputPipe;
 @property (retain, nonatomic) NSPipe *outputPipe;
 @property (nonatomic, retain) UITapGestureRecognizer *tapGestureRecognizer;
-@property (retain, nonatomic) NSString *lastScreenName;
 
 @end
 
@@ -58,6 +57,7 @@
 - (void)initHelper {
     self.lastScreenName = @"";
     self.token = @"";
+    self.customerEmail = @"";
     self.apiUrl = @"https://api.bugbattle.io";
     self.activationMethods = [[NSArray alloc] init];
     self.applicationType = NATIVE;
@@ -314,7 +314,7 @@
  Sets the customer's email address.
  */
 + (void)setCustomerEmail: (NSString *)email {
-    [[NSUserDefaults standardUserDefaults] setValue: email forKey: @"BugBattle_SenderEmail"];
+    BugBattle.sharedInstance.customerEmail = email;
 }
 
 /*
