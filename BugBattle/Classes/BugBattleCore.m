@@ -180,6 +180,15 @@
     [instance performActivationMethodInit];
 }
 
+/*
+ Autoconfigure with token
+ */
++ (void)autoConfigureWithToken: (NSString *)token {
+    BugBattle* instance = [BugBattle sharedInstance];
+    instance.token = token;
+    [self autoConfigure];
+}
+
 + (void)autoConfigure {
     NSString *widgetConfigURL = [NSString stringWithFormat: @"https://widget.bugbattle.io/appwidget/%@/config", BugBattle.sharedInstance.token];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
@@ -189,13 +198,18 @@
       ^(NSData * _Nullable data,
         NSURLResponse * _Nullable response,
         NSError * _Nullable error) {
-        NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSError *e = nil;
-        NSData *jsonData = [responseString dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary *configData = [NSJSONSerialization JSONObjectWithData:jsonData options: NSJSONReadingMutableContainers error: &e];
-        if (e == nil && configData != nil) {
-            [BugBattle.sharedInstance configureBugBattleWithConfig: configData];
+        if (error == nil) {
+            NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSError *e = nil;
+            NSData *jsonData = [responseString dataUsingEncoding:NSUTF8StringEncoding];
+            NSDictionary *configData = [NSJSONSerialization JSONObjectWithData:jsonData options: NSJSONReadingMutableContainers error: &e];
+            if (e == nil && configData != nil) {
+                [BugBattle.sharedInstance configureBugBattleWithConfig: configData];
+                return;
+            }
         }
+        
+        NSLog(@"Bugbattle: Auto-configuration failed. Please check your API key and internet connection.");
     }] resume];
 }
 
@@ -209,6 +223,22 @@
     }
     if ([config objectForKey: @"enableReplays"] != nil) {
         [BugBattle enableReplays: [[config objectForKey: @"enableReplays"] boolValue]];
+    }
+    
+    NSMutableArray * activationMethods = [[NSMutableArray alloc] init];
+    if ([config objectForKey: @"activationMethodShake"] != nil && [[config objectForKey: @"activationMethodShake"] boolValue] == YES) {
+        [activationMethods addObject: @(SHAKE)];
+    }
+    if ([config objectForKey: @"activationMethodScreenshotGesture"] != nil && [[config objectForKey: @"activationMethodScreenshotGesture"] boolValue] == YES) {
+        [activationMethods addObject: @(SCREENSHOT)];
+    }
+    if ([config objectForKey: @"activationMethodThreeFingerDoubleTab"] != nil && [[config objectForKey: @"activationMethodThreeFingerDoubleTab"] boolValue] == YES) {
+        [activationMethods addObject: @(THREE_FINGER_DOUBLE_TAB)];
+    }
+    
+    if (activationMethods.count > 0) {
+        _activationMethods = activationMethods;
+        [self performActivationMethodInit];
     }
 }
 

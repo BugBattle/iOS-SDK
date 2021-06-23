@@ -56,8 +56,9 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
  * Auto-configures the BugBattle SDK from the remote config.
  * @author BugBattle
  *
+ * @param token The SDK key, which can be found on dashboard.bugbattle.io
  */
-+ (void)autoConfigure;
++ (void)autoConfigureWithToken: (NSString *)token;
 
 /**
  * Manually start the bug reporting workflow. This is used, when you use the activation method "NONE".
