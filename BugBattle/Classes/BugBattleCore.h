@@ -134,7 +134,7 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
  *
  * @param enable Enable the privacy policy.
  */
-+ (void)enablePrivacyPolicy: (BOOL)enable __deprecated;
++ (void)enablePrivacyPolicy: (BOOL)enable;
 
 /**
  * Sets a custom privacy policy url.
@@ -142,7 +142,7 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
  *
  * @param privacyPolicyUrl The URL pointing to your privacy policy.
  */
-+ (void)setPrivacyPolicyUrl: (NSString *)privacyPolicyUrl __deprecated;
++ (void)setPrivacyPolicyUrl: (NSString *)privacyPolicyUrl;
 
 /**
  * Set maximum amount of network logs in queue

@@ -190,7 +190,7 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:0]];
     
-    NSURL * url = [NSURL URLWithString: [NSString stringWithFormat: @"https://widget.bugbattle.io/appwidget/%@?email=%@&lang=%@", BugBattle.sharedInstance.token, [BugBattle.sharedInstance.customerEmail stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], [BugBattle.sharedInstance.language stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]]];
+    NSURL * url = [NSURL URLWithString: [NSString stringWithFormat: @"https://widget.bugbattle.io/appwidget/%@?email=%@&lang=%@&enableprivacypolicy=%@&privacyplicyurl=%@", BugBattle.sharedInstance.token, [BugBattle.sharedInstance.customerEmail stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], [BugBattle.sharedInstance.language stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], BugBattle.sharedInstance.privacyPolicyEnabled ? @"true" : @"false", BugBattle.sharedInstance.privacyPolicyUrl]];
     NSURLRequest * request = [NSURLRequest requestWithURL: url];
     [self.webView loadRequest: request];
 }

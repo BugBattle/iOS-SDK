@@ -19,6 +19,10 @@
     NSLog(@"%@", customAction);
 }
 
+- (void)bugWillBeSent {
+    NSLog(@"SENT BUG");
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -45,11 +49,6 @@
     [BugBattle setCustomerEmail: @"isabella@bugbattle.io"];
     
     [BugBattle enableReplays: true];
-    
-    [BugBattle enablePrivacyPolicy: true];
-    
-    [BugBattle setPrivacyPolicyUrl: @""];
-    
 }
 
 - (void)didReceiveMemoryWarning

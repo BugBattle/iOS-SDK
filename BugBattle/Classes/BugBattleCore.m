@@ -58,6 +58,8 @@
     self.lastScreenName = @"";
     self.token = @"";
     self.customerEmail = @"";
+    self.privacyPolicyUrl = @"";
+    self.privacyPolicyEnabled = NO;
     self.apiUrl = @"https://api.bugbattle.io";
     self.activationMethods = [[NSArray alloc] init];
     self.applicationType = NATIVE;
@@ -302,12 +304,12 @@
     BugBattle.sharedInstance.apiUrl = apiUrl;
 }
 
-+ (void)setPrivacyPolicyUrl: (NSString *)privacyPolicyUrl __deprecated {
-    // Deprecated
++ (void)setPrivacyPolicyUrl: (NSString *)privacyPolicyUrl {
+    BugBattle.sharedInstance.privacyPolicyUrl = privacyPolicyUrl;
 }
 
-+ (void)enablePrivacyPolicy:(BOOL)enable __deprecated {
-    // Deprecated
++ (void)enablePrivacyPolicy:(BOOL)enable {
+    BugBattle.sharedInstance.privacyPolicyEnabled = enable;
 }
 
 /**
@@ -774,6 +776,16 @@
                               encoding:NSUTF8StringEncoding];
 }
 
+- (NSString *)getApplicationTypeAsString {
+    NSString *applicationType = @"Native";
+    if (self.applicationType == FLUTTER) {
+        applicationType = @"Flutter";
+    } else if (self.applicationType == REACTNATIVE) {
+        applicationType = @"ReactNative";
+    }
+    return applicationType;
+}
+
 /*
  Returns all meta data as an NSDictionary.
  */
@@ -790,13 +802,6 @@
     NSNumber *sessionDuration = [NSNumber numberWithDouble: [self sessionDuration]];
     NSString *preferredUserLocale = [[[NSBundle mainBundle] preferredLocalizations] firstObject];
     
-    NSString *applicationType = @"Native";
-    if (self.applicationType == FLUTTER) {
-        applicationType = @"Flutter";
-    } else if (self.applicationType == REACTNATIVE) {
-        applicationType = @"ReactNative";
-    }
-    
     return @{
         @"deviceName": deviceName,
         @"deviceModel": deviceModel,
@@ -807,7 +812,7 @@
         @"buildVersionNumber": buildVersionNumber,
         @"releaseVersionNumber": releaseVersionNumber,
         @"sessionDuration": sessionDuration,
-        @"applicationType": applicationType,
+        @"applicationType": [self getApplicationTypeAsString],
         @"lastScreenName": _lastScreenName,
         @"preferredUserLocale": preferredUserLocale
     };
