@@ -188,7 +188,7 @@
 }
 
 + (void)autoConfigure {
-    NSString *widgetConfigURL = [NSString stringWithFormat: @"https://widget.bugbattle.io/appwidget/%@/config", BugBattle.sharedInstance.token];
+    NSString *widgetConfigURL = [NSString stringWithFormat: @"https://widget.bugbattle.io/appwidget/%@/config?s=ios", BugBattle.sharedInstance.token];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setHTTPMethod:@"GET"];
     [request setURL: [NSURL URLWithString: widgetConfigURL]];

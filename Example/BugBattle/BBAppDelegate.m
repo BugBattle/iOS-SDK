@@ -17,7 +17,7 @@
     
     // Replace YOUR_API_KEY with your project API token.
     //[BugBattle autoConfigureWithToken: @"nmr5qpNZwRqPTi6Noz865ZLFPWMamEnm"];
-    [BugBattle initWithToken: @"lis2ZGm5aJvABEuRqaO4qB35hK8664Ov" andActivationMethod: SCREENSHOT];
+    [BugBattle autoConfigureWithToken: @"RBDUcj6fjRvei1UobaHRWhELU0GWSBT7"];
     
     return YES;
 }
