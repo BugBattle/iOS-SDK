@@ -242,6 +242,7 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 @property (nonatomic, weak) id <BugBattleDelegate> delegate;
 @property (retain, nonatomic) NSString *lastScreenName;
 @property (retain, nonatomic) NSString *customerEmail;
+@property (retain, nonatomic) UIColor *navigationTint;
 
 extern NSString *const BugBattleStepTypeView;
 extern NSString *const BugBattleStepTypeButton;

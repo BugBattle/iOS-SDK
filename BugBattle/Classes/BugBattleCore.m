@@ -15,7 +15,6 @@
 @interface BugBattle ()
 
 @property (strong, nonatomic) UIImage *screenshot;
-@property (retain, nonatomic) UIColor *navigationTint;
 @property (retain, nonatomic) NSDate *sessionStart;
 @property (retain, nonatomic) NSMutableArray *consoleLog;
 @property (retain, nonatomic) NSMutableArray *callstack;
