@@ -113,12 +113,36 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 + (void)clearCustomData;
 
 /**
+ * Set a custom navigation bar tint color.
+ * @author BugBattle
+ *
+ * @param color The  color of the navigation action items.
+ */
++ (void)setNavigationBarTint:(UIColor *)color __deprecated;
+
+/**
+ * Set a custom navigation title color.
+ * @author BugBattle
+ *
+ * @param color The  color of the navigation action items.
+ */
++ (void)setNavigationBarTitleColor:(UIColor *)color __deprecated;
+
+/**
  * Set a custom navigation tint color.
  * @author BugBattle
  *
  * @param color The  color of the navigation action items.
  */
-+ (void)setNavigationTint:(UIColor *)color;
++ (void)setNavigationTint:(UIColor *)color __deprecated;
+
+/**
+ * Sets a custom accent color
+ * @author BugBattle
+ *
+ * @param color The  color of the navigation action items.
+ */
++ (void)setColor:(UIColor *)color;
 
 /**
  * Sets a custom api url.

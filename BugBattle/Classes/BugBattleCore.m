@@ -319,10 +319,19 @@
     BugBattle.sharedInstance.customerEmail = email;
 }
 
-/*
- Sets the navigation tint color.
- */
 + (void)setNavigationTint: (UIColor *)color {
+    BugBattle.sharedInstance.navigationTint = color;
+}
+
++ (void)setNavigationBarTint:(UIColor *)color __deprecated {
+    
+}
+
++ (void)setNavigationBarTitleColor:(UIColor *)color __deprecated {
+    
+}
+
++ (void)setColor:(UIColor *)color {
     BugBattle.sharedInstance.navigationTint = color;
 }
 
