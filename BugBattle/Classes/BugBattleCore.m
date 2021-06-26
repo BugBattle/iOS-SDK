@@ -15,7 +15,6 @@
 @interface BugBattle ()
 
 @property (strong, nonatomic) UIImage *screenshot;
-@property (retain, nonatomic) UIColor *navigationTint;
 @property (retain, nonatomic) NSDate *sessionStart;
 @property (retain, nonatomic) NSMutableArray *consoleLog;
 @property (retain, nonatomic) NSMutableArray *callstack;
@@ -55,10 +54,12 @@
  Init helper.
  */
 - (void)initHelper {
+    self.lastScreenName = @"";
     self.token = @"";
+    self.customerEmail = @"";
+    self.privacyPolicyUrl = @"";
+    self.privacyPolicyEnabled = NO;
     self.apiUrl = @"https://api.bugbattle.io";
-    self.privacyPolicyEnabled = false;
-    self.privacyPolicyUrl = @"https://www.bugbattle.io/privacy-policy/";
     self.activationMethods = [[NSArray alloc] init];
     self.applicationType = NATIVE;
     self.screenshot = nil;
@@ -178,8 +179,17 @@
     [instance performActivationMethodInit];
 }
 
-+ (void)autoconfigure {
-    NSString *widgetConfigURL = [NSString stringWithFormat: @"https://widget.bugbattle.io/appwidget/%@/config", BugBattle.sharedInstance.token];
+/*
+ Autoconfigure with token
+ */
++ (void)autoConfigureWithToken: (NSString *)token {
+    BugBattle* instance = [BugBattle sharedInstance];
+    instance.token = token;
+    [self autoConfigure];
+}
+
++ (void)autoConfigure {
+    NSString *widgetConfigURL = [NSString stringWithFormat: @"https://widget.bugbattle.io/appwidget/%@/config?s=ios", BugBattle.sharedInstance.token];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setHTTPMethod:@"GET"];
     [request setURL: [NSURL URLWithString: widgetConfigURL]];
@@ -187,13 +197,18 @@
       ^(NSData * _Nullable data,
         NSURLResponse * _Nullable response,
         NSError * _Nullable error) {
-        NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSError *e = nil;
-        NSData *jsonData = [responseString dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary *configData = [NSJSONSerialization JSONObjectWithData:jsonData options: NSJSONReadingMutableContainers error: &e];
-        if (e == nil && configData != nil) {
-            [BugBattle.sharedInstance configureBugBattleWithConfig: configData];
+        if (error == nil) {
+            NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSError *e = nil;
+            NSData *jsonData = [responseString dataUsingEncoding:NSUTF8StringEncoding];
+            NSDictionary *configData = [NSJSONSerialization JSONObjectWithData:jsonData options: NSJSONReadingMutableContainers error: &e];
+            if (e == nil && configData != nil) {
+                [BugBattle.sharedInstance configureBugBattleWithConfig: configData];
+                return;
+            }
         }
+        
+        NSLog(@"Bugbattle: Auto-configuration failed. Please check your API key and internet connection.");
     }] resume];
 }
 
@@ -207,6 +222,22 @@
     }
     if ([config objectForKey: @"enableReplays"] != nil) {
         [BugBattle enableReplays: [[config objectForKey: @"enableReplays"] boolValue]];
+    }
+    
+    NSMutableArray * activationMethods = [[NSMutableArray alloc] init];
+    if ([config objectForKey: @"activationMethodShake"] != nil && [[config objectForKey: @"activationMethodShake"] boolValue] == YES) {
+        [activationMethods addObject: @(SHAKE)];
+    }
+    if ([config objectForKey: @"activationMethodScreenshotGesture"] != nil && [[config objectForKey: @"activationMethodScreenshotGesture"] boolValue] == YES) {
+        [activationMethods addObject: @(SCREENSHOT)];
+    }
+    if ([config objectForKey: @"activationMethodThreeFingerDoubleTab"] != nil && [[config objectForKey: @"activationMethodThreeFingerDoubleTab"] boolValue] == YES) {
+        [activationMethods addObject: @(THREE_FINGER_DOUBLE_TAB)];
+    }
+    
+    if (activationMethods.count > 0) {
+        _activationMethods = activationMethods;
+        [self performActivationMethodInit];
     }
 }
 
@@ -284,13 +315,22 @@
  Sets the customer's email address.
  */
 + (void)setCustomerEmail: (NSString *)email {
-    [[NSUserDefaults standardUserDefaults] setValue: email forKey: @"BugBattle_SenderEmail"];
+    BugBattle.sharedInstance.customerEmail = email;
 }
 
-/*
- Sets the navigation tint color.
- */
 + (void)setNavigationTint: (UIColor *)color {
+    BugBattle.sharedInstance.navigationTint = color;
+}
+
++ (void)setNavigationBarTint:(UIColor *)color __deprecated {
+    
+}
+
++ (void)setNavigationBarTitleColor:(UIColor *)color __deprecated {
+    
+}
+
++ (void)setColor:(UIColor *)color {
     BugBattle.sharedInstance.navigationTint = color;
 }
 
@@ -350,6 +390,9 @@
         [BugBattle.sharedInstance.delegate bugWillBeSent];
     }
     
+    // Update last screen name
+    [BugBattle.sharedInstance updateLastScreenName];
+    
     // Stop replays
     [[BugBattleReplayHelper sharedInstance] stop];
     [BugBattle attachScreenshot: screenshot];
@@ -364,6 +407,8 @@
         [navController.navigationBar setTranslucent: NO];
         [navController.navigationBar setTintColor: BugBattle.sharedInstance.navigationTint];
         [navController.navigationBar setBarTintColor: [UIColor whiteColor]];
+        [navController.navigationBar setTitleTextAttributes:
+           @{NSForegroundColorAttributeName:[UIColor blackColor]}];
         
         // Show on top of all viewcontrollers.
         [[BugBattle.sharedInstance getTopMostViewController] presentViewController: navController animated: true completion:^{
@@ -396,37 +441,30 @@
 }
 
 /*
- Attaches multiple user attributes
+ Attaches custom data, which can be viewed in the BugBattle dashboard. New data will be merged with existing custom data.
  */
-+ (void)attachUserAttributes: (NSDictionary *)attributes  {
-    [[BugBattle sharedInstance].customData addEntriesFromDictionary: attributes];
-}
-
-/*
- Attaches custom data.
- */
-+ (void)attachCustomData: (NSDictionary *)customData __deprecated {
++ (void)attachCustomData: (NSDictionary *)customData {
     [[BugBattle sharedInstance].customData addEntriesFromDictionary: customData];
 }
 
 /*
- Clears all user attributes
+ Clears all custom data.
  */
-+ (void)clearAllUserAttributes {
++ (void)clearCustomData {
     [[BugBattle sharedInstance].customData removeAllObjects];
 }
 
 /**
- * Attach custom data, which can be view in the BugBattle dashboard.
+ * Attach one key value pair to existing custom data.
  */
-+ (void)setUserAttribute: (NSString *)key with: (NSString *)value {
++ (void)setCustomData: (NSString *)value forKey: (NSString *)key {
     [[BugBattle sharedInstance].customData setObject: value forKey: key];
 }
 
 /**
- * Removes one key from the custom data
+ * Removes one key from existing custom data.
  */
-+ (void)removeUserAttribute: (NSString *)key {
++ (void)removeCustomDataForKey: (NSString *)key {
     [[BugBattle sharedInstance].customData removeObjectForKey: key];
 }
 
@@ -513,6 +551,10 @@
             completion(success);
         }];
     }
+}
+
+- (void)updateLastScreenName {
+    _lastScreenName = [self getTopMostViewControllerName];
 }
 
 - (void)uploadScreenshotAndSendBugReport: (void (^)(bool success))completion {
@@ -661,8 +703,8 @@
 - (void)uploadStepImages: (NSArray *)steps andCompletion: (void (^)(bool success, NSArray *fileUrls))completion {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSMutableURLRequest *request = [NSMutableURLRequest new];
-        [request setURL: [NSURL URLWithString: [NSString stringWithFormat: @"%@/uploads/sdksteps", _apiUrl]]];
-        [request setValue: _token forHTTPHeaderField: @"Api-Token"];
+        [request setURL: [NSURL URLWithString: [NSString stringWithFormat: @"%@/uploads/sdksteps", self->_apiUrl]]];
+        [request setValue: self->_token forHTTPHeaderField: @"Api-Token"];
         [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
         [request setHTTPShouldHandleCookies:NO];
         [request setTimeoutInterval:60];
@@ -750,6 +792,16 @@
                               encoding:NSUTF8StringEncoding];
 }
 
+- (NSString *)getApplicationTypeAsString {
+    NSString *applicationType = @"Native";
+    if (self.applicationType == FLUTTER) {
+        applicationType = @"Flutter";
+    } else if (self.applicationType == REACTNATIVE) {
+        applicationType = @"ReactNative";
+    }
+    return applicationType;
+}
+
 /*
  Returns all meta data as an NSDictionary.
  */
@@ -764,15 +816,7 @@
     NSString *releaseVersionNumber = [NSBundle.mainBundle.infoDictionary objectForKey: @"CFBundleShortVersionString"];
     NSString *buildVersionNumber = [NSBundle.mainBundle.infoDictionary objectForKey: @"CFBundleVersion"];
     NSNumber *sessionDuration = [NSNumber numberWithDouble: [self sessionDuration]];
-    NSString *lastScreenName = [self getTopMostViewControllerName];
     NSString *preferredUserLocale = [[[NSBundle mainBundle] preferredLocalizations] firstObject];
-    
-    NSString *applicationType = @"Native";
-    if (self.applicationType == FLUTTER) {
-        applicationType = @"Flutter";
-    } else if (self.applicationType == REACTNATIVE) {
-        applicationType = @"ReactNative";
-    }
     
     return @{
         @"deviceName": deviceName,
@@ -784,8 +828,8 @@
         @"buildVersionNumber": buildVersionNumber,
         @"releaseVersionNumber": releaseVersionNumber,
         @"sessionDuration": sessionDuration,
-        @"applicationType": applicationType,
-        @"lastScreenName": lastScreenName,
+        @"applicationType": [self getApplicationTypeAsString],
+        @"lastScreenName": _lastScreenName,
         @"preferredUserLocale": preferredUserLocale
     };
 }

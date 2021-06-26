@@ -16,7 +16,11 @@
 @implementation BBViewController
 
 - (void)customActionCalled:(NSString *)customAction {
-    NSLog(customAction);
+    NSLog(@"%@", customAction);
+}
+
+- (void)bugWillBeSent {
+    NSLog(@"SENT BUG");
 }
 
 - (void)viewDidLoad
@@ -26,14 +30,25 @@
     
     self.title = @"Home";
     
-    NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary: @{ @"key" : @"value", @"key2" : @"value2"}];
-    [BugBattle attachCustomData: dict];
+    BugBattle.sharedInstance.delegate = self;
     
+    [BugBattle attachCustomData: @{ @"key" : @"value", @"key2" : @"value2"}];
+    
+    [BugBattle removeCustomDataForKey: @"email"];
+    
+    [BugBattle setCustomData: @"lukas@bugbattle.io" forKey: @"email"];
+
     NSLog(@"Started Bugbattle-Demo.");
     
     for (int i = 0; i < 5; i++) {
         NSLog(@"Lorum logsum %i", i);
     }
+    
+    [BugBattle setLanguage: @"de"];
+    
+    [BugBattle setCustomerEmail: @"isabella@bugbattle.io"];
+    
+    [BugBattle enableReplays: true];
 }
 
 - (void)didReceiveMemoryWarning

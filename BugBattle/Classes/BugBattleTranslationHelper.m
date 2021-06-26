@@ -25,6 +25,7 @@
             @"report_sent": @"Gracias!",
             @"report_failed": @"Se ha producido un error.",
             @"report_failed_title": @"Error",
+            @"mark_the_bug": @"Marque el problema",
         };
     }
     
@@ -37,6 +38,7 @@
             @"report_sent": @"Grazie!",
             @"report_failed": @"Qualcosa è andato storto.",
             @"report_failed_title": @"Error",
+            @"mark_the_bug": @"Segna il problema",
         };
     }
     
@@ -49,6 +51,7 @@
             @"report_sent": @"Merci!",
             @"report_failed": @"Oups, il y a eu un problème.",
             @"report_failed_title": @"Error",
+            @"mark_the_bug": @"Marquer le problème",
         };
     }
     
@@ -61,6 +64,7 @@
             @"report_sent": @"Vielen Dank!",
             @"report_failed": @"Ups, da ist etwas schief gelaufen.",
             @"report_failed_title": @"Fehler",
+            @"mark_the_bug": @"Markiere das Problem",
         };
     }
     
@@ -73,6 +77,7 @@
             @"report_sent": @"Dank u!",
             @"report_failed": @"Oeps, er gaat helaas iets mis",
             @"report_failed_title": @"Fout",
+            @"mark_the_bug": @"Markeer het probleem",
         };
     }
     
@@ -85,6 +90,7 @@
             @"report_sent": @"Děkuji!",
             @"report_failed": @"Ups, něco se pokazilo.",
             @"report_failed_title": @"Chyba",
+            @"mark_the_bug": @"Označte problém",
         };
     }
     
@@ -96,6 +102,7 @@
         @"report_sent": @"Thank you!",
         @"report_failed": @"Ups, something went wrong.",
         @"report_failed_title": @"Error",
+        @"mark_the_bug": @"Mark the issue",
     };
 }
 

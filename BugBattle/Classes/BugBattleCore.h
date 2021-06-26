@@ -56,8 +56,9 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
  * Auto-configures the BugBattle SDK from the remote config.
  * @author BugBattle
  *
+ * @param token The SDK key, which can be found on dashboard.bugbattle.io
  */
-+ (void)autoconfigure;
++ (void)autoConfigureWithToken: (NSString *)token;
 
 /**
  * Manually start the bug reporting workflow. This is used, when you use the activation method "NONE".
@@ -81,43 +82,51 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 + (void)enableReplays: (BOOL)enable;
 
 /**
- * Attaches custom data. This will be merged with user attributes.
+ * Attaches custom data, which can be viewed in the BugBattle dashboard. New data will be merged with existing custom data.
  * @author BugBattle
  *
  * @param customData The data to attach to a bug report.
  */
-+ (void)attachCustomData: (NSDictionary *)customData __deprecated;
++ (void)attachCustomData: (NSDictionary *)customData;
 
 /**
- * Attach custom user attributes to your  reports.
+ * Attach one key value pair to existing custom data.
  * @author BugBattle
  *
- * @param attributes The data to attach to your reports.
- */
-+ (void)attachUserAttributes: (NSDictionary *)attributes;
-
-/**
- * Attach custom data, which can be view in the BugBattle dashboard.
- * @author BugBattle
- *
- * @param key The key of the attribute
  * @param value The value you want to add
+ * @param key The key of the attribute
  */
-+ (void)setUserAttribute: (NSString *)key with: (NSString *)value;
++ (void)setCustomData: (NSString *)value forKey: (NSString *)key;
 
 /**
- * Removes one key from the custom data
+ * Removes one key from existing custom data.
  * @author BugBattle
  *
  * @param key The key of the attribute
  */
-+ (void)removeUserAttribute: (NSString *)key;
++ (void)removeCustomDataForKey: (NSString *)key;
 
 /**
- * Clears all user attributes
+ * Clears all custom data.
  * @author BugBattle
  */
-+ (void)clearAllUserAttributes;
++ (void)clearCustomData;
+
+/**
+ * Set a custom navigation bar tint color.
+ * @author BugBattle
+ *
+ * @param color The  color of the navigation action items.
+ */
++ (void)setNavigationBarTint:(UIColor *)color __deprecated;
+
+/**
+ * Set a custom navigation title color.
+ * @author BugBattle
+ *
+ * @param color The  color of the navigation action items.
+ */
++ (void)setNavigationBarTitleColor:(UIColor *)color __deprecated;
 
 /**
  * Set a custom navigation tint color.
@@ -125,7 +134,15 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
  *
  * @param color The  color of the navigation action items.
  */
-+ (void)setNavigationTint:(UIColor *)color;
++ (void)setNavigationTint:(UIColor *)color __deprecated;
+
+/**
+ * Sets a custom accent color
+ * @author BugBattle
+ *
+ * @param color The  color of the navigation action items.
+ */
++ (void)setColor:(UIColor *)color;
 
 /**
  * Sets a custom api url.
@@ -160,20 +177,20 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 + (void)setLogoUrl: (NSString *)logoUrl;
 
 /**
- * Set maximum amount of network logs in queue
- * @author BugBattle
- *
- * @param maxNetworkLogs Sets the maximum amount of network logs.
- */
-+ (void)setMaxNetworkLogs: (int)maxNetworkLogs;
-
-/**
  * Sets a custom privacy policy url.
  * @author BugBattle
  *
  * @param privacyPolicyUrl The URL pointing to your privacy policy.
  */
 + (void)setPrivacyPolicyUrl: (NSString *)privacyPolicyUrl;
+
+/**
+ * Set maximum amount of network logs in queue
+ * @author BugBattle
+ *
+ * @param maxNetworkLogs Sets the maximum amount of network logs.
+ */
++ (void)setMaxNetworkLogs: (int)maxNetworkLogs;
 
 /**
  * Sets the customer's email address.
@@ -241,6 +258,9 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 @property (nonatomic, assign) bool replaysEnabled;
 @property (nonatomic, assign) BugBattleApplicationType applicationType;
 @property (nonatomic, weak) id <BugBattleDelegate> delegate;
+@property (retain, nonatomic) NSString *lastScreenName;
+@property (retain, nonatomic) NSString *customerEmail;
+@property (retain, nonatomic) UIColor *navigationTint;
 
 extern NSString *const BugBattleStepTypeView;
 extern NSString *const BugBattleStepTypeButton;

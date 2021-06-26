@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BugBattleImageEditorViewController : UIViewController <WKScriptMessageHandler, WKNavigationDelegate>
+@interface BugBattleImageEditorViewController : UIViewController <WKScriptMessageHandler, WKNavigationDelegate, WKUIDelegate>
 
 - (void)setScreenshot:(UIImage *)image;
 

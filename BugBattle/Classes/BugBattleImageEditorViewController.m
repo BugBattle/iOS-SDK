@@ -12,6 +12,7 @@
 #import "BugBattleReplayHelper.h"
 #import "BugBattleTranslationHelper.h"
 #import <SafariServices/SafariServices.h>
+#import <math.h>
 
 @interface BugBattleImageEditorViewController ()
 @property (strong, nonatomic) WKWebView *webView;
@@ -34,6 +35,7 @@
 @property (weak, nonatomic) IBOutlet UIView *reportSent;
 @property (nonatomic, assign) bool sending;
 @property (nonatomic, assign) bool lastStepWasScreenshotEditor;
+@property (nonatomic, assign) bool screenshotEditorIsFirstStep;
 
 @end
 
@@ -42,9 +44,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _lastStepWasScreenshotEditor = false;
-    [_loadingView setHidden: true];
-    [_reportSent setHidden: true];
+    _lastStepWasScreenshotEditor = NO;
+    _screenshotEditorIsFirstStep = NO;
+    [_loadingView setHidden: YES];
+    [_reportSent setHidden: YES];
     
     self.navigationItem.title = @"";
     [self showCancelButton];
@@ -78,14 +81,23 @@
     self.navigationItem.rightBarButtonItem = nextButton;
 }
 
+- (void)showEditorView {
+    _lastStepWasScreenshotEditor = NO;
+    [_webView setHidden: YES];
+    self.navigationItem.title = [BugBattleTranslationHelper localizedString: @"mark_the_bug"];
+    [self showNextButton];
+    if (_screenshotEditorIsFirstStep) {
+        [self showCancelButton];
+    }
+}
+
 - (void)backAction:(id)sender {
     if (self.lastStepWasScreenshotEditor) {
-        _lastStepWasScreenshotEditor = NO;
-        [_webView setHidden: YES];
-        [self showNextButton];
+        [self showEditorView];
         return;
     }
     
+    self.navigationItem.title = @"";
     [_webView reload];
     if (_webView.isHidden) {
         [_webView setHidden: NO];
@@ -110,8 +122,10 @@
     }
     
     if ([message.name isEqualToString: @"openScreenshotEditor"]) {
-        [_webView setHidden: YES];
-        [self showNextButton];
+        if ([message.body objectForKey: @"screenshotEditorIsFirstStep"] != nil && [[message.body objectForKey: @"screenshotEditorIsFirstStep"] boolValue] == YES) {
+            _screenshotEditorIsFirstStep = YES;
+        }
+        [self showEditorView];
     }
     
     if ([message.name isEqualToString: @"sendFeedback"]) {
@@ -121,8 +135,6 @@
         
         NSMutableDictionary *dataToAppend = [[NSMutableDictionary alloc] init];
         
-        [dataToAppend setValue: @"--" forKey: @"reportedBy"];
-        [dataToAppend setValue: @"--" forKey: @"description"];
         [dataToAppend setValue: @"MEDIUM" forKey: @"priority"];
         [dataToAppend setValue: formData forKey: @"formData"];
         [dataToAppend setValue: feedbackType forKey: @"type"];
@@ -132,12 +144,32 @@
     }
 }
 
+- (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:message
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:^(UIAlertAction *action) {
+                                                          completionHandler();
+                                                      }]];
+    [self presentViewController:alertController animated:YES completion:^{}];
+}
+
+- (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures {
+    NSURL *url = navigationAction.request.URL;
+    [self openURLExternally: url];
+    return nil;
+}
+
 - (void)createWebView {
     WKWebViewConfiguration *webConfig = [[WKWebViewConfiguration alloc] init];
     WKUserContentController* userController = [[WKUserContentController alloc] init];
     [userController addScriptMessageHandler: self name: @"sendFeedback"];
     [userController addScriptMessageHandler: self name: @"openScreenshotEditor"];
     [userController addScriptMessageHandler: self name: @"selectedMenuOption"];
+    [userController addScriptMessageHandler: self name: @"customActionCalled"];
     webConfig.userContentController = userController;
     
     self.webView = [[WKWebView alloc] initWithFrame:self.view.frame configuration: webConfig];
@@ -148,6 +180,7 @@
         self.webView.backgroundColor = UIColor.whiteColor;
     }
     self.webView.navigationDelegate = self;
+    self.webView.UIDelegate = self;
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self.view insertSubview: self.webView belowSubview: self.loadingView];
@@ -157,9 +190,18 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:0]];
     
-    NSURL * url = [NSURL URLWithString: [NSString stringWithFormat: @"https://widget.bugbattle.io/appwidget/%@", BugBattle.sharedInstance.token]];
+    NSURL * url = [NSURL URLWithString: [NSString stringWithFormat: @"https://widget.bugbattle.io/appwidget/%@?email=%@&lang=%@&enableprivacypolicy=%@&privacyplicyurl=%@&color=%@", BugBattle.sharedInstance.token, [BugBattle.sharedInstance.customerEmail stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], [BugBattle.sharedInstance.language stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], BugBattle.sharedInstance.privacyPolicyEnabled ? @"true" : @"false", [BugBattle.sharedInstance.privacyPolicyUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], [self hexStringForColor: BugBattle.sharedInstance.navigationTint]]];
     NSURLRequest * request = [NSURLRequest requestWithURL: url];
     [self.webView loadRequest: request];
+}
+
+- (NSString *)hexStringForColor:(UIColor *)color {
+      const CGFloat *components = CGColorGetComponents(color.CGColor);
+      CGFloat r = components[0];
+      CGFloat g = components[1];
+      CGFloat b = components[2];
+      NSString *hexString=[NSString stringWithFormat:@"%02X%02X%02X", (int)(r * 255), (int)(g * 255), (int)(b * 255)];
+      return hexString;
 }
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
@@ -168,24 +210,28 @@
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self->_loadingView setHidden: true];
-    
-    NSString *email = [[NSUserDefaults standardUserDefaults] valueForKey: @"BugBattle_SenderEmail"];
-    if (email != nil) {
-        [self->_webView evaluateJavaScript: [NSString stringWithFormat: @"if (window.BugBattle.default) {"
-                                             "window.BugBattle.default.setCustomerEmail('%@');"
-                                         "} else {"
-                                             "window.BugBattle.onBugBattleLoaded = function (BugBattle) {"
-                                                 "BugBattle.setCustomerEmail('%@');"
-                                             "};"
-                                         "}", email, email] completionHandler: nil];
-    }
+}
+
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    [self loadingFailed: error];
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
-    [_loadingView setHidden: true];
-    [self dismissViewControllerAnimated: YES completion:^{
-        
-    }];
+    [self loadingFailed: error];
+}
+
+- (void)loadingFailed:(NSError *)error {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle: error.localizedDescription
+                                                                             message: nil
+                                                                      preferredStyle: UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:^(UIAlertAction *action) {
+        [self dismissViewControllerAnimated: YES completion:^{
+            
+        }];
+    }]];
+    [self presentViewController:alertController animated:YES completion:^{}];
 }
 
 - (void)showNextStep:(id)sender {
@@ -193,8 +239,23 @@
     if (self.screenshotImageView.image) {
         [BugBattle attachScreenshot: self.screenshotImageView.image];
     }
+    self.navigationItem.title = @"";
     self.lastStepWasScreenshotEditor = YES;
     self.navigationItem.rightBarButtonItem = nil;
+    [self showBackButton];
+}
+
+- (void)openURLExternally:(NSURL *)url {
+    if ([SFSafariViewController class]) {
+        SFSafariViewController *viewController = [[SFSafariViewController alloc] initWithURL: url];
+        viewController.modalPresentationStyle = UIModalPresentationFormSheet;
+        viewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:viewController animated:YES completion:nil];
+    } else {
+        if ([[UIApplication sharedApplication] canOpenURL: url]) {
+            [[UIApplication sharedApplication] openURL: url];
+        }
+    }
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
@@ -205,21 +266,21 @@
                 [[UIApplication sharedApplication] openURL: url];
             }
         } else {
-            if ([SFSafariViewController class]) {
-                SFSafariViewController *viewController = [[SFSafariViewController alloc] initWithURL: url];
-                viewController.modalPresentationStyle = UIModalPresentationFormSheet;
-                viewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-                [self presentViewController:viewController animated:YES completion:nil];
-            } else {
-                if ([[UIApplication sharedApplication] canOpenURL: url]) {
-                    [[UIApplication sharedApplication] openURL: url];
-                }
-            }
+            [self openURLExternally: url];
         }
         return decisionHandler(WKNavigationActionPolicyCancel);
     }
     
     return decisionHandler(WKNavigationActionPolicyAllow);
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateScreenshotConstraints];
+    });
 }
 
 - (void)initializeScreenshotEditor {
@@ -320,13 +381,28 @@
     [_mainToolsView setHidden: show];
 }
 
-- (BOOL)shouldAutorotate {
-    return NO;
+- (void)viewDidAppear:(BOOL)animated {
+    [self updateScreenshotConstraints];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    _screenshotWidthContraint.constant = round([[UIScreen mainScreen] bounds].size.width * 0.66);
-    _screenshotHeightContraint.constant = round([[UIScreen mainScreen] bounds].size.height * 0.66);
+- (void)updateScreenshotConstraints {
+    if (_screenshotImageView.image == nil) {
+        return;
+    }
+    
+    float paddingHorizontal = 20;
+    float paddingVertical = 100;
+    float viewWidth = self.view.bounds.size.width;
+    float viewHeight = self.view.bounds.size.height;
+    viewWidth = viewWidth - (paddingHorizontal * 2);
+    viewHeight = viewHeight - (paddingVertical * 2);
+    float imageWidth = _screenshotImageView.image.size.width;
+    float imageHeight = _screenshotImageView.image.size.height;
+    float aspectRatio = fmin(viewWidth / imageWidth, viewHeight / imageHeight);
+    
+    _screenshotWidthContraint.constant = round(imageWidth * aspectRatio);
+    _screenshotHeightContraint.constant = round(imageHeight * aspectRatio);
+    [self.view setNeedsLayout];
 }
 
 - (void)resetBorder {
@@ -373,7 +449,7 @@
     _screenshotImageView.red = 0.0;
     _screenshotImageView.green = 0.0;
     _screenshotImageView.blue = 0.0;
-    _screenshotImageView.paintWidth = 10.0;
+    _screenshotImageView.paintWidth = 20.0;
 }
 
 - (IBAction)setColor:(id)sender {
@@ -382,6 +458,7 @@
 
 - (void)setScreenshot:(UIImage *)image {
     self.screenshotImageView.image = image;
+    [self updateScreenshotConstraints];
 }
 
 - (void)onDismissCleanup {
