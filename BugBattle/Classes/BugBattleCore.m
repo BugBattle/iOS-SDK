@@ -458,6 +458,14 @@
     BugBattle.sharedInstance.applicationType = applicationType;
 }
 
++ (void)enablePoweredByBugbattle: (BOOL)enable {
+    BugBattle.sharedInstance.enablePoweredBy = enable;
+}
+
++ (void)setLogoUrl: (NSString *)logoUrl {
+    BugBattle.sharedInstance.logoUrl = logoUrl;
+}
+
 /*
  Captures the current screen as UIImage.
  */

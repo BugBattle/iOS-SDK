@@ -144,6 +144,22 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 + (void)enablePrivacyPolicy: (BOOL)enable;
 
 /**
+ * Enables or disables the powered by Bugbattle logo.
+ * @author BugBattle
+ *
+ * @param enable Enablesor disable the powered by Bugbattle logo.
+ */
++ (void)enablePoweredByBugbattle: (BOOL)enable;
+
+/**
+ * Sets the main logo url.
+ * @author BugBattle
+ *
+ * @param logoUrl The main logo url.
+ */
++ (void)setLogoUrl: (NSString *)logoUrl;
+
+/**
  * Set maximum amount of network logs in queue
  * @author BugBattle
  *
@@ -218,6 +234,8 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 @property (nonatomic, retain) NSString* apiUrl;
 @property (nonatomic, retain) NSString* privacyPolicyUrl;
 @property (nonatomic, retain) NSArray *activationMethods;
+@property (nonatomic, retain) NSArray *logoUrl;
+@property (nonatomic, retain) bool enablePoweredBy;
 @property (nonatomic, retain) NSMutableDictionary* data;
 @property (nonatomic, assign) bool privacyPolicyEnabled;
 @property (nonatomic, assign) bool replaysEnabled;
