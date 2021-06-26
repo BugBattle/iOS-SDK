@@ -56,9 +56,11 @@
 - (void)initHelper {
     self.lastScreenName = @"";
     self.token = @"";
+    self.logoUrl = @"";
     self.customerEmail = @"";
     self.privacyPolicyUrl = @"";
     self.privacyPolicyEnabled = NO;
+    self.enablePoweredBy = YES;
     self.apiUrl = @"https://api.bugbattle.io";
     self.activationMethods = [[NSArray alloc] init];
     self.applicationType = NATIVE;
@@ -215,13 +217,21 @@
 - (void)configureBugBattleWithConfig: (NSDictionary *)config {
     if ([config objectForKey: @"color"] != nil) {
         UIColor * color = [self colorFromHexString: [config objectForKey: @"color"]];
-        [BugBattle setNavigationTint: color];
+        [BugBattle setColor: color];
     }
     if ([config objectForKey: @"enableNetworkLogs"] != nil && [[config objectForKey: @"enableNetworkLogs"] boolValue] == YES) {
         [BugBattle startNetworkRecording];
     }
     if ([config objectForKey: @"enableReplays"] != nil) {
         [BugBattle enableReplays: [[config objectForKey: @"enableReplays"] boolValue]];
+    }
+    if ([config objectForKey: @"logo"] != nil) {
+        [BugBattle setLogoUrl: [config objectForKey: @"logo"]];
+    }
+    if ([config objectForKey: @"hideBugBattleLogo"] != nil && [[config objectForKey: @"hideBugBattleLogo"] boolValue] == YES) {
+        [BugBattle enablePoweredByBugbattle: NO];
+    } else {
+        [BugBattle enablePoweredByBugbattle: YES];
     }
     
     NSMutableArray * activationMethods = [[NSMutableArray alloc] init];
