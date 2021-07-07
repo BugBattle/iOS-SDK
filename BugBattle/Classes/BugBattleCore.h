@@ -177,6 +177,13 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 + (void)setLogoUrl: (NSString *)logoUrl;
 
 /**
+ * Starts the console log recording.
+ * @author BugBattle
+ *
+ */
++ (void)startConsoleLogRecording;
+
+/**
  * Sets a custom privacy policy url.
  * @author BugBattle
  *

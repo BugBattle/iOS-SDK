@@ -73,9 +73,6 @@
     self.customData = [[NSMutableDictionary alloc] init];
     self.navigationTint = [UIColor systemBlueColor];
     self.language = [[NSLocale preferredLanguages] firstObject];
-    
-    // Open console log.
-    [self openConsoleLog];
 }
 
 + (void)afterBugReportCleanup {
@@ -86,6 +83,10 @@
 
 + (void)setLanguage: (NSString *)language {
     [BugBattle sharedInstance].language = language;
+}
+
++ (void)startConsoleLogRecording {
+    [[BugBattle sharedInstance] openConsoleLog];
 }
 
 + (void)enableReplays: (BOOL)enable {
@@ -221,6 +222,9 @@
     }
     if ([config objectForKey: @"enableNetworkLogs"] != nil && [[config objectForKey: @"enableNetworkLogs"] boolValue] == YES) {
         [BugBattle startNetworkRecording];
+    }
+    if ([config objectForKey: @"enableConsoleLogs"] != nil && [[config objectForKey: @"enableConsoleLogs"] boolValue] == YES) {
+        [BugBattle startConsoleLogRecording];
     }
     if ([config objectForKey: @"enableReplays"] != nil) {
         [BugBattle enableReplays: [[config objectForKey: @"enableReplays"] boolValue]];
@@ -854,7 +858,7 @@
  Starts reading the console output.
  */
 - (void)openConsoleLog {
-    _inputPipe = [[NSPipe alloc] init];
+    /*_inputPipe = [[NSPipe alloc] init];
     _outputPipe = [[NSPipe alloc] init];
     
     dup2(STDOUT_FILENO, _outputPipe.fileHandleForWriting.fileDescriptor);
@@ -863,7 +867,7 @@
     
     [NSNotificationCenter.defaultCenter addObserver: self selector: @selector(receiveLogNotification:)  name: NSFileHandleReadCompletionNotification object: _inputPipe.fileHandleForReading];
     
-    [_inputPipe.fileHandleForReading readInBackgroundAndNotify];
+    [_inputPipe.fileHandleForReading readInBackgroundAndNotify];*/
 }
 
 /*
