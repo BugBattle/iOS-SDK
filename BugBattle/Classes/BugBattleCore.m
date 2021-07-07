@@ -85,8 +85,8 @@
     [BugBattle sharedInstance].language = language;
 }
 
-+ (void)startConsoleLogRecording {
-    [[BugBattle sharedInstance] openConsoleLog];
++ (void)disableConsoleLog {
+    [BugBattle sharedInstance].consoleLogDisabled = true;
 }
 
 + (void)enableReplays: (BOOL)enable {
@@ -162,12 +162,20 @@
     return [self topViewControllerWith: presentedViewController];
 }
 
+- (void)setSDKToken:(NSString *)token {
+    self.token = token;
+    
+    if (self.consoleLogDisabled != YES) {
+        [self openConsoleLog];
+    }
+}
+
 /*
  Costom initialize method
  */
 + (void)initWithToken: (NSString *)token andActivationMethod: (BugBattleActivationMethod)activationMethod {
     BugBattle* instance = [BugBattle sharedInstance];
-    instance.token = token;
+    [instance setSDKToken: token];
     instance.activationMethods = @[@(activationMethod)];
     [instance performActivationMethodInit];
 }
@@ -177,7 +185,7 @@
  */
 + (void)initWithToken: (NSString *)token andActivationMethods: (NSArray *)activationMethods {
     BugBattle* instance = [BugBattle sharedInstance];
-    instance.token = token;
+    [instance setSDKToken: token];
     instance.activationMethods = activationMethods;
     [instance performActivationMethodInit];
 }
@@ -187,7 +195,7 @@
  */
 + (void)autoConfigureWithToken: (NSString *)token {
     BugBattle* instance = [BugBattle sharedInstance];
-    instance.token = token;
+    [instance setSDKToken: token];
     [self autoConfigure];
 }
 
@@ -222,9 +230,6 @@
     }
     if ([config objectForKey: @"enableNetworkLogs"] != nil && [[config objectForKey: @"enableNetworkLogs"] boolValue] == YES) {
         [BugBattle startNetworkRecording];
-    }
-    if ([config objectForKey: @"enableConsoleLogs"] != nil && [[config objectForKey: @"enableConsoleLogs"] boolValue] == YES) {
-        [BugBattle startConsoleLogRecording];
     }
     if ([config objectForKey: @"enableReplays"] != nil) {
         [BugBattle enableReplays: [[config objectForKey: @"enableReplays"] boolValue]];
@@ -858,7 +863,7 @@
  Starts reading the console output.
  */
 - (void)openConsoleLog {
-    /*_inputPipe = [[NSPipe alloc] init];
+    _inputPipe = [[NSPipe alloc] init];
     _outputPipe = [[NSPipe alloc] init];
     
     dup2(STDOUT_FILENO, _outputPipe.fileHandleForWriting.fileDescriptor);
@@ -867,7 +872,7 @@
     
     [NSNotificationCenter.defaultCenter addObserver: self selector: @selector(receiveLogNotification:)  name: NSFileHandleReadCompletionNotification object: _inputPipe.fileHandleForReading];
     
-    [_inputPipe.fileHandleForReading readInBackgroundAndNotify];*/
+    [_inputPipe.fileHandleForReading readInBackgroundAndNotify];
 }
 
 /*

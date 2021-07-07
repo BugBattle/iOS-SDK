@@ -30,8 +30,8 @@
             filePath = "../BugBattle/Classes/BugBattleCore.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "534"
-            endingLineNumber = "534"
+            startingLineNumber = "539"
+            endingLineNumber = "539"
             landmarkName = "-captureScreen"
             landmarkType = "7">
             <Locations>
@@ -78,8 +78,8 @@
             filePath = "../BugBattle/Classes/BugBattleCore.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
             landmarkName = "+autoConfigure"
             landmarkType = "7">
          </BreakpointContent>
@@ -87,15 +87,31 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3414E018-05F7-4B72-B6D9-9C0A5B172091"
+            uuid = "6609E1DF-537E-4D84-A6B8-C68EF22027BB"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../BugBattle/Classes/BugBattleCore.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "864"
-            endingLineNumber = "864"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
+            landmarkName = "-setSDKToken:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1D9BE3B7-0132-4901-B0BE-C6DD342D6D5A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../BugBattle/Classes/BugBattleCore.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "866"
+            endingLineNumber = "866"
             landmarkName = "-openConsoleLog"
             landmarkType = "7">
          </BreakpointContent>
