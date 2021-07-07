@@ -117,6 +117,14 @@
         [self closeReporting: nil];
     }
     
+    if ([message.name isEqualToString: @"openExternalURL"]) {
+        UIViewController *presentingViewController = self.presentingViewController;
+        [self dismissViewControllerAnimated: YES completion:^{
+            [self onDismissCleanup];
+            [self openURLExternally: [NSURL URLWithString: [message.body objectForKey: @"url"]] fromViewController: presentingViewController];
+        }];
+    }
+    
     if ([message.name isEqualToString: @"selectedMenuOption"]) {
         [self showBackButton];
     }
@@ -159,7 +167,7 @@
 
 - (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures {
     NSURL *url = navigationAction.request.URL;
-    [self openURLExternally: url];
+    [self openURLExternally: url fromViewController: self];
     return nil;
 }
 
@@ -170,6 +178,7 @@
     [userController addScriptMessageHandler: self name: @"openScreenshotEditor"];
     [userController addScriptMessageHandler: self name: @"selectedMenuOption"];
     [userController addScriptMessageHandler: self name: @"customActionCalled"];
+    [userController addScriptMessageHandler: self name: @"openExternalURL"];
     webConfig.userContentController = userController;
     
     self.webView = [[WKWebView alloc] initWithFrame:self.view.frame configuration: webConfig];
@@ -245,12 +254,12 @@
     [self showBackButton];
 }
 
-- (void)openURLExternally:(NSURL *)url {
+- (void)openURLExternally:(NSURL *)url fromViewController:(UIViewController *)presentingViewController {
     if ([SFSafariViewController class]) {
         SFSafariViewController *viewController = [[SFSafariViewController alloc] initWithURL: url];
         viewController.modalPresentationStyle = UIModalPresentationFormSheet;
         viewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-        [self presentViewController:viewController animated:YES completion:nil];
+        [presentingViewController presentViewController:viewController animated:YES completion:nil];
     } else {
         if ([[UIApplication sharedApplication] canOpenURL: url]) {
             [[UIApplication sharedApplication] openURL: url];
@@ -266,7 +275,7 @@
                 [[UIApplication sharedApplication] openURL: url];
             }
         } else {
-            [self openURLExternally: url];
+            [self openURLExternally: url fromViewController: self];
         }
         return decisionHandler(WKNavigationActionPolicyCancel);
     }
