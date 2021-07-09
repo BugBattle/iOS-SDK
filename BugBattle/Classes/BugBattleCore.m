@@ -10,6 +10,7 @@
 #import "BugBattleImageEditorViewController.h"
 #import "BugBattleReplayHelper.h"
 #import "BugBattleHttpTrafficRecorder.h"
+#import "BugBattleLogHelper.h"
 #import <sys/utsname.h>
 
 @interface BugBattle ()
@@ -113,6 +114,14 @@
 
 + (void)setMaxNetworkLogs: (int)maxNetworkLogs {
     [[BugBattleHttpTrafficRecorder sharedRecorder] setMaxRequests: maxNetworkLogs];
+}
+
++ (void)logEvent: (NSString *)name {
+    [[BugBattleLogHelper sharedInstance] logEvent: name];
+}
+
++ (void)logEvent: (NSString *)name withData: (NSDictionary *)data {
+    [[BugBattleLogHelper sharedInstance] logEvent: name withData: data];
 }
 
 - (NSString *)getTopMostViewControllerName {
@@ -599,6 +608,9 @@
         // Attach custom data.
         [BugBattle attachData: @{ @"customData": [self customData] }];
         
+        // Attach custom event log.
+        [BugBattle attachData: @{ @"customEventLog": [[BugBattleLogHelper sharedInstance] getLogs] }];
+        
         // Attach custom data.
         if ([[[BugBattleHttpTrafficRecorder sharedRecorder] networkLogs] count] > 0) {
             [BugBattle attachData: @{ @"networkLogs": [[BugBattleHttpTrafficRecorder sharedRecorder] networkLogs] }];
@@ -856,6 +868,10 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
     return [dateFormatter stringFromDate: date];
+}
+
+- (NSString *)getCurrentJSDate {
+    return [self getJSStringForNSDate: [[NSDate alloc] init]];
 }
 
 /*

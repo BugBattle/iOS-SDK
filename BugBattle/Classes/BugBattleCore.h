@@ -216,6 +216,25 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 + (void)setLanguage: (NSString *)language;
 
 /**
+ * Logs a custom event
+ * @author BugBattle
+ *
+ * @param name Name of the event
+ *
+ */
++ (void)logEvent: (NSString *)name;
+
+/**
+ * Logs a custom event with data
+ * @author BugBattle
+ *
+ * @param name Name of the event
+ * @param data Data passed with the event.
+ *
+ */
++ (void)logEvent: (NSString *)name withData: (NSDictionary *)data;
+
+/**
  * Starts network recording.
  * @author BugBattle
  *
@@ -250,7 +269,8 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 - (UIViewController *)getTopMostViewController;
 - (NSString *)getTopMostViewControllerName;
 - (NSString *)getJSStringForNSDate:(NSDate *)date;
-- (UIImage *) captureScreen;
+- (UIImage *)captureScreen;
+- (NSString *)getCurrentJSDate;
 + (void)afterBugReportCleanup;
 
 @property (nonatomic, retain) NSString* language;

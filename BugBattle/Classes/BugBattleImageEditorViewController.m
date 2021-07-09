@@ -33,6 +33,10 @@
 @property (copy, nonatomic) NSArray *previewColorViews;
 @property (weak, nonatomic) IBOutlet UIView *loadingView;
 @property (weak, nonatomic) IBOutlet UIView *reportSent;
+@property (weak, nonatomic) IBOutlet UILabel *labelSent;
+@property (weak, nonatomic) IBOutlet UILabel *labelLoading;
+@property (weak, nonatomic) IBOutlet UIImageView *sentImageView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingActivityView;
 @property (nonatomic, assign) bool sending;
 @property (nonatomic, assign) bool lastStepWasScreenshotEditor;
 @property (nonatomic, assign) bool screenshotEditorIsFirstStep;
@@ -48,6 +52,12 @@
     _screenshotEditorIsFirstStep = NO;
     [_loadingView setHidden: YES];
     [_reportSent setHidden: YES];
+    
+    _sentImageView.tintColor = BugBattle.sharedInstance.navigationTint;
+    _sentImageView.image = [_sentImageView.image imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
+    _loadingActivityView.color = BugBattle.sharedInstance.navigationTint;
+    _labelSent.text = [BugBattleTranslationHelper localizedString: @"report_sent"];
+    _labelLoading.text = [BugBattleTranslationHelper localizedString: @"report_sending"];
     
     self.navigationItem.title = @"";
     [self showCancelButton];

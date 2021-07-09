@@ -44,7 +44,7 @@
         NSLog(@"Lorum logsum %i", i);
     }
     
-    [BugBattle setLanguage: @"en"];
+    [BugBattle setLanguage: @"fr"];
     
     [BugBattle setCustomerEmail: @"isabella@bugbattle.io"];
     
