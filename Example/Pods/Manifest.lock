@@ -14,8 +14,8 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
-  - Alamofire (5.4.1)
-  - BugBattle (3.3.1)
+  - Alamofire (5.4.3)
+  - BugBattle (4.0.7)
 
 DEPENDENCIES:
   - AFNetworking (~> 4.0)
@@ -33,8 +33,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
-  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
-  BugBattle: 0504d2ee5a33506820280d3e90a624878afc528e
+  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
+  BugBattle: eec6ff322ed025d5b6c46a6ec5dbf1ae9664f85e
 
 PODFILE CHECKSUM: c3811e87179acc41d4efa59ac69232fffa64c294
 

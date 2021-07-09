@@ -22,7 +22,6 @@
 @property (retain, nonatomic) NSMutableDictionary *customData;
 @property (retain, nonatomic) NSMutableDictionary *customActions;
 @property (retain, nonatomic) NSPipe *inputPipe;
-@property (retain, nonatomic) NSPipe *outputPipe;
 @property (nonatomic, retain) UITapGestureRecognizer *tapGestureRecognizer;
 
 @end
@@ -863,12 +862,14 @@
  Starts reading the console output.
  */
 - (void)openConsoleLog {
-    _inputPipe = [[NSPipe alloc] init];
-    _outputPipe = [[NSPipe alloc] init];
+    if (isatty(STDERR_FILENO)) {
+        NSLog(@"[BugBattle] Console logs are captured only when the debugger is not attached.");
+        return;
+    }
     
-    dup2(STDOUT_FILENO, _outputPipe.fileHandleForWriting.fileDescriptor);
-    dup2(_inputPipe.fileHandleForWriting.fileDescriptor, STDOUT_FILENO);
-    dup2(_inputPipe.fileHandleForWriting.fileDescriptor, STDERR_FILENO);
+    _inputPipe = [[NSPipe alloc] init];
+    
+    dup2([[_inputPipe fileHandleForWriting] fileDescriptor], STDERR_FILENO);
     
     [NSNotificationCenter.defaultCenter addObserver: self selector: @selector(receiveLogNotification:)  name: NSFileHandleReadCompletionNotification object: _inputPipe.fileHandleForReading];
     
@@ -882,8 +883,6 @@
 {
     [_inputPipe.fileHandleForReading readInBackgroundAndNotify];
     NSData *data = notification.userInfo[NSFileHandleNotificationDataItem];
-    
-    [[_outputPipe fileHandleForWriting] writeData: data];
     
     NSString *consoleLogLines = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
     if (consoleLogLines != NULL) {

@@ -25,7 +25,6 @@
 		DF6237272611B22E00D61FEB /* BBDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6237262611B22E00D61FEB /* BBDemoViewController.swift */; };
 		DF62374B2611BE9200D61FEB /* BBAFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DF62374A2611BE9200D61FEB /* BBAFURLSessionManager.m */; };
 		DF6237512611C14700D61FEB /* BBSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6237502611C14700D61FEB /* BBSessionManager.swift */; };
-		DF6A9E5F269841CA00A1F268 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF6A9E5E269841CA00A1F268 /* GoogleService-Info.plist */; };
 		DF81B21F25C2E0190013FF1D /* BBSecretPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF81B21E25C2E0190013FF1D /* BBSecretPopupViewController.m */; };
 		DF81B22625C2F3E30013FF1D /* BBRecipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF81B22525C2F3E30013FF1D /* BBRecipeViewController.m */; };
 		DFEAC50A252A033400B9D2BF /* Pods_BugBattle_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFEAC509252A033400B9D2BF /* Pods_BugBattle_Example.framework */; };
@@ -77,7 +76,6 @@
 		DF6237492611BE9200D61FEB /* BBAFURLSessionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BBAFURLSessionManager.h; sourceTree = "<group>"; };
 		DF62374A2611BE9200D61FEB /* BBAFURLSessionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BBAFURLSessionManager.m; sourceTree = "<group>"; };
 		DF6237502611C14700D61FEB /* BBSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBSessionManager.swift; sourceTree = "<group>"; };
-		DF6A9E5E269841CA00A1F268 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DF81B21D25C2E0190013FF1D /* BBSecretPopupViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BBSecretPopupViewController.h; sourceTree = "<group>"; };
 		DF81B21E25C2E0190013FF1D /* BBSecretPopupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BBSecretPopupViewController.m; sourceTree = "<group>"; };
 		DF81B22425C2F3E30013FF1D /* BBRecipeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BBRecipeViewController.h; sourceTree = "<group>"; };
@@ -167,7 +165,6 @@
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 				DFA4D50825C1DA550064C828 /* BugBattle_Example-Bridging-Header.h */,
-				DF6A9E5E269841CA00A1F268 /* GoogleService-Info.plist */,
 			);
 			name = "Example for BugBattle";
 			path = BugBattle;
@@ -236,6 +233,7 @@
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
 				03BB681A768839DCA38D3FDC /* [CP] Embed Pods Frameworks */,
+				DF6A9E60269844AF00A1F268 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -312,7 +310,6 @@
 			files = (
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
-				DF6A9E5F269841CA00A1F268 /* GoogleService-Info.plist in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
@@ -394,6 +391,23 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		DF6A9E60269844AF00A1F268 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

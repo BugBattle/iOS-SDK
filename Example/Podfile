@@ -6,7 +6,6 @@ target 'BugBattle_Example' do
   pod 'BugBattle', :path => '../'
   pod 'Alamofire', '~> 5.2'
   pod 'AFNetworking', '~> 4.0'
-  pod 'Firebase/Analytics'
   
   target 'BugBattle_Tests' do
     inherit! :search_paths
