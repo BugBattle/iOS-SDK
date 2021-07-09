@@ -73,9 +73,6 @@
     self.customData = [[NSMutableDictionary alloc] init];
     self.navigationTint = [UIColor systemBlueColor];
     self.language = [[NSLocale preferredLanguages] firstObject];
-    
-    // Open console log.
-    [self openConsoleLog];
 }
 
 + (void)afterBugReportCleanup {
@@ -86,6 +83,10 @@
 
 + (void)setLanguage: (NSString *)language {
     [BugBattle sharedInstance].language = language;
+}
+
++ (void)disableConsoleLog {
+    [BugBattle sharedInstance].consoleLogDisabled = true;
 }
 
 + (void)enableReplays: (BOOL)enable {
@@ -161,12 +162,20 @@
     return [self topViewControllerWith: presentedViewController];
 }
 
+- (void)setSDKToken:(NSString *)token {
+    self.token = token;
+    
+    if (self.consoleLogDisabled != YES) {
+        [self openConsoleLog];
+    }
+}
+
 /*
  Costom initialize method
  */
 + (void)initWithToken: (NSString *)token andActivationMethod: (BugBattleActivationMethod)activationMethod {
     BugBattle* instance = [BugBattle sharedInstance];
-    instance.token = token;
+    [instance setSDKToken: token];
     instance.activationMethods = @[@(activationMethod)];
     [instance performActivationMethodInit];
 }
@@ -176,7 +185,7 @@
  */
 + (void)initWithToken: (NSString *)token andActivationMethods: (NSArray *)activationMethods {
     BugBattle* instance = [BugBattle sharedInstance];
-    instance.token = token;
+    [instance setSDKToken: token];
     instance.activationMethods = activationMethods;
     [instance performActivationMethodInit];
 }
@@ -186,7 +195,7 @@
  */
 + (void)autoConfigureWithToken: (NSString *)token {
     BugBattle* instance = [BugBattle sharedInstance];
-    instance.token = token;
+    [instance setSDKToken: token];
     [self autoConfigure];
 }
 

@@ -177,6 +177,13 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 + (void)setLogoUrl: (NSString *)logoUrl;
 
 /**
+ * Disables the console logging. This must be called BEFORE initializing the SDK.
+ * @author BugBattle
+ *
+ */
++ (void)disableConsoleLog;
+
+/**
  * Sets a custom privacy policy url.
  * @author BugBattle
  *
@@ -256,6 +263,7 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 @property (nonatomic, assign) bool enablePoweredBy;
 @property (nonatomic, assign) bool privacyPolicyEnabled;
 @property (nonatomic, assign) bool replaysEnabled;
+@property (nonatomic, assign) bool consoleLogDisabled;
 @property (nonatomic, assign) BugBattleApplicationType applicationType;
 @property (nonatomic, weak) id <BugBattleDelegate> delegate;
 @property (retain, nonatomic) NSString *lastScreenName;
