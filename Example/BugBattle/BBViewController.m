@@ -44,11 +44,17 @@
         NSLog(@"Lorum logsum %i", i);
     }
     
-    [BugBattle setLanguage: @"fr"];
-    
     [BugBattle setCustomerEmail: @"isabella@bugbattle.io"];
     
     [BugBattle enableReplays: true];
+    
+    [BugBattle logEvent: @"User signed in"];
+    
+    [BugBattle logEvent: @"User signed in" withData: @{
+        @"userId": @"1242",
+        @"name": @"Isabella",
+        @"skillLevel": @"🤩"
+    }];
 }
 
 - (void)didReceiveMemoryWarning

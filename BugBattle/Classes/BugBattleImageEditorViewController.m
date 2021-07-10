@@ -341,14 +341,13 @@
     
     [_loadingView setHidden: false];
     [BugBattle.sharedInstance sendReport:^(bool success) {
-        [self->_loadingView setHidden: true];
         if (success) {
+            [self->_loadingView setHidden: true];
             [self->_reportSent setHidden: false];
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
                 self.sending = NO;
                 [self dismissViewControllerAnimated: true completion:^{
-                    [[NSUserDefaults standardUserDefaults] setValue: @"" forKey: @"BugBattle_SavedDescription"];
                     [self onDismissCleanup];
                 }];
             });
@@ -367,7 +366,9 @@
                                         actionWithTitle: [BugBattleTranslationHelper localizedString: @"ok"]
                                         style:UIAlertActionStyleDefault
                                         handler:^(UIAlertAction * action) {
-                                            
+                                            [self dismissViewControllerAnimated: true completion:^{
+                                                [self onDismissCleanup];
+                                            }];
                                         }];
             [alert addAction:yesButton];
             [self presentViewController:alert animated:YES completion:nil];

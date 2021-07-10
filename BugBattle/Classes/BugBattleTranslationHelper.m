@@ -25,7 +25,7 @@
             @"report_sending": @"Sending your feedback...",
             @"report_sent": @"Gracias!",
             @"report_failed": @"Se ha producido un error.",
-            @"report_failed_title": @"Error",
+            @"report_failed_title": @"Error de conexión 🤕",
             @"mark_the_bug": @"Marque el problema",
         };
     }
@@ -39,7 +39,7 @@
             @"report_sending": @"Invio feedback in corso...",
             @"report_sent": @"Grazie!",
             @"report_failed": @"Qualcosa è andato storto.",
-            @"report_failed_title": @"Error",
+            @"report_failed_title": @"Errore di connessione 🤕",
             @"mark_the_bug": @"Segna il problema",
         };
     }
@@ -53,7 +53,7 @@
             @"report_sending": @"Envoi de vos commentaires...",
             @"report_sent": @"Merci!",
             @"report_failed": @"Oups, il y a eu un problème.",
-            @"report_failed_title": @"Error",
+            @"report_failed_title": @"Erreur de connexion 🤕",
             @"mark_the_bug": @"Marquer le problème",
         };
     }
@@ -67,7 +67,7 @@
             @"report_sending": @"Feedback wird gesendet...",
             @"report_sent": @"Vielen Dank!",
             @"report_failed": @"Ups, da ist etwas schief gelaufen.",
-            @"report_failed_title": @"Fehler",
+            @"report_failed_title": @"Verbindungsfehler 🤕",
             @"mark_the_bug": @"Markiere das Problem",
         };
     }
@@ -81,7 +81,7 @@
             @"report_sending": @"Uw feedback verzenden...",
             @"report_sent": @"Dank u!",
             @"report_failed": @"Oeps, er gaat helaas iets mis",
-            @"report_failed_title": @"Fout",
+            @"report_failed_title": @"Verbindingsfout 🤕",
             @"mark_the_bug": @"Markeer het probleem",
         };
     }
@@ -95,7 +95,7 @@
             @"report_sending": @"Odesílání zpětné vazby ...",
             @"report_sent": @"Děkuji!",
             @"report_failed": @"Ups, něco se pokazilo.",
-            @"report_failed_title": @"Chyba",
+            @"report_failed_title": @"Chyba připojení 🤕",
             @"mark_the_bug": @"Označte problém",
         };
     }
@@ -108,7 +108,7 @@
         @"report_sending": @"Sending your feedback...",
         @"report_sent": @"Thank you!",
         @"report_failed": @"Ups, something went wrong.",
-        @"report_failed_title": @"Error",
+        @"report_failed_title": @"Connection error 🤕",
         @"mark_the_bug": @"Mark the issue",
     };
 }
