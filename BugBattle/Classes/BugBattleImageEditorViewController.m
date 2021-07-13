@@ -57,7 +57,7 @@
     _sentImageView.image = [_sentImageView.image imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
     _loadingActivityView.color = BugBattle.sharedInstance.navigationTint;
     _labelSent.text = [BugBattleTranslationHelper localizedString: @"report_sent"];
-    _labelLoading.text = [BugBattleTranslationHelper localizedString: @"report_sending"];
+    _labelLoading.text = [BugBattleTranslationHelper localizedString: @"preparing_feedback"];
     
     self.navigationItem.title = @"";
     [self showCancelButton];
@@ -339,6 +339,7 @@
     self.navigationItem.leftBarButtonItem = false;
     self.navigationItem.rightBarButtonItem = false;
     
+    _labelLoading.text = [BugBattleTranslationHelper localizedString: @"report_sending"];
     [_loadingView setHidden: false];
     [BugBattle.sharedInstance sendReport:^(bool success) {
         if (success) {

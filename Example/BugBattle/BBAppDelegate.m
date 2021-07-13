@@ -18,8 +18,6 @@
     // Replace YOUR_API_KEY with your project API token.
     [BugBattle autoConfigureWithToken: @"J4ADFNfzzCdYWr8NBO4rozcb6NFeyyES"];
     
-    [BugBattle setApiUrl: @"asdf"];
-    
     return YES;
 }
 

@@ -27,6 +27,7 @@
             @"report_failed": @"Se ha producido un error.",
             @"report_failed_title": @"Error de conexión 🤕",
             @"mark_the_bug": @"Marque el problema",
+            @"preparing_feedback": @"Un momento...",
         };
     }
     
@@ -41,6 +42,7 @@
             @"report_failed": @"Qualcosa è andato storto.",
             @"report_failed_title": @"Errore di connessione 🤕",
             @"mark_the_bug": @"Segna il problema",
+            @"preparing_feedback": @"Un momento...",
         };
     }
     
@@ -55,6 +57,7 @@
             @"report_failed": @"Oups, il y a eu un problème.",
             @"report_failed_title": @"Erreur de connexion 🤕",
             @"mark_the_bug": @"Marquer le problème",
+            @"preparing_feedback": @"Un moment...",
         };
     }
     
@@ -69,6 +72,7 @@
             @"report_failed": @"Ups, da ist etwas schief gelaufen.",
             @"report_failed_title": @"Verbindungsfehler 🤕",
             @"mark_the_bug": @"Markiere das Problem",
+            @"preparing_feedback": @"Einen Moment...",
         };
     }
     
@@ -83,6 +87,7 @@
             @"report_failed": @"Oeps, er gaat helaas iets mis",
             @"report_failed_title": @"Verbindingsfout 🤕",
             @"mark_the_bug": @"Markeer het probleem",
+            @"preparing_feedback": @"Een moment...",
         };
     }
     
@@ -97,6 +102,7 @@
             @"report_failed": @"Ups, něco se pokazilo.",
             @"report_failed_title": @"Chyba připojení 🤕",
             @"mark_the_bug": @"Označte problém",
+            @"preparing_feedback": @"Moment...",
         };
     }
     
@@ -110,6 +116,7 @@
         @"report_failed": @"Ups, something went wrong.",
         @"report_failed_title": @"Connection error 🤕",
         @"mark_the_bug": @"Mark the issue",
+        @"preparing_feedback": @"One moment...",
     };
 }
 
