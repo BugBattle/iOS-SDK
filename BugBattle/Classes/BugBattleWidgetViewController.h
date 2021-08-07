@@ -1,5 +1,5 @@
 //
-//  BugBattleImageEditorViewController.h
+//  BugBattleWidgetViewController.h
 //  AyAyObjectiveCPort
 //
 //  Created by Lukas on 13.01.19.
@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BugBattleImageEditorViewController : UIViewController
+@interface BugBattleWidgetViewController : UIViewController <WKScriptMessageHandler, WKNavigationDelegate, WKUIDelegate>
 
 - (void)setScreenshot:(UIImage *)image;
 

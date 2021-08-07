@@ -7,7 +7,7 @@
 //
 
 #import "BugBattleCore.h"
-#import "BugBattleImageEditorViewController.h"
+#import "BugBattleWidgetViewController.h"
 #import "BugBattleReplayHelper.h"
 #import "BugBattleHttpTrafficRecorder.h"
 #import "BugBattleLogHelper.h"
@@ -427,19 +427,23 @@
     if (ui) {
         // UI flow
         UIStoryboard* storyboard = [UIStoryboard storyboardWithName: @"BugBattleStoryboard" bundle: [BugBattle frameworkBundle]];
-        BugBattleImageEditorViewController *bugBattleImageEditor = [storyboard instantiateViewControllerWithIdentifier: @"BugBattleImageEditorViewController"];
+        BugBattleWidgetViewController *bugBattleWidget = [storyboard instantiateViewControllerWithIdentifier: @"BugBattleWidgetViewController"];
         
-        UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController: bugBattleImageEditor];
+        UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController: bugBattleWidget];
         navController.navigationBar.barStyle = UIBarStyleBlack;
         [navController.navigationBar setTranslucent: NO];
         [navController.navigationBar setTintColor: BugBattle.sharedInstance.navigationTint];
         [navController.navigationBar setBarTintColor: [UIColor whiteColor]];
         [navController.navigationBar setTitleTextAttributes:
            @{NSForegroundColorAttributeName:[UIColor blackColor]}];
+        navController.navigationBar.hidden = YES;
+        navController.modalPresentationStyle = UIModalPresentationCustom;
+        navController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         
         // Show on top of all viewcontrollers.
-        [[BugBattle.sharedInstance getTopMostViewController] presentViewController: navController animated: true completion:^{
-            [bugBattleImageEditor setScreenshot: screenshot];
+        UIViewController *topMostViewController = [BugBattle.sharedInstance getTopMostViewController];
+        [topMostViewController presentViewController: navController animated: YES completion:^{
+            [bugBattleWidget setScreenshot: screenshot];
         }];
     } else {
         // No UI flow
