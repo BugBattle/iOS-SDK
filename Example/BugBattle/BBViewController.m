@@ -55,6 +55,30 @@
         @"name": @"Isabella",
         @"skillLevel": @"🤩"
     }];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [self getDataFrom: @"https://run.mocky.io/v3/9cc59b27-14ed-4866-bd42-f8de47ac3d16"];
+        [self getDataFrom: @"https://run.mocky.io/v3/9cc59b27-14ed-4866-bd42-f8de47ac3d12"];
+        [self getDataFrom: @"https://run.mocky.io/v3/9cc59b27-14ed-4866-bd42-f8de47ac3d15"];
+    });
+}
+
+- (NSString *) getDataFrom:(NSString *)url{
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setHTTPMethod:@"GET"];
+    [request setURL:[NSURL URLWithString:url]];
+
+    NSError *error = nil;
+    NSHTTPURLResponse *responseCode = nil;
+
+    NSData *oResponseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
+
+    if([responseCode statusCode] != 200){
+        NSLog(@"Error getting %@, HTTP status code %i", url, [responseCode statusCode]);
+        return nil;
+    }
+
+    return [[NSString alloc] initWithData:oResponseData encoding:NSUTF8StringEncoding];
 }
 
 - (void)didReceiveMemoryWarning
