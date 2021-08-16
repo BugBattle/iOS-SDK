@@ -104,14 +104,6 @@
         // [self showBackButton];
     }
     
-    if ([message.name isEqualToString: @"openScreenshotEditor"]) {
-        if ([message.body objectForKey: @"screenshotEditorIsFirstStep"] != nil && [[message.body objectForKey: @"screenshotEditorIsFirstStep"] boolValue] == YES) {
-            _screenshotEditorIsFirstStep = YES;
-        }
-        
-        [self showEditorView];
-    }
-    
     if ([message.name isEqualToString: @"sendFeedback"]) {
         NSDictionary *formData = [message.body objectForKey: @"formData"];
         NSString *feedbackType = [message.body objectForKey: @"type"];
@@ -172,7 +164,7 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:0]];
     
-    NSURL * url = [NSURL URLWithString: [NSString stringWithFormat: @"http://192.168.1.132:9002/appwidget/%@?email=%@&lang=%@&enableprivacypolicy=%@&privacyplicyurl=%@&color=%@&logourl=%@&showpoweredby=%@", BugBattle.sharedInstance.token, [BugBattle.sharedInstance.customerEmail stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], [BugBattle.sharedInstance.language stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], BugBattle.sharedInstance.privacyPolicyEnabled ? @"true" : @"false", [BugBattle.sharedInstance.privacyPolicyUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], [self hexStringForColor: BugBattle.sharedInstance.navigationTint], [BugBattle.sharedInstance.logoUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], BugBattle.sharedInstance.enablePoweredBy ? @"true" : @"false"]];
+    NSURL * url = [NSURL URLWithString: [NSString stringWithFormat: @"http://192.168.1.132:9002/appwidgetv5/%@?email=%@&lang=%@&enableprivacypolicy=%@&privacyplicyurl=%@&color=%@&logourl=%@&showpoweredby=%@", BugBattle.sharedInstance.token, [BugBattle.sharedInstance.customerEmail stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], [BugBattle.sharedInstance.language stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], BugBattle.sharedInstance.privacyPolicyEnabled ? @"true" : @"false", [BugBattle.sharedInstance.privacyPolicyUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], [self hexStringForColor: BugBattle.sharedInstance.navigationTint], [BugBattle.sharedInstance.logoUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], BugBattle.sharedInstance.enablePoweredBy ? @"true" : @"false"]];
     NSURLRequest * request = [NSURLRequest requestWithURL: url];
     [self.webView loadRequest: request];
 }
