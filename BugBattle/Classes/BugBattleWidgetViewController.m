@@ -11,22 +11,15 @@
 #import "BugBattleCore.h"
 #import "BugBattleReplayHelper.h"
 #import "BugBattleTranslationHelper.h"
-#import "BugBattleImageEditorViewController.h"
 #import <SafariServices/SafariServices.h>
 #import <math.h>
 
 @interface BugBattleWidgetViewController ()
 @property (strong, nonatomic) WKWebView *webView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *screenshotWidthContraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *screenshotHeightContraint;
 @property (weak, nonatomic) IBOutlet UIView *loadingView;
-@property (weak, nonatomic) IBOutlet UIView *reportSent;
-@property (weak, nonatomic) IBOutlet UILabel *labelSent;
-@property (weak, nonatomic) IBOutlet UIImageView *sentImageView;
+@property (weak, nonatomic) IBOutlet UIView *webViewContainer;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingActivityView;
 @property (nonatomic, assign) UIImage *screenshotImage;
-@property (nonatomic, assign) bool sending;
-@property (nonatomic, assign) bool screenshotEditorIsFirstStep;
 
 @end
 
@@ -35,16 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _screenshotEditorIsFirstStep = NO;
     [_loadingView setHidden: YES];
-    [_reportSent setHidden: YES];
-    
-    self.view.backgroundColor = UIColor.clearColor;
-    
-    _sentImageView.tintColor = BugBattle.sharedInstance.navigationTint;
-    _sentImageView.image = [_sentImageView.image imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
-    _loadingActivityView.color = BugBattle.sharedInstance.navigationTint;
-    _labelSent.text = [BugBattleTranslationHelper localizedString: @"report_sent"];
     
     [self createWebView];
 }
@@ -56,26 +40,6 @@
 - (void)closeReporting:(id)sender {
     [self dismissViewControllerAnimated: YES completion:^{
         [self onDismissCleanup];
-    }];
-}
-
-- (void)showEditorView {
-    self.navigationItem.title = [BugBattleTranslationHelper localizedString: @"mark_the_bug"];
-    
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName: @"BugBattleStoryboard" bundle: [BugBattle frameworkBundle]];
-    BugBattleImageEditorViewController *bugBattleImageEditor = [storyboard instantiateViewControllerWithIdentifier: @"BugBattleImageEditorViewController"];
-    
-    UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController: bugBattleImageEditor];
-    navController.navigationBar.barStyle = UIBarStyleBlack;
-    [navController.navigationBar setTranslucent: NO];
-    [navController.navigationBar setTintColor: BugBattle.sharedInstance.navigationTint];
-    [navController.navigationBar setBarTintColor: [UIColor whiteColor]];
-    [navController.navigationBar setTitleTextAttributes:
-       @{NSForegroundColorAttributeName:[UIColor blackColor]}];
-    navController.modalPresentationStyle = UIModalPresentationFormSheet;
-    
-    [self presentViewController: navController animated: YES completion:^{
-        [bugBattleImageEditor setScreenshot: self.screenshotImage];
     }];
 }
 
@@ -100,8 +64,8 @@
         [self closeReporting: nil];
     }
     
-    if ([message.name isEqualToString: @"selectedMenuOption"]) {
-        // [self showBackButton];
+    if ([message.name isEqualToString: @"requestScreenshot"]) {
+        [self injectScreenshot];
     }
     
     if ([message.name isEqualToString: @"sendFeedback"]) {
@@ -109,11 +73,24 @@
         NSString *feedbackType = [message.body objectForKey: @"type"];
         
         NSMutableDictionary *dataToAppend = [[NSMutableDictionary alloc] init];
-        
         [dataToAppend setValue: @"MEDIUM" forKey: @"priority"];
         [dataToAppend setValue: formData forKey: @"formData"];
         [dataToAppend setValue: feedbackType forKey: @"type"];
         [BugBattle attachData: dataToAppend];
+        
+        @try
+        {
+            NSString *screenshotBase64String = [message.body objectForKey: @"screenshot"];
+            if (screenshotBase64String != nil) {
+                screenshotBase64String = [screenshotBase64String stringByReplacingOccurrencesOfString: @"data:image/png;base64," withString: @""];
+                NSData *dataEncoded = [[NSData alloc] initWithBase64EncodedString: screenshotBase64String options:0];
+                if (dataEncoded != nil) {
+                    self.screenshotImage = [UIImage imageWithData:dataEncoded];
+                    [BugBattle attachScreenshot: self.screenshotImage];
+                }
+            }
+        }
+        @catch(id exception) {}
         
         [self sendBugReport];
     }
@@ -141,9 +118,8 @@
 - (void)createWebView {
     WKWebViewConfiguration *webConfig = [[WKWebViewConfiguration alloc] init];
     WKUserContentController* userController = [[WKUserContentController alloc] init];
+    [userController addScriptMessageHandler: self name: @"requestScreenshot"];
     [userController addScriptMessageHandler: self name: @"sendFeedback"];
-    [userController addScriptMessageHandler: self name: @"openScreenshotEditor"];
-    [userController addScriptMessageHandler: self name: @"selectedMenuOption"];
     [userController addScriptMessageHandler: self name: @"customActionCalled"];
     [userController addScriptMessageHandler: self name: @"openExternalURL"];
     [userController addScriptMessageHandler: self name: @"closeBugBattle"];
@@ -155,18 +131,40 @@
     self.webView.scrollView.backgroundColor = UIColor.clearColor;
     self.webView.navigationDelegate = self;
     self.webView.UIDelegate = self;
+    
+    [self.webViewContainer addSubview: self.webView];
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    [self.view insertSubview: self.webView belowSubview: self.loadingView];
+    [self.webViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.webViewContainer attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+    [self.webViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.webViewContainer attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+    [self.webViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.webViewContainer attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
+    [self.webViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.webViewContainer attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
     
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.bottomLayoutGuide attribute:NSLayoutAttributeTop multiplier:1.0 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.topLayoutGuide attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:0]];
-    
-    NSURL * url = [NSURL URLWithString: [NSString stringWithFormat: @"http://192.168.1.132:9002/appwidgetv5/%@?email=%@&lang=%@&enableprivacypolicy=%@&privacyplicyurl=%@&color=%@&logourl=%@&showpoweredby=%@", BugBattle.sharedInstance.token, [BugBattle.sharedInstance.customerEmail stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], [BugBattle.sharedInstance.language stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], BugBattle.sharedInstance.privacyPolicyEnabled ? @"true" : @"false", [BugBattle.sharedInstance.privacyPolicyUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], [self hexStringForColor: BugBattle.sharedInstance.navigationTint], [BugBattle.sharedInstance.logoUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], BugBattle.sharedInstance.enablePoweredBy ? @"true" : @"false"]];
+    NSURL * url = [NSURL URLWithString: [NSString stringWithFormat: @"https://widget.bugbattle.io/appwidgetv5/%@?email=%@&name=%@&lang=%@&enableprivacypolicy=%@&privacyplicyurl=%@&color=%@&logourl=%@&showpoweredby=%@", BugBattle.sharedInstance.token, [BugBattle.sharedInstance.customerEmail stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], [BugBattle.sharedInstance.customerName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], [BugBattle.sharedInstance.language stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], BugBattle.sharedInstance.privacyPolicyEnabled ? @"true" : @"false", [BugBattle.sharedInstance.privacyPolicyUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], [self hexStringForColor: BugBattle.sharedInstance.navigationTint], [BugBattle.sharedInstance.logoUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], BugBattle.sharedInstance.enablePoweredBy ? @"true" : @"false"]];
     NSURLRequest * request = [NSURLRequest requestWithURL: url];
     [self.webView loadRequest: request];
+}
+
+- (void)injectScreenshot {
+    if (self.screenshotImage == nil) {
+        return;
+    }
+    
+    @try
+    {
+        NSData *data = UIImagePNGRepresentation(self.screenshotImage);
+        NSString *base64Data = [data base64EncodedStringWithOptions: 0];
+        [self.webView evaluateJavaScript: [NSString stringWithFormat: @"BugBattle.default.setScreenshot('data:image/png;base64,%@', true)", base64Data] completionHandler: nil];
+    }
+    @catch(id exception) {}
+}
+
+- (void)showSuccessMessage {
+    @try
+    {
+        [self.webView evaluateJavaScript: @"BugBattle.default.getInstance().showSuccessAndClose()" completionHandler: nil];
+    }
+    @catch(id exception) {}
 }
 
 - (NSString *)hexStringForColor:(UIColor *)color {
@@ -241,24 +239,14 @@
     self.navigationItem.leftBarButtonItem = false;
     self.navigationItem.rightBarButtonItem = false;
     
-    [_loadingView setHidden: false];
     [BugBattle.sharedInstance sendReport:^(bool success) {
         if (success) {
-            [self->_loadingView setHidden: true];
-            [self->_reportSent setHidden: false];
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC));
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-                self.sending = NO;
-                [self dismissViewControllerAnimated: true completion:^{
-                    [self onDismissCleanup];
-                }];
-            });
+            [self showSuccessMessage];
             
             if (BugBattle.sharedInstance.delegate && [BugBattle.sharedInstance.delegate respondsToSelector: @selector(bugSent)]) {
                 [BugBattle.sharedInstance.delegate bugSent];
             }
         } else {
-            self.sending = NO;
             [[self navigationController] setNavigationBarHidden: NO animated: NO];
             UIAlertController * alert = [UIAlertController
                                          alertControllerWithTitle: [BugBattleTranslationHelper localizedString: @"report_failed_title"]

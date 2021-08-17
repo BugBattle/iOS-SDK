@@ -30,8 +30,8 @@
             filePath = "../BugBattle/Classes/BugBattleCore.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "542"
-            endingLineNumber = "542"
+            startingLineNumber = "560"
+            endingLineNumber = "560"
             landmarkName = "-captureScreen"
             landmarkType = "7">
             <Locations>
@@ -78,8 +78,8 @@
             filePath = "../BugBattle/Classes/BugBattleCore.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "904"
-            endingLineNumber = "904"
+            startingLineNumber = "922"
+            endingLineNumber = "922"
             landmarkName = "-receiveLogNotification:"
             landmarkType = "7">
          </BreakpointContent>
@@ -94,8 +94,8 @@
             filePath = "../BugBattle/Classes/BugBattleCore.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "445"
-            endingLineNumber = "445"
+            startingLineNumber = "463"
+            endingLineNumber = "463"
             landmarkName = "+startBugReportingWithScreenshot:andUI:"
             landmarkType = "7">
             <Locations>
@@ -135,15 +135,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F690FF91-7038-41F0-9937-A8BAD97F9747"
-            shouldBeEnabled = "Yes"
+            uuid = "C0F2C455-9A5F-49B3-9175-35C4A27E8CBD"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../BugBattle/Classes/BugBattleWidgetViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
             landmarkName = "-createWebView"
             landmarkType = "7">
          </BreakpointContent>

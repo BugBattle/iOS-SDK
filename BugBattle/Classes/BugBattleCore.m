@@ -58,6 +58,7 @@
     self.token = @"";
     self.logoUrl = @"";
     self.customerEmail = @"";
+    self.customerName = @"";
     self.privacyPolicyUrl = @"";
     self.privacyPolicyEnabled = NO;
     self.enablePoweredBy = YES;
@@ -79,6 +80,8 @@
     if ([BugBattle sharedInstance].replaysEnabled) {
         [[BugBattleReplayHelper sharedInstance] start];
     }
+    
+    BugBattle.sharedInstance.currentlyOpened = NO;
 }
 
 + (void)setLanguage: (NSString *)language {
@@ -345,6 +348,13 @@
     BugBattle.sharedInstance.customerEmail = email;
 }
 
+/**
+ Sets the customer's name.
+ */
++ (void)setCustomerName: (NSString *)name {
+    BugBattle.sharedInstance.customerName = name;
+}
+
 + (void)setNavigationTint: (UIColor *)color {
     BugBattle.sharedInstance.navigationTint = color;
 }
@@ -408,10 +418,17 @@
 }
 
 + (void)startBugReportingWithScreenshot:(UIImage *)screenshot andUI:(BOOL)ui {
+    if (BugBattle.sharedInstance.currentlyOpened) {
+        NSLog(@"WARN: Bugbattle is already opened.");
+        return;
+    }
+    
     if (BugBattle.sharedInstance.token.length == 0) {
         NSLog(@"WARN: Please provide a valid BugBattle project TOKEN!");
         return;
     }
+    
+    BugBattle.sharedInstance.currentlyOpened = YES;
     
     if (BugBattle.sharedInstance.delegate && [BugBattle.sharedInstance.delegate respondsToSelector: @selector(bugWillBeSent)]) {
         [BugBattle.sharedInstance.delegate bugWillBeSent];
@@ -428,6 +445,7 @@
         // UI flow
         UIStoryboard* storyboard = [UIStoryboard storyboardWithName: @"BugBattleStoryboard" bundle: [BugBattle frameworkBundle]];
         BugBattleWidgetViewController *bugBattleWidget = [storyboard instantiateViewControllerWithIdentifier: @"BugBattleWidgetViewController"];
+        [bugBattleWidget setScreenshot: screenshot];
         
         UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController: bugBattleWidget];
         navController.navigationBar.barStyle = UIBarStyleBlack;
@@ -443,7 +461,7 @@
         // Show on top of all viewcontrollers.
         UIViewController *topMostViewController = [BugBattle.sharedInstance getTopMostViewController];
         [topMostViewController presentViewController: navController animated: YES completion:^{
-            [bugBattleWidget setScreenshot: screenshot];
+            
         }];
     } else {
         // No UI flow
