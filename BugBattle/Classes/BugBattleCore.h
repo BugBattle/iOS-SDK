@@ -200,6 +200,14 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 + (void)setMaxNetworkLogs: (int)maxNetworkLogs;
 
 /**
+ * Sets the customer's name.
+ * @author BugBattle
+ *
+ * @param name The customer's name.
+ */
++ (void)setCustomerName:(NSString *)name;
+
+/**
  * Sets the customer's email address.
  * @author BugBattle
  *
@@ -288,7 +296,9 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } BugBattleApplicati
 @property (nonatomic, weak) id <BugBattleDelegate> delegate;
 @property (retain, nonatomic) NSString *lastScreenName;
 @property (retain, nonatomic) NSString *customerEmail;
+@property (retain, nonatomic) NSString *customerName;
 @property (retain, nonatomic) UIColor *navigationTint;
+@property (nonatomic, assign) bool currentlyOpened;
 
 extern NSString *const BugBattleStepTypeView;
 extern NSString *const BugBattleStepTypeButton;

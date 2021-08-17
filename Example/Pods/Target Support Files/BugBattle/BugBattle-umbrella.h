@@ -13,7 +13,7 @@
 #import "BugBattle.h"
 #import "BugBattleCore.h"
 #import "BugBattleHttpTrafficRecorder.h"
-#import "BugBattleImageEditorViewController.h"
+#import "BugBattleWidgetViewController.h"
 #import "BugBattleReplayHelper.h"
 #import "BugBattleTouchDrawImageView.h"
 #import "BugBattleTouchHelper.h"

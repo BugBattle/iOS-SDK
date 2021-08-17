@@ -30,6 +30,9 @@
     
     self.title = @"Home";
     
+    [BugBattle setCustomerEmail: @"lukas@bugbattle.io"];
+    [BugBattle setCustomerName: @"Lukas"];
+    
     BugBattle.sharedInstance.delegate = self;
     
     [BugBattle attachCustomData: @{ @"key" : @"value", @"key2" : @"value2"}];

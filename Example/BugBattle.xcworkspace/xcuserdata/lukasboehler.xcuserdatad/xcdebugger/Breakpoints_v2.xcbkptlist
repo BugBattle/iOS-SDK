@@ -30,8 +30,8 @@
             filePath = "../BugBattle/Classes/BugBattleCore.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "538"
-            endingLineNumber = "538"
+            startingLineNumber = "560"
+            endingLineNumber = "560"
             landmarkName = "-captureScreen"
             landmarkType = "7">
             <Locations>
@@ -71,22 +71,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "582CDF91-474B-4366-87E8-7A08A954C4CA"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../BugBattle/Classes/BugBattleImageEditorViewController.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "213"
-            endingLineNumber = "213"
-            landmarkName = "-createWebView"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "0108787E-F439-4D2C-B3EB-8BCD73574331"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -94,9 +78,73 @@
             filePath = "../BugBattle/Classes/BugBattleCore.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "900"
-            endingLineNumber = "900"
+            startingLineNumber = "922"
+            endingLineNumber = "922"
             landmarkName = "-receiveLogNotification:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "22282DA9-A8EF-49C5-8055-20CD567C562F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../BugBattle/Classes/BugBattleCore.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "463"
+            endingLineNumber = "463"
+            landmarkName = "+startBugReportingWithScreenshot:andUI:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "22282DA9-A8EF-49C5-8055-20CD567C562F - d554227f44bdfd9c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "+[BugBattle startBugReportingWithScreenshot:andUI:]"
+                  moduleName = "BugBattle"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lukasboehler/Documents/GitHub/iOS-SDK/BugBattle/Classes/BugBattleCore.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "445"
+                  endingLineNumber = "445"
+                  offsetFromSymbolStart = "1640">
+               </Location>
+               <Location
+                  uuid = "22282DA9-A8EF-49C5-8055-20CD567C562F - 9f50d29a8444d967"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__51+[BugBattle startBugReportingWithScreenshot:andUI:]_block_invoke"
+                  moduleName = "BugBattle"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lukasboehler/Documents/GitHub/iOS-SDK/BugBattle/Classes/BugBattleCore.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "446"
+                  endingLineNumber = "446"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C0F2C455-9A5F-49B3-9175-35C4A27E8CBD"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../BugBattle/Classes/BugBattleWidgetViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
+            landmarkName = "-createWebView"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
