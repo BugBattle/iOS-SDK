@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIView *loadingView;
 @property (weak, nonatomic) IBOutlet UIView *webViewContainer;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingActivityView;
-@property (nonatomic, assign) UIImage *screenshotImage;
+@property (nonatomic, retain) UIImage *screenshotImage;
 
 @end
 
