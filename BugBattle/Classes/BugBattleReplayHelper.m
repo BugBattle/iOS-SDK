@@ -42,11 +42,13 @@
         return;
     }
     self.running = true;
-    self.replayTimer = [NSTimer scheduledTimerWithTimeInterval: 1
-                                         target: self
-                                       selector: @selector(addReplayStep)
-                                       userInfo: nil
-                                        repeats: YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.replayTimer = [NSTimer scheduledTimerWithTimeInterval: 1
+                                             target: self
+                                           selector: @selector(addReplayStep)
+                                           userInfo: nil
+                                            repeats: YES];
+    });
 }
 
 - (void)stop {

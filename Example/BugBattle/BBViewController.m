@@ -30,9 +30,6 @@
     
     self.title = @"Home";
     
-    [BugBattle setCustomerEmail: @"lukas@bugbattle.io"];
-    [BugBattle setCustomerName: @"Lukas"];
-    
     BugBattle.sharedInstance.delegate = self;
     
     [BugBattle attachCustomData: @{ @"key" : @"value", @"key2" : @"value2"}];
@@ -41,16 +38,6 @@
     
     [BugBattle setCustomData: @"lukas@bugbattle.io" forKey: @"email"];
 
-    NSLog(@"Started Bugbattle-Demo.");
-    
-    for (int i = 0; i < 5; i++) {
-        NSLog(@"Lorum logsum %i", i);
-    }
-    
-    [BugBattle setCustomerEmail: @"isabella@bugbattle.io"];
-    
-    [BugBattle enableReplays: true];
-    
     [BugBattle logEvent: @"User signed in"];
     
     [BugBattle logEvent: @"User signed in" withData: @{
