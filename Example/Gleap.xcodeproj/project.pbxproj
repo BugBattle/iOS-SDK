@@ -543,7 +543,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "at.bugbattle.demo.Gleap-Example";
+				PRODUCT_BUNDLE_IDENTIFIER = "at.gleap.demo.Gleap-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Gleap/Gleap_Example-Bridging-Header.h";
@@ -568,7 +568,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "at.bugbattle.demo.Gleap-Example";
+				PRODUCT_BUNDLE_IDENTIFIER = "at.gleap.demo.Gleap-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Gleap/Gleap_Example-Bridging-Header.h";

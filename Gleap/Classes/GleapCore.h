@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "GleapUserSession.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -61,6 +62,15 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } GleapApplicationTy
 + (void)autoConfigureWithToken: (NSString *)token;
 
 /**
+ * Auto-configures the Gleap SDK from the remote config.
+ * @author Gleap
+ *
+ * @param token The SDK key, which can be found on dashboard.bugbattle.io
+ * @param userSession The GleapSession for the current user.
+ */
++ (void)autoConfigureWithToken: (NSString *)token andUserSession: (nullable GleapUserSession *)userSession;
+
+/**
  * Manually start the bug reporting workflow. This is used, when you use the activation method "NONE".
  * @author Gleap
  *
@@ -73,6 +83,20 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } GleapApplicationTy
  *
  */
 + (void)sendSilentBugReportWith:(NSString *)email andDescription:(NSString *)description andPriority:(GleapBugPriority)priority;
+
+/**
+ * Updates a session's user data.
+ * @author Gleap
+ *
+ * @param data The updated user data.
+ */
++ (void)updateUserSessionWithData:(nullable GleapUserSession *)data;
+
+/**
+ * Clears a user session.
+ * @author Gleap
+ */
++ (void)clearUserSession;
 
 /**
  * Enables replays
@@ -113,30 +137,6 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } GleapApplicationTy
 + (void)clearCustomData;
 
 /**
- * Set a custom navigation bar tint color.
- * @author Gleap
- *
- * @param color The  color of the navigation action items.
- */
-+ (void)setNavigationBarTint:(UIColor *)color __deprecated;
-
-/**
- * Set a custom navigation title color.
- * @author Gleap
- *
- * @param color The  color of the navigation action items.
- */
-+ (void)setNavigationBarTitleColor:(UIColor *)color __deprecated;
-
-/**
- * Set a custom navigation tint color.
- * @author Gleap
- *
- * @param color The  color of the navigation action items.
- */
-+ (void)setNavigationTint:(UIColor *)color __deprecated;
-
-/**
  * Sets a custom accent color
  * @author Gleap
  *
@@ -153,28 +153,12 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } GleapApplicationTy
 + (void)setApiUrl: (NSString *)apiUrl;
 
 /**
- * Enables the privacy policy check.
+ * Sets a custom widget url.
  * @author Gleap
  *
- * @param enable Enable the privacy policy.
+ * @param widgetUrl The custom widget url.
  */
-+ (void)enablePrivacyPolicy: (BOOL)enable;
-
-/**
- * Enables or disables the powered by Bugbattle logo.
- * @author Gleap
- *
- * @param enable Enablesor disable the powered by Bugbattle logo.
- */
-+ (void)enablePoweredByBugbattle: (BOOL)enable;
-
-/**
- * Sets the main logo url.
- * @author Gleap
- *
- * @param logoUrl The main logo url.
- */
-+ (void)setLogoUrl: (NSString *)logoUrl;
++ (void)setWidgetUrl: (NSString *)widgetUrl;
 
 /**
  * Disables the console logging. This must be called BEFORE initializing the SDK.
@@ -284,20 +268,15 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } GleapApplicationTy
 @property (nonatomic, retain) NSString* language;
 @property (nonatomic, retain) NSString* token;
 @property (nonatomic, retain) NSString* apiUrl;
-@property (nonatomic, retain) NSString* privacyPolicyUrl;
+@property (nonatomic, retain) NSString* widgetUrl;
 @property (nonatomic, retain) NSArray *activationMethods;
 @property (nonatomic, retain) NSString *logoUrl;
 @property (nonatomic, retain) NSMutableDictionary* data;
-@property (nonatomic, assign) bool enablePoweredBy;
-@property (nonatomic, assign) bool privacyPolicyEnabled;
 @property (nonatomic, assign) bool replaysEnabled;
 @property (nonatomic, assign) bool consoleLogDisabled;
 @property (nonatomic, assign) GleapApplicationType applicationType;
 @property (nonatomic, weak) id <GleapDelegate> delegate;
 @property (retain, nonatomic) NSString *lastScreenName;
-@property (retain, nonatomic) NSString *customerEmail;
-@property (retain, nonatomic) NSString *customerName;
-@property (retain, nonatomic) UIColor *navigationTint;
 @property (nonatomic, assign) bool currentlyOpened;
 
 extern NSString *const GleapStepTypeView;

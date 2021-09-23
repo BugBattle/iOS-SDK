@@ -15,8 +15,16 @@
 {
     // Override point for customization after application launch.
     
-    // Replace YOUR_API_KEY with your project API token.
-    [Gleap autoConfigureWithToken: @"J4ADFNfzzCdYWr8NBO4rozcb6NFeyyES"];
+    [Gleap setApiUrl: @"https://api.gleap.dev"];
+    [Gleap setWidgetUrl: @"http://192.168.1.158:9002"];
+    
+    GleapUserSession *userSession = [[GleapUserSession alloc] init];
+    userSession.userId = @"1";
+    userSession.userHash = @"db5897fe20d33d8072babc477655eba5240e606cbde86deaa0c17e34eaef6201";
+    userSession.name = @"Franz";
+    userSession.email = @"lukas@boehlerbrothers.com";
+    
+    [Gleap autoConfigureWithToken: @"OcLgYN5vWavsjTrv1vjAjGj22INW0Xdz" andUserSession: userSession];
     
     return YES;
 }

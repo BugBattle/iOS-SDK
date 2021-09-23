@@ -10,6 +10,8 @@
 #import "GleapWidgetViewController.h"
 #import "GleapReplayHelper.h"
 #import "GleapHttpTrafficRecorder.h"
+#import "GleapSessionHelper.h"
+#import "GleapUserSession.h"
 #import "GleapLogHelper.h"
 #import <sys/utsname.h>
 
@@ -57,12 +59,8 @@
     self.lastScreenName = @"";
     self.token = @"";
     self.logoUrl = @"";
-    self.customerEmail = @"";
-    self.customerName = @"";
-    self.privacyPolicyUrl = @"";
-    self.privacyPolicyEnabled = NO;
-    self.enablePoweredBy = YES;
-    self.apiUrl = @"https://api.bugbattle.io";
+    self.apiUrl = @"https://api.gleap.io";
+    self.widgetUrl = @"https://widget.gleap.io";
     self.activationMethods = [[NSArray alloc] init];
     self.applicationType = NATIVE;
     self.screenshot = nil;
@@ -72,7 +70,6 @@
     self.callstack = [[NSMutableArray alloc] init];
     self.stepsToReproduce = [[NSMutableArray alloc] init];
     self.customData = [[NSMutableDictionary alloc] init];
-    self.navigationTint = [UIColor systemBlueColor];
     self.language = [[NSLocale preferredLanguages] firstObject];
 }
 
@@ -201,17 +198,23 @@
     [instance performActivationMethodInit];
 }
 
++ (void)autoConfigureWithToken: (NSString *)token andUserSession: (nullable GleapUserSession *)userSession {
+    Gleap* instance = [Gleap sharedInstance];
+    [instance setSDKToken: token];
+    [[GleapSessionHelper sharedInstance] startSessionWithData: userSession andCompletion:^(bool success) {
+        [self autoConfigure];
+    }];
+}
+
 /*
  Autoconfigure with token
  */
 + (void)autoConfigureWithToken: (NSString *)token {
-    Gleap* instance = [Gleap sharedInstance];
-    [instance setSDKToken: token];
-    [self autoConfigure];
+    [Gleap autoConfigureWithToken: token andUserSession: nil];
 }
 
 + (void)autoConfigure {
-    NSString *widgetConfigURL = [NSString stringWithFormat: @"https://widget.bugbattle.io/appwidget/%@/config?s=ios", Gleap.sharedInstance.token];
+    NSString *widgetConfigURL = [NSString stringWithFormat: @"%@/appwidget/%@/config?s=ios", Gleap.sharedInstance.widgetUrl, Gleap.sharedInstance.token];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setHTTPMethod:@"GET"];
     [request setURL: [NSURL URLWithString: widgetConfigURL]];
@@ -235,25 +238,12 @@
 }
 
 - (void)configureGleapWithConfig: (NSDictionary *)config {
-    if ([config objectForKey: @"color"] != nil) {
-        UIColor * color = [self colorFromHexString: [config objectForKey: @"color"]];
-        [Gleap setColor: color];
-    }
     if ([config objectForKey: @"enableNetworkLogs"] != nil && [[config objectForKey: @"enableNetworkLogs"] boolValue] == YES) {
         [Gleap startNetworkRecording];
     }
     if ([config objectForKey: @"enableReplays"] != nil) {
         [Gleap enableReplays: [[config objectForKey: @"enableReplays"] boolValue]];
     }
-    if ([config objectForKey: @"logo"] != nil) {
-        [Gleap setLogoUrl: [config objectForKey: @"logo"]];
-    }
-    if ([config objectForKey: @"hideGleapLogo"] != nil && [[config objectForKey: @"hideGleapLogo"] boolValue] == YES) {
-        [Gleap enablePoweredByBugbattle: NO];
-    } else {
-        [Gleap enablePoweredByBugbattle: YES];
-    }
-    
     NSMutableArray * activationMethods = [[NSMutableArray alloc] init];
     if ([config objectForKey: @"activationMethodShake"] != nil && [[config objectForKey: @"activationMethodShake"] boolValue] == YES) {
         [activationMethods addObject: @(SHAKE)];
@@ -271,12 +261,22 @@
     }
 }
 
--(UIColor *)colorFromHexString:(NSString *)hexString {
-    unsigned rgbValue = 0;
-    NSScanner *scanner = [NSScanner scannerWithString:hexString];
-    [scanner setScanLocation:1];
-    [scanner scanHexInt:&rgbValue];
-    return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+/**
+ * Updates a session's user data.
+ * @author Gleap
+ *
+ * @param data The updated user data.
+ */
++ (void)updateUserSessionWithData:(nullable GleapUserSession *)data {
+    [GleapSessionHelper.sharedInstance startSessionWithData: data andCompletion:^(bool success) {}];
+}
+
+/**
+ * Clears a user session.
+ * @author Gleap
+ */
++ (void)clearUserSession {
+    [GleapSessionHelper.sharedInstance clearSession];
 }
 
 /**
@@ -333,42 +333,8 @@
     Gleap.sharedInstance.apiUrl = apiUrl;
 }
 
-+ (void)setPrivacyPolicyUrl: (NSString *)privacyPolicyUrl {
-    Gleap.sharedInstance.privacyPolicyUrl = privacyPolicyUrl;
-}
-
-+ (void)enablePrivacyPolicy:(BOOL)enable {
-    Gleap.sharedInstance.privacyPolicyEnabled = enable;
-}
-
-/**
- Sets the customer's email address.
- */
-+ (void)setCustomerEmail: (NSString *)email {
-    Gleap.sharedInstance.customerEmail = email;
-}
-
-/**
- Sets the customer's name.
- */
-+ (void)setCustomerName: (NSString *)name {
-    Gleap.sharedInstance.customerName = name;
-}
-
-+ (void)setNavigationTint: (UIColor *)color {
-    Gleap.sharedInstance.navigationTint = color;
-}
-
-+ (void)setNavigationBarTint:(UIColor *)color __deprecated {
-    
-}
-
-+ (void)setNavigationBarTitleColor:(UIColor *)color __deprecated {
-    
-}
-
-+ (void)setColor:(UIColor *)color {
-    Gleap.sharedInstance.navigationTint = color;
++ (void)setWidgetUrl: (NSString *)widgetUrl {
+    Gleap.sharedInstance.widgetUrl = widgetUrl;
 }
 
 /*
@@ -418,8 +384,13 @@
 }
 
 + (void)startBugReportingWithScreenshot:(UIImage *)screenshot andUI:(BOOL)ui {
+    if (GleapSessionHelper.sharedInstance.currentSession == nil) {
+        NSLog(@"WARN: Gleap session not ready.");
+        return;
+    }
+    
     if (Gleap.sharedInstance.currentlyOpened) {
-        NSLog(@"WARN: Bugbattle is already opened.");
+        NSLog(@"WARN: Gleap is already opened.");
         return;
     }
     
@@ -450,7 +421,6 @@
         UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController: bugBattleWidget];
         navController.navigationBar.barStyle = UIBarStyleBlack;
         [navController.navigationBar setTranslucent: NO];
-        [navController.navigationBar setTintColor: Gleap.sharedInstance.navigationTint];
         [navController.navigationBar setBarTintColor: [UIColor whiteColor]];
         [navController.navigationBar setTitleTextAttributes:
            @{NSForegroundColorAttributeName:[UIColor blackColor]}];
@@ -543,14 +513,6 @@
  */
 + (void)setApplicationType: (GleapApplicationType)applicationType {
     Gleap.sharedInstance.applicationType = applicationType;
-}
-
-+ (void)enablePoweredByBugbattle: (BOOL)enable {
-    Gleap.sharedInstance.enablePoweredBy = enable;
-}
-
-+ (void)setLogoUrl: (NSString *)logoUrl {
-    Gleap.sharedInstance.logoUrl = logoUrl;
 }
 
 /*
@@ -664,7 +626,7 @@
     NSMutableURLRequest *request = [NSMutableURLRequest new];
     request.HTTPMethod = @"POST";
     [request setURL: [NSURL URLWithString: [NSString stringWithFormat: @"%@/bugs", _apiUrl]]];
-    [request setValue: _token forHTTPHeaderField: @"Api-Token"];
+    [GleapSessionHelper injectSessionInRequest: request];
     [request setValue: @"application/json" forHTTPHeaderField: @"Content-Type"];
     [request setValue: @"application/json" forHTTPHeaderField: @"Accept"];
     [request setHTTPBody: jsonBodyData];
@@ -691,7 +653,7 @@
 - (void)uploadFile: (NSData *)fileData andFileName: (NSString*)filename andContentType: (NSString*)contentType andCompletion: (void (^)(bool success, NSString *fileUrl))completion {
     NSMutableURLRequest *request = [NSMutableURLRequest new];
     [request setURL: [NSURL URLWithString: [NSString stringWithFormat: @"%@/uploads/sdk", _apiUrl]]];
-    [request setValue: _token forHTTPHeaderField: @"Api-Token"];
+    [GleapSessionHelper injectSessionInRequest: request];
     [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     [request setHTTPShouldHandleCookies:NO];
     [request setTimeoutInterval:60];
@@ -756,7 +718,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         NSMutableURLRequest *request = [NSMutableURLRequest new];
         [request setURL: [NSURL URLWithString: [NSString stringWithFormat: @"%@/uploads/sdksteps", self->_apiUrl]]];
-        [request setValue: self->_token forHTTPHeaderField: @"Api-Token"];
+        [GleapSessionHelper injectSessionInRequest: request];
         [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
         [request setHTTPShouldHandleCookies:NO];
         [request setTimeoutInterval:60];

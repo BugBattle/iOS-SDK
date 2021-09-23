@@ -7,9 +7,9 @@
 //
 
 #import "GleapWidgetViewController.h"
-#import "GleapTouchDrawImageView.h"
 #import "GleapCore.h"
 #import "GleapReplayHelper.h"
+#import "GleapSessionHelper.h"
 #import "GleapTranslationHelper.h"
 #import <SafariServices/SafariServices.h>
 #import <math.h>
@@ -140,7 +140,7 @@
     [self.webViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.webViewContainer attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
     [self.webViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.webViewContainer attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
     
-    NSURL * url = [NSURL URLWithString: [NSString stringWithFormat: @"https://widget.bugbattle.io/appwidgetv5/%@?email=%@&name=%@&lang=%@&enableprivacypolicy=%@&privacyplicyurl=%@&color=%@&logourl=%@&showpoweredby=%@", Gleap.sharedInstance.token, [Gleap.sharedInstance.customerEmail stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], [Gleap.sharedInstance.customerName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], [Gleap.sharedInstance.language stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], Gleap.sharedInstance.privacyPolicyEnabled ? @"true" : @"false", [Gleap.sharedInstance.privacyPolicyUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], [self hexStringForColor: Gleap.sharedInstance.navigationTint], [Gleap.sharedInstance.logoUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], Gleap.sharedInstance.enablePoweredBy ? @"true" : @"false"]];
+    NSURL * url = [NSURL URLWithString: [NSString stringWithFormat: @"%@/appwidget/%@?lang=%@&sessionId=%@&sessionHash=%@", Gleap.sharedInstance.widgetUrl, Gleap.sharedInstance.token, [Gleap.sharedInstance.language stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]], GleapSessionHelper.sharedInstance.currentSession.userId, GleapSessionHelper.sharedInstance.currentSession.userHash]];
     NSURLRequest * request = [NSURLRequest requestWithURL: url];
     [self.webView loadRequest: request];
 }
