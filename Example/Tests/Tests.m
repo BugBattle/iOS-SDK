@@ -1,6 +1,6 @@
 //
-//  BugBattleTests.m
-//  BugBattleTests
+//  GleapTests.m
+//  GleapTests
 //
 //  Created by Lukas Böhler on 06/12/2019.
 //  Copyright (c) 2019 Lukas Böhler. All rights reserved.

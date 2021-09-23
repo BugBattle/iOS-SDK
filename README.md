@@ -1,6 +1,6 @@
 # Bugbattle iOS SDK
 
-![Bugbattle iOS SDK Intro](https://github.com/BugBattle/iOS-SDK/blob/master/imgs/bugbattle-intro.png)
+![Bugbattle iOS SDK Intro](https://github.com/Gleap/iOS-SDK/blob/master/imgs/bugbattle-intro.png)
 
 The Bugbattle SDK for iOS is the easiest way to integrate Bugbattle into your apps!
 
@@ -23,7 +23,7 @@ $ pod init
 **Open your Podfile and add:**
 
 ```
-pod 'BugBattle'
+pod 'Gleap'
 ```
 
 **Save the file and run:**
@@ -34,7 +34,7 @@ $ pod install
 
 This creates an .xcworkspace file for your app. Use this file for all future development on your application.
 
-The BugBattle SDK is almost installed successfully.
+The Gleap SDK is almost installed successfully.
 Let's carry on with the initialization 🎉
 
 Open your XCode project (.xcworkspace) and open your App Delegate (AppDelegate.swift)
@@ -45,7 +45,7 @@ Open your XCode project (.xcworkspace) and open your App Delegate (AppDelegate.s
 Import the Bugbattle SDK by adding the following import below your other imports.
 
 ```
-import BugBattle
+import Gleap
 ```
 
 **Initialize the SDK**
@@ -53,12 +53,12 @@ import BugBattle
 The last step is to initialize the Bugbattle SDK by adding the following Code to the end of the ```applicationDidFinishLaunchingWithOptions``` delegate:
 
 ```
-BugBattle.initWithToken("YOUR-API-KEY", andActivationMethod: SHAKE)
+Gleap.initWithToken("YOUR-API-KEY", andActivationMethod: SHAKE)
 ```
 
 (Your API key can be found in the project settings within Bugbattle)
 
 It's also possible to specify multiple activation methods.
 ```
-[BugBattle initWithToken: @"YOUR_API_KEY" andActivationMethods: @[@(THREE_FINGER_DOUBLE_TAB), @(SHAKE), @(SCREENSHOT)]];
+[Gleap initWithToken: @"YOUR_API_KEY" andActivationMethods: @[@(THREE_FINGER_DOUBLE_TAB), @(SHAKE), @(SCREENSHOT)]];
 ```

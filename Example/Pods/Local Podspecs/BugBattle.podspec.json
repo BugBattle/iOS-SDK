@@ -1,5 +1,5 @@
 {
-  "name": "BugBattle",
+  "name": "Gleap",
   "version": "4.0.7",
   "summary": "In-App Bug Reporting and Testing for Apps. Learn more at https://www.bugbattle.io",
   "homepage": "https://www.bugbattle.io",
@@ -8,20 +8,20 @@
     "file": "LICENSE.md"
   },
   "authors": {
-    "BugBattle": "hello@bugbattle.io"
+    "Gleap": "hello@bugbattle.io"
   },
   "platforms": {
     "ios": "9.0"
   },
   "source": {
-    "git": "https://github.com/BugBattle/iOS-SDK.git",
+    "git": "https://github.com/Gleap/iOS-SDK.git",
     "tag": "4.0.7"
   },
-  "source_files": "BugBattle/Classes/**/*",
-  "public_header_files": "BugBattle/Classes/**/*.h",
+  "source_files": "Gleap/Classes/**/*",
+  "public_header_files": "Gleap/Classes/**/*.h",
   "resources": [
-    "BugBattle/Assets/**/*.storyboard",
-    "BugBattle/Assets/**/*.png"
+    "Gleap/Assets/**/*.storyboard",
+    "Gleap/Assets/**/*.png"
   ],
   "frameworks": [
     "UIKit",

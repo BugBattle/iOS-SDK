@@ -14,17 +14,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>BugBattle.xcscheme</key>
+		<key>Gleap.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-BugBattle_Example.xcscheme</key>
+		<key>Pods-Gleap_Example.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-BugBattle_Tests.xcscheme</key>
+		<key>Pods-Gleap_Tests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

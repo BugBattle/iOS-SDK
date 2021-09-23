@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AADCA364F5AF64089E2B921148119B87"
-               BuildableName = "Pods_BugBattle_Example.framework"
-               BlueprintName = "Pods-BugBattle_Example"
+               BuildableName = "Pods_Gleap_Example.framework"
+               BlueprintName = "Pods-Gleap_Example"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,8 +46,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AADCA364F5AF64089E2B921148119B87"
-            BuildableName = "Pods_BugBattle_Example.framework"
-            BlueprintName = "Pods-BugBattle_Example"
+            BuildableName = "Pods_Gleap_Example.framework"
+            BlueprintName = "Pods-Gleap_Example"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

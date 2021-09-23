@@ -1,6 +1,0 @@
-framework module BugBattle {
-  umbrella header "BugBattle-umbrella.h"
-
-  export *
-  module * { export * }
-}

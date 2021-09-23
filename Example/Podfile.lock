@@ -14,13 +14,13 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
-  - Alamofire (5.4.3)
-  - BugBattle (4.0.7)
+  - Alamofire (5.4.4)
+  - Gleap (5.0.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 4.0)
   - Alamofire (~> 5.2)
-  - BugBattle (from `../`)
+  - Gleap (from `../`)
 
 SPEC REPOS:
   trunk:
@@ -28,14 +28,14 @@ SPEC REPOS:
     - Alamofire
 
 EXTERNAL SOURCES:
-  BugBattle:
+  Gleap:
     :path: "../"
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
-  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
-  BugBattle: eec6ff322ed025d5b6c46a6ec5dbf1ae9664f85e
+  Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
+  Gleap: 3bd229bde66a29bd536e746d055ae3bc98f0f137
 
-PODFILE CHECKSUM: c3811e87179acc41d4efa59ac69232fffa64c294
+PODFILE CHECKSUM: fa4f740180fed5cb01d5dcc8d1fdd16d1e5a8b1c
 
 COCOAPODS: 1.10.1

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4320E3105199DDC73210B6A1A5B6956D"
-               BlueprintName = "BugBattle"
+               BlueprintName = "Gleap"
                ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "BugBattle.framework">
+               BuildableName = "Gleap.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
