@@ -49,7 +49,7 @@
     [self checkLogSize];
     [self.log addObject: @{
         @"name": name,
-        @"date": [[Gleap sharedInstance] getCurrentJSDate]
+        @"date": [self getCurrentJSDate]
     }];
 }
 
@@ -58,9 +58,14 @@
     [self.log addObject: @{
         @"name": name,
         @"data": data,
-        @"date": [[Gleap sharedInstance] getCurrentJSDate]
+        @"date": [self getCurrentJSDate]
     }];
 }
+
+- (NSString *)getCurrentJSDate {
+    return [[Gleap sharedInstance] getJSStringForNSDate: [[NSDate alloc] init]];
+}
+
 
 - (void)clear {
     self.log = [[NSMutableArray alloc] init];

@@ -15,8 +15,8 @@
 {
     // Override point for customization after application launch.
     
-    [Gleap setApiUrl: @"http://localhost:9000"];
-    [Gleap setWidgetUrl: @"http://localhost:9002"];
+    [Gleap setApiUrl: @"https://api.gleap.dev"];
+    [Gleap setWidgetUrl: @"https://widget.gleap.dev"];
     
     GleapUserSession *userSession = [[GleapUserSession alloc] init];
     userSession.userId = @"1";

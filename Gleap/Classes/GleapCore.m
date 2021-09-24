@@ -112,10 +112,6 @@
     [[GleapHttpTrafficRecorder sharedRecorder] stopRecording];
 }
 
-+ (void)setMaxNetworkLogs: (int)maxNetworkLogs {
-    [[GleapHttpTrafficRecorder sharedRecorder] setMaxRequests: maxNetworkLogs];
-}
-
 + (void)logEvent: (NSString *)name {
     [[GleapLogHelper sharedInstance] logEvent: name];
 }
@@ -291,7 +287,7 @@
                                                       object:nil
                                                        queue:mainQueue
                                                   usingBlock:^(NSNotification *note) {
-                                                    [Gleap startBugReporting];
+                                                    [Gleap startFeedbackFlow];
                                                   }];
 }
 
@@ -306,7 +302,7 @@
 
 - (void)handleTapGestureActivation: (UITapGestureRecognizer *)recognizer
 {
-    [Gleap startBugReporting];
+    [Gleap startFeedbackFlow];
 }
 
 + (void)setApiUrl: (NSString *)apiUrl {
@@ -327,9 +323,9 @@
 /*
  Starts the bug reporting flow, when a SDK key has been assigned.
  */
-+ (void)startBugReporting {
++ (void)startFeedbackFlow {
     UIImage * screenshot = [Gleap.sharedInstance captureScreen];
-    [self startBugReportingWithScreenshot: screenshot];
+    [self startFeedbackFlowWithScreenshot: screenshot];
 }
 
 /*
@@ -353,17 +349,17 @@
     [Gleap attachData: dataToAppend];
     
     UIImage * screenshot = [Gleap.sharedInstance captureScreen];
-    [self startBugReportingWithScreenshot: screenshot andUI: false];
+    [self startFeedbackFlowWithScreenshot: screenshot andUI: false];
 }
 
 /*
  Starts the bug reporting flow, when a SDK key has been assigned.
  */
-+ (void)startBugReportingWithScreenshot:(UIImage *)screenshot {
-    [self startBugReportingWithScreenshot: screenshot andUI: true];
++ (void)startFeedbackFlowWithScreenshot:(UIImage *)screenshot {
+    [self startFeedbackFlowWithScreenshot: screenshot andUI: true];
 }
 
-+ (void)startBugReportingWithScreenshot:(UIImage *)screenshot andUI:(BOOL)ui {
++ (void)startFeedbackFlowWithScreenshot:(UIImage *)screenshot andUI:(BOOL)ui {
     if (GleapSessionHelper.sharedInstance.currentSession == nil) {
         NSLog(@"WARN: Gleap session not ready.");
         return;
@@ -435,7 +431,7 @@
  */
 + (void)shakeInvocation {
     if ([[Gleap sharedInstance] isActivationMethodActive: SHAKE]) {
-        [Gleap startBugReporting];
+        [Gleap startFeedbackFlow];
     }
 }
 
@@ -832,10 +828,6 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
     return [dateFormatter stringFromDate: date];
-}
-
-- (NSString *)getCurrentJSDate {
-    return [self getJSStringForNSDate: [[NSDate alloc] init]];
 }
 
 /*

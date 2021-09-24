@@ -105,8 +105,6 @@
             return completion(false);
         }
         
-        NSLog(@"%@",jsonResponse);
-        
         // Save session data from server.
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setValue: [jsonResponse objectForKey: @"type"] forKey: @"glSessionType"];

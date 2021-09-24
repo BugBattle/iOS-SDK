@@ -62,11 +62,25 @@
                                     <segue destination="bag-SC-M9j" kind="presentation" id="SG5-2s-HSv"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vQU-z8-UoT">
+                                <rect key="frame" x="104.5" y="518" width="166" height="63"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="166" id="T14-Sh-00R"/>
+                                    <constraint firstAttribute="height" constant="63" id="kvl-a4-dPc"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Login"/>
+                                <connections>
+                                    <action selector="performAuth:" destination="whP-gf-Uak" eventType="touchUpInside" id="mvp-jv-JGS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.02745098248" green="0.050980389119999997" blue="0.13725490870000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="W3Y-FC-UwO" firstAttribute="centerY" secondItem="TpU-gO-2f1" secondAttribute="centerY" id="6d6-dx-FaY"/>
+                            <constraint firstItem="vQU-z8-UoT" firstAttribute="centerX" secondItem="TpU-gO-2f1" secondAttribute="centerX" id="9XN-lU-6mZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="KUF-M9-kXH" secondAttribute="trailing" constant="20" id="JE6-96-CrW"/>
+                            <constraint firstItem="KUF-M9-kXH" firstAttribute="top" secondItem="vQU-z8-UoT" secondAttribute="bottom" constant="45" id="MCb-HP-gnK"/>
                             <constraint firstItem="lwX-gu-1UV" firstAttribute="centerX" secondItem="TpU-gO-2f1" secondAttribute="centerX" id="Z2A-OO-I8o"/>
                             <constraint firstItem="KUF-M9-kXH" firstAttribute="leading" secondItem="TpU-gO-2f1" secondAttribute="leadingMargin" constant="20" id="kcv-r2-pZR"/>
                             <constraint firstItem="lwX-gu-1UV" firstAttribute="centerY" secondItem="TpU-gO-2f1" secondAttribute="centerY" id="uBG-aX-KYE"/>

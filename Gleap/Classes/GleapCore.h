@@ -57,7 +57,7 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } GleapApplicationTy
  * @author Gleap
  *
  */
-+ (void)startBugReporting;
++ (void)startFeedbackFlow;
 
 /**
  * Manually start a silent bug reporting workflow.
@@ -142,14 +142,6 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } GleapApplicationTy
 + (void)disableConsoleLog;
 
 /**
- * Set maximum amount of network logs in queue
- * @author Gleap
- *
- * @param maxNetworkLogs Sets the maximum amount of network logs.
- */
-+ (void)setMaxNetworkLogs: (int)maxNetworkLogs;
-
-/**
  * Set's the current userinterface language.
  * @author Gleap
  *
@@ -199,12 +191,14 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } GleapApplicationTy
  */
 + (void)stopNetworkRecording;
 
+// Helper
 + (void)setApplicationType: (GleapApplicationType)applicationType;
 + (void)attachData: (NSDictionary *)data;
 + (NSBundle *)frameworkBundle;
 + (void)shakeInvocation;
 + (void)attachScreenshot: (UIImage *)screenshot;
 + (UIImage *)getAttachedScreenshot;
++ (void)afterBugReportCleanup;
 
 - (void)sendReport: (void (^)(bool success))completion;
 - (void)uploadStepImages: (NSArray *)steps andCompletion: (void (^)(bool success, NSArray *fileUrls))completion;
@@ -212,8 +206,6 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } GleapApplicationTy
 - (NSString *)getTopMostViewControllerName;
 - (NSString *)getJSStringForNSDate:(NSDate *)date;
 - (UIImage *)captureScreen;
-- (NSString *)getCurrentJSDate;
-+ (void)afterBugReportCleanup;
 
 @property (nonatomic, retain) NSString* language;
 @property (nonatomic, retain) NSString* token;
@@ -228,10 +220,6 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } GleapApplicationTy
 @property (nonatomic, weak) id <GleapDelegate> delegate;
 @property (retain, nonatomic) NSString *lastScreenName;
 @property (nonatomic, assign) bool currentlyOpened;
-
-extern NSString *const GleapStepTypeView;
-extern NSString *const GleapStepTypeButton;
-extern NSString *const GleapStepTypeInput;
 
 @end
 
