@@ -30,7 +30,7 @@
     userSession.name = @"Franz";
     userSession.email = @"lukas@boehlerbrothers.com";
     
-    [Gleap clearUserSession];
+    [Gleap updateUserSessionWithData: userSession];
 }
 
 - (void)viewDidLoad
