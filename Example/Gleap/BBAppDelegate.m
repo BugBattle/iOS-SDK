@@ -15,8 +15,8 @@
 {
     // Override point for customization after application launch.
     
-    [Gleap setApiUrl: @"https://api.gleap.dev"];
-    [Gleap setWidgetUrl: @"http://192.168.1.158:9002"];
+    [Gleap setApiUrl: @"http://localhost:9000"];
+    [Gleap setWidgetUrl: @"http://localhost:9002"];
     
     GleapUserSession *userSession = [[GleapUserSession alloc] init];
     userSession.userId = @"1";
@@ -24,7 +24,7 @@
     userSession.name = @"Franz";
     userSession.email = @"lukas@boehlerbrothers.com";
     
-    [Gleap autoConfigureWithToken: @"OcLgYN5vWavsjTrv1vjAjGj22INW0Xdz" andUserSession: userSession];
+    [Gleap initializeWithToken: @"OcLgYN5vWavsjTrv1vjAjGj22INW0Xdz" andUserSession: userSession];
     
     return YES;
 }

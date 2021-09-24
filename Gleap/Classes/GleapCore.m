@@ -178,27 +178,7 @@
     }
 }
 
-/*
- Costom initialize method
- */
-+ (void)initWithToken: (NSString *)token andActivationMethod: (GleapActivationMethod)activationMethod {
-    Gleap* instance = [Gleap sharedInstance];
-    [instance setSDKToken: token];
-    instance.activationMethods = @[@(activationMethod)];
-    [instance performActivationMethodInit];
-}
-
-/*
- Costom initialize method
- */
-+ (void)initWithToken: (NSString *)token andActivationMethods: (NSArray *)activationMethods {
-    Gleap* instance = [Gleap sharedInstance];
-    [instance setSDKToken: token];
-    instance.activationMethods = activationMethods;
-    [instance performActivationMethodInit];
-}
-
-+ (void)autoConfigureWithToken: (NSString *)token andUserSession: (nullable GleapUserSession *)userSession {
++ (void)initializeWithToken: (NSString *)token andUserSession: (nullable GleapUserSession *)userSession {
     Gleap* instance = [Gleap sharedInstance];
     [instance setSDKToken: token];
     [[GleapSessionHelper sharedInstance] startSessionWithData: userSession andCompletion:^(bool success) {
@@ -209,8 +189,8 @@
 /*
  Autoconfigure with token
  */
-+ (void)autoConfigureWithToken: (NSString *)token {
-    [Gleap autoConfigureWithToken: token andUserSession: nil];
++ (void)initializeWithToken: (NSString *)token {
+    [Gleap initializeWithToken: token andUserSession: nil];
 }
 
 + (void)autoConfigure {

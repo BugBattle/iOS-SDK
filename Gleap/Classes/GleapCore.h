@@ -36,30 +36,12 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } GleapApplicationTy
 + (instancetype)sharedInstance;
 
 /**
- * Initializes the Gleap SDK.
- * @author Gleap
- *
- * @param token The SDK key, which can be found on dashboard.bugbattle.io
- * @param activationMethod Activation method, which triggers a new bug report.
- */
-+ (void)initWithToken: (NSString *)token andActivationMethod: (GleapActivationMethod)activationMethod;
-
-/**
- * Initializes the Gleap SDK.
- * @author Gleap
- *
- * @param token The SDK key, which can be found on dashboard.bugbattle.io
- * @param activationMethods Array of GleapActivationMethod. Activation methods, which triggers a new bug report.
- */
-+ (void)initWithToken: (NSString *)token andActivationMethods: (NSArray *)activationMethods;
-
-/**
  * Auto-configures the Gleap SDK from the remote config.
  * @author Gleap
  *
  * @param token The SDK key, which can be found on dashboard.bugbattle.io
  */
-+ (void)autoConfigureWithToken: (NSString *)token;
++ (void)initializeWithToken: (NSString *)token;
 
 /**
  * Auto-configures the Gleap SDK from the remote config.
@@ -68,7 +50,7 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } GleapApplicationTy
  * @param token The SDK key, which can be found on dashboard.bugbattle.io
  * @param userSession The GleapSession for the current user.
  */
-+ (void)autoConfigureWithToken: (NSString *)token andUserSession: (nullable GleapUserSession *)userSession;
++ (void)initializeWithToken: (NSString *)token andUserSession: (nullable GleapUserSession *)userSession;
 
 /**
  * Manually start the bug reporting workflow. This is used, when you use the activation method "NONE".
@@ -137,14 +119,6 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } GleapApplicationTy
 + (void)clearCustomData;
 
 /**
- * Sets a custom accent color
- * @author Gleap
- *
- * @param color The  color of the navigation action items.
- */
-+ (void)setColor:(UIColor *)color;
-
-/**
  * Sets a custom api url.
  * @author Gleap
  *
@@ -168,36 +142,12 @@ typedef enum applicationType { NATIVE, REACTNATIVE, FLUTTER } GleapApplicationTy
 + (void)disableConsoleLog;
 
 /**
- * Sets a custom privacy policy url.
- * @author Gleap
- *
- * @param privacyPolicyUrl The URL pointing to your privacy policy.
- */
-+ (void)setPrivacyPolicyUrl: (NSString *)privacyPolicyUrl;
-
-/**
  * Set maximum amount of network logs in queue
  * @author Gleap
  *
  * @param maxNetworkLogs Sets the maximum amount of network logs.
  */
 + (void)setMaxNetworkLogs: (int)maxNetworkLogs;
-
-/**
- * Sets the customer's name.
- * @author Gleap
- *
- * @param name The customer's name.
- */
-+ (void)setCustomerName:(NSString *)name;
-
-/**
- * Sets the customer's email address.
- * @author Gleap
- *
- * @param email The customer's email address.
- */
-+ (void)setCustomerEmail: (NSString *)email;
 
 /**
  * Set's the current userinterface language.
