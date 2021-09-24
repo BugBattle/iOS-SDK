@@ -15,16 +15,9 @@
 {
     // Override point for customization after application launch.
     
-    [Gleap setApiUrl: @"https://api.gleap.dev"];
-    [Gleap setWidgetUrl: @"http://localhost:9002"];
-    
-    GleapUserSession *userSession = [[GleapUserSession alloc] init];
-    userSession.userId = @"1";
-    userSession.userHash = @"db5897fe20d33d8072babc477655eba5240e606cbde86deaa0c17e34eaef6201";
-    userSession.name = @"Lukas";
-    userSession.email = @"lukas@boehlerbrothers.com";
-    
-    [Gleap autoConfigureWithToken: @"OcLgYN5vWavsjTrv1vjAjGj22INW0Xdz" andUserSession: userSession];
+    [Gleap setApiUrl: @"http://localhost:9000"];
+    [Gleap setWidgetUrl: @"https://widget.gleap.dev"];
+    [Gleap autoConfigureWithToken: @"OcLgYN5vWavsjTrv1vjAjGj22INW0Xdz"];
     
     return YES;
 }

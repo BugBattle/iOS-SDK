@@ -29,7 +29,7 @@
         [request setValue: session.userId forHTTPHeaderField: @"Gleap-Id"];
     }
     if (session != nil && session.userId != nil) {
-        [request setValue: session.userId forHTTPHeaderField: @"Gleap-Hash"];
+        [request setValue: session.userHash forHTTPHeaderField: @"Gleap-Hash"];
     }
     [request setValue: Gleap.sharedInstance.token forHTTPHeaderField: @"Api-Token"];
 }
