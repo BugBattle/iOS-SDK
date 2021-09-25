@@ -64,6 +64,10 @@
         [self closeReporting: nil];
     }
     
+    if ([message.name isEqualToString: @"sessionReady"]) {
+        [self->_loadingView setHidden: true];
+    }
+    
     if ([message.name isEqualToString: @"requestScreenshot"]) {
         [self injectScreenshot];
     }
@@ -123,6 +127,7 @@
     [userController addScriptMessageHandler: self name: @"customActionCalled"];
     [userController addScriptMessageHandler: self name: @"openExternalURL"];
     [userController addScriptMessageHandler: self name: @"closeGleap"];
+    [userController addScriptMessageHandler: self name: @"sessionReady"];
     webConfig.userContentController = userController;
     
     self.webView = [[WKWebView alloc] initWithFrame:self.view.frame configuration: webConfig];
@@ -178,10 +183,6 @@
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
     [_loadingView setHidden: false];
-}
-
-- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    [self->_loadingView setHidden: true];
 }
 
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
